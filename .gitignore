@@ -18,6 +18,11 @@
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
+/Assets/Scenes/Andrew.unity.meta
+/Assets/Scenes/Kelly.unity.meta
+/Assets/Scenes/Clara.unity.meta
+/Assets/Scenes/Emma.unity.meta
+
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
 
