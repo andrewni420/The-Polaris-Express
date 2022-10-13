@@ -14,10 +14,6 @@
 /Assets/Scenes/Kelly.unity
 /Assets/Scenes/Clara.unity
 /Assets/Scenes/Emma.unity
-/Assets/Scenes/Andrew.unity.meta
-/Assets/Scenes/Kelly.unity.meta
-/Assets/Scenes/Clara.unity.meta
-/Assets/Scenes/Emma.unity.meta
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
