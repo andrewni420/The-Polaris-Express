@@ -10,10 +10,10 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
-/Andrew.unity
-/Kelly.unity
-/Clara.unity
-/Emma.unity
+/Assets/Scenes/Andrew.unity
+/Assets/Scenes/Kelly.unity
+/Assets/Scenes/Clara.unity
+/Assets/Scenes/Emma.unity
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
