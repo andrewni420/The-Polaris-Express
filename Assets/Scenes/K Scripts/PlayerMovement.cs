@@ -20,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
 
+    [Header("Triggers")]
+    private int starCount;
+
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask ground;
@@ -39,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
+        starCount = 0;
     }
 
     private void Update()
@@ -109,5 +113,15 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    // Lab 2
+    void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "Star")
+        {
+            other.gameObject.SetActive(false);
+            starCount += 1;
+            Debug.Log("Star triggered.");
+        }
     }
 }
