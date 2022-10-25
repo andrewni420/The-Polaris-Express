@@ -10,14 +10,28 @@ public class PlayerHealthView : MonoBehaviour
     public int curHealth;
     public int maxHealth = 100;
 
+    public int curHunger;
+    public int maxHunger = 100;
+
     public HealthBar healthBar;
+    public HungerBar hungerBar;
+    float elapsed = 0f;
     
     void Start()
     {
         curHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        curHunger = maxHunger;
+        hungerBar.SetMaxHunger(maxHunger);
+
     }
 
+    void OnTriggerEnter(Collider other) { 
+    	if(other.gameObject.tag == "Food") {
+			other.gameObject.SetActive(false); 
+			Eat(5);
+		}
+		}
     
     void Update()
     {
@@ -32,6 +46,17 @@ public class PlayerHealthView : MonoBehaviour
             HealPlayer(5);
             Debug.Log("H key was pressed.");
         }
+        
+
+
+        elapsed += Time.deltaTime;
+        if (elapsed >= 1f) 
+          {
+              elapsed = elapsed % 10f;
+              curHunger -= 1;
+              hungerBar.SetHunger(curHunger);
+          }
+
     }
 
     public void DamagePlayer( int damage )
@@ -47,4 +72,14 @@ public class PlayerHealthView : MonoBehaviour
 
         healthBar.SetHealth(curHealth);
     }
+
+    public void Eat( int hunger )
+    {
+        curHunger += hunger;
+
+        hungerBar.SetHunger(curHunger);
+        Debug.Log("yum");
+    }
+
+
 }
