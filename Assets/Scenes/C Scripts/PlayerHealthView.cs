@@ -50,9 +50,9 @@ public class PlayerHealthView : MonoBehaviour
 
 
         elapsed += Time.deltaTime;
-        if (elapsed >= 1f) 
+        if (elapsed >= 2) 
           {
-              elapsed = elapsed % 10f;
+              elapsed = elapsed % 2;
               curHunger -= 1;
               hungerBar.SetHunger(curHunger);
           }
