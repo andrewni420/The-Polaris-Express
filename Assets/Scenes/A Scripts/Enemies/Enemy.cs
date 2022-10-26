@@ -25,13 +25,6 @@ public abstract class Enemy : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "PlayerHurtbox")
-        {
-
-        }
-    }
 
     void FixedUpdate()
     {
@@ -45,6 +38,16 @@ public abstract class Enemy : MonoBehaviour
 
         transform.position += nextMove[0];
         transform.Rotate(nextMove[1]);
+
+        ////////////Kelly edit here///////////
+        ///
+        float random = UnityEngine.Random.Range(0F, 100F);
+        if (random < 25)
+        {
+            float hi = 1;
+            ///25% chance each fixedUpdate to play hit animation. Adjust as necessary
+        }
+        
         
 
     }
@@ -52,6 +55,10 @@ public abstract class Enemy : MonoBehaviour
     public int getHealth()
     {
         return health;
+    }
+    public void setHealth(int health)
+    {
+        this.health = health;
     }
     public void enforceMaxHealth()
     {
@@ -67,7 +74,7 @@ public abstract class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "playerWeapon")
         {
-            onHit();
+            onHit(30);
             hitAnimation();
         }
         
@@ -75,10 +82,10 @@ public abstract class Enemy : MonoBehaviour
     public void hitAnimation()
     {
         isInAnimation = true;
-        Animator anim = GetComponent<Animator>().SetTrigger("Hit");
+        
 
     }
-    public void onHit(int damage, GameObject player)
+    public void onHit(int damage)
     {
         takeDamage(damage);
     }

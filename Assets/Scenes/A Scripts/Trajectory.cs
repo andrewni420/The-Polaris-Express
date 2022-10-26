@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Trajectory
+public class Trajectory : MonoBehaviour
 {
     private GameObject entity;
     private Vector3[] trajectory;

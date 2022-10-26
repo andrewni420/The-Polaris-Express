@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class State
+public class State : MonoBehaviour
 {
     private List<Tuple<string, float>> stateHistory;
     private float stateLength=0;
