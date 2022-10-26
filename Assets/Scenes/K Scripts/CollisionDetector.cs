@@ -7,7 +7,7 @@ using UnityEngine;
 public class CollisionDetector : MonoBehaviour
 {
     public WeaponControls wc;
-    public GameObject HitParticle;
+    // public GameObject HitParticle;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,8 +15,8 @@ public class CollisionDetector : MonoBehaviour
         {
             Debug.Log(other.name);
             other.GetComponent<Animator>().SetTrigger("Hit");
-            Instantiate(HitParticle, new Vector3(other.transform.position.x,
-            transform.position.y, other.transform.position.z), other.transform.rotation);
+            // Instantiate(HitParticle, new Vector3(other.transform.position.x,
+            // transform.position.y, other.transform.position.z), other.transform.rotation);
         }
     }
 }

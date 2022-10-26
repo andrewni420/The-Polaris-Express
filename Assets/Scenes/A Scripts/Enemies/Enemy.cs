@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ public abstract class Enemy : MonoBehaviour
     private float maxSpeed = 1F;
     private int health = 100;
     private int maxHealth = 100;
-    private bool isInAnimation = false;
+    // private bool isInAnimation = false;
 
     // Start is called before the first frame update
     void Start()
@@ -39,16 +39,21 @@ public abstract class Enemy : MonoBehaviour
         transform.position += nextMove[0];
         transform.Rotate(nextMove[1]);
 
-        ////////////Kelly edit here///////////
-        ///
-        float random = UnityEngine.Random.Range(0F, 100F);
-        if (random < 25)
+        // ////////////Kelly edit here///////////
+        // did not have time to do anything with,
+        // worked on making enemy disappear instead
+        // ///
+        // float random = UnityEngine.Random.Range(0F, 100F);
+        // if (random < 25)
+        // {
+        //     float hi = 1;
+        //     ///25% chance each fixedUpdate to play hit animation. Adjust as necessary
+        // }
+        
+        if (health <= 0)
         {
-            float hi = 1;
-            ///25% chance each fixedUpdate to play hit animation. Adjust as necessary
+            GameObject.Destroy(gameObject);
         }
-        
-        
 
     }
 
@@ -72,23 +77,25 @@ public abstract class Enemy : MonoBehaviour
     public abstract Vector3[] getNextMove(Vector3[] playerTrajectory);
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "playerWeapon")
+        if (other.tag == "playerWeapon")
         {
-            onHit(30);
-            hitAnimation();
+            // if (health <= 0)
+            // {
+            //     GameObject.Destroy(gameObject);
+            // }
+            
+            takeDamage(10);
+            // in future, maybe we can have different tools
+            // that deal different amounts of dmamge?
+            // hitAnimation();
         }
-        
     }
-    public void hitAnimation()
-    {
-        isInAnimation = true;
-        
 
-    }
-    public void onHit(int damage)
-    {
-        takeDamage(damage);
-    }
+    // public void hitAnimation()
+    // {
+    //     isInAnimation = true;
+    // }
+
     public void takeDamage(int damage)
     {
         health -= damage;

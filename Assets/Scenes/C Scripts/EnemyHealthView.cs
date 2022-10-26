@@ -20,26 +20,15 @@ public class EnemyHealthView : MonoBehaviour
 
     }
     
-    void Update()
-    {       
-
-    }
-
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "playerWeapon")
         {
-            onHit(30);    
+            takeDamage(10);    
         }        
     }
   
-    public void onHit(int damage)
-    {
-        takeDamage(damage);
-    }
-
-
-    public void takeDamage( int damage )
+    public void takeDamage(int damage)
     {
         curHealth -= damage;
 
