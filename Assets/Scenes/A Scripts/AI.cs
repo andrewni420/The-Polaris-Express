@@ -5,13 +5,12 @@ using UnityEngine;
 public class AI : MonoBehaviour
 {
     public GameObject player;
-    private Vector3[] playerTrajectory;
-    private bool attack;
+    private Trajectory playerTrajectory;
+    private bool attack = false;
     // Start is called before the first frame update
     void Start()
     {
-        attack = false;
-        playerTrajectory = new Vector3[] { player.transform.position, new Vector3(), new Vector3() };
+        playerTrajectory = new Trajectory(player,0F);
     }
 
     // Update is called once per frame
@@ -23,21 +22,15 @@ public class AI : MonoBehaviour
 
     void FixedUpdate()
     {
-        playerTrajectory = calcTrajectory(playerTrajectory);
+        playerTrajectory.update();
     }
 
-    Vector3[] calcTrajectory(Vector3[] curTrajectory)
-    {
-        Vector3 curPos = player.transform.position;
-        Vector3 curVel = (curPos - curTrajectory[0]) / Time.fixedDeltaTime;
-        Vector3 curAcc = (curVel - curTrajectory[1]) / Time.fixedDeltaTime;
-        return new Vector3[] { curPos, curVel, curAcc };
-    }
+   
 
 
     public Vector3[] imputeTrajectory()
     {
-        return playerTrajectory;
+        return playerTrajectory.getTrajectory();
     }
 
     public bool imputeAttack()
