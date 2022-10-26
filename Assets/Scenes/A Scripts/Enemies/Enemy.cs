@@ -10,6 +10,7 @@ public abstract class Enemy : MonoBehaviour
     private float maxSpeed = 1F;
     private int health = 100;
     private int maxHealth = 100;
+    private bool isInAnimation = false;
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +63,21 @@ public abstract class Enemy : MonoBehaviour
     
 
     public abstract Vector3[] getNextMove(Vector3[] playerTrajectory);
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "playerWeapon")
+        {
+            onHit();
+            hitAnimation();
+        }
+        
+    }
+    public void hitAnimation()
+    {
+        isInAnimation = true;
+        Animator anim = GetComponent<Animator>().SetTrigger("Hit");
+
+    }
     public void onHit(int damage, GameObject player)
     {
         takeDamage(damage);
