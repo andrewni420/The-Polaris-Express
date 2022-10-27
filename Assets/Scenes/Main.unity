@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -438,7 +438,6 @@ GameObject:
   - component: {fileID: 154518658}
   - component: {fileID: 154518657}
   - component: {fileID: 154518660}
-  - component: {fileID: 154518659}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -533,10 +532,9 @@ Transform:
   m_LocalPosition: {x: 10, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1837166721}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &154518657
 Animator:
@@ -574,21 +572,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &154518659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154518651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aea474912cdeb4cfd946506a24f55e87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curHealth: 0
-  maxHealth: 100
-  healthBar: {fileID: 1971906441}
 --- !u!114 &154518660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,7 +1017,7 @@ Transform:
   - {fileID: 196033658}
   - {fileID: 1121900281}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &520881714
 MonoBehaviour:
@@ -1473,7 +1456,7 @@ Transform:
   m_Children:
   - {fileID: 1840423692}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &943013960
 GameObject:
@@ -1637,7 +1620,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1121900280
 GameObject:
@@ -1683,7 +1666,7 @@ GameObject:
   - component: {fileID: 1220908266}
   - component: {fileID: 1220908265}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Player Health Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1767,7 +1750,7 @@ RectTransform:
   - {fileID: 1614768542}
   - {fileID: 455081288}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2287,7 +2270,7 @@ Transform:
   - {fileID: 778378529}
   - {fileID: 496481354}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1831242013
 GameObject:
@@ -2378,7 +2361,7 @@ GameObject:
   - component: {fileID: 1837166723}
   - component: {fileID: 1837166722}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Enemy Health Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2397,12 +2380,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1971906438}
-  m_Father: {fileID: 154518656}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 401.5, y: 214}
+  m_AnchoredPosition: {x: 411.5, y: 214.5}
   m_SizeDelta: {x: 823, y: 429}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1837166722
@@ -2655,6 +2638,7 @@ GameObject:
   - component: {fileID: 1971906438}
   - component: {fileID: 1971906440}
   - component: {fileID: 1971906441}
+  - component: {fileID: 1971906442}
   m_Layer: 5
   m_Name: HealthBarEnemy
   m_TagString: Untagged
@@ -2748,6 +2732,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1971906440}
+--- !u!114 &1971906442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971906437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea474912cdeb4cfd946506a24f55e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1971906441}
+  enemy: {fileID: 154518652}
+  cam: {fileID: 1840423693}
 --- !u!1 &2044475981
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,31 +7,25 @@ using TMPro;
 public class EnemyHealthView : MonoBehaviour
 {
 
-    public int curHealth;
-    public int maxHealth = 100;
-
     public HealthBar healthBar;
+    public Enemy enemy;
+    public  FPCam cam;
 
+ 
     
     void Start()
     {
-        curHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+
+        healthBar.SetMaxHealth(enemy.getHealth());
+
+        
 
     }
     
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "playerWeapon")
-        {
-            takeDamage(10);    
-        }        
-    }
-  
-    public void takeDamage(int damage)
-    {
-        curHealth -= damage;
+    void Update(){
+    	healthBar.SetHealth(enemy.getHealth());
 
-        healthBar.SetHealth(curHealth);
+        transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + 1, enemy.transform.position.z);
+       	transform.rotation = cam.orientation.rotation ; 
     }
 }
