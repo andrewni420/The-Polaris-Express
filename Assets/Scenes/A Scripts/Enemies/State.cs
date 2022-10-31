@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class State : MonoBehaviour
+public class State
 {
     private List<Tuple<string, float>> stateHistory;
     private float stateLength=0;
@@ -14,7 +14,6 @@ public class State : MonoBehaviour
     public State()
     {
         stateHistory = new List<Tuple<string, float>>() {new Tuple<string, float>("stand",1)};
-
     }
 
     private void assertMaxLength()

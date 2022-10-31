@@ -1,8 +1,8 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, Damageable
 {
     public AI enemyAI;
     protected Trajectory trajectory;
@@ -10,6 +10,8 @@ public abstract class Enemy : MonoBehaviour
     private float maxSpeed = 1F;
     private int health = 100;
     private int maxHealth = 100;
+    private int damage = 20;
+    private int knockback = 3;
     // private bool isInAnimation = false;
 
     // Start is called before the first frame update
@@ -49,11 +51,6 @@ public abstract class Enemy : MonoBehaviour
         //     float hi = 1;
         //     ///25% chance each fixedUpdate to play hit animation. Adjust as necessary
         // }
-        
-        if (health <= 0)
-        {
-            GameObject.Destroy(gameObject);
-        }
 
     }
 
@@ -79,16 +76,11 @@ public abstract class Enemy : MonoBehaviour
     {
         if (other.tag == "playerWeapon")
         {
-            // if (health <= 0)
-            // {
-            //     GameObject.Destroy(gameObject);
-            // }
-            
             takeDamage(10);
-            // in future, maybe we can have different tools
-            // that deal different amounts of dmamge?
-            // hitAnimation();
         }
+            
+            // in future, access damage from other
+            // hitAnimation();
     }
 
     // public void hitAnimation()
@@ -99,6 +91,23 @@ public abstract class Enemy : MonoBehaviour
     public void takeDamage(int damage)
     {
         health -= damage;
+        checkHealth();
+    }
+    public void checkHealth()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public int getDamage()
+    {
+        return damage;
+    }
+    public int getKnockback()
+    {
+        return knockback;
     }
     
 }
