@@ -13,11 +13,16 @@ public class DayNight : MonoBehaviour
     float midday;
     float translateTime;
     string AMPM = "PM";
+
+    // public ParticleSystem stars;
+
     // Start is called before the first frame update
     void Start()
     {
         rotationSpeed = 360 / dayLengthMin / 60;
         midday = dayLengthMin * 60 / 2;
+        // stars.GetComponent<ParticleSystem>().enableEmission = true;
+        // stars.GetComponent<ParticleSystem>().Play();
     }
 
     // Update is called once per frame
@@ -31,6 +36,7 @@ public class DayNight : MonoBehaviour
         float hours = Mathf.Floor(t);
 
         string displayHours = hours.ToString();
+        
         if (hours == 0)
         {
             displayHours = "12";
@@ -38,6 +44,7 @@ public class DayNight : MonoBehaviour
         if (hours > 12)
         {
             displayHours = (hours - 12).ToString();
+            // stars.GetComponent<ParticleSystem>().Stop();
         }
         if (currentTime >= midday)
         {
@@ -52,6 +59,7 @@ public class DayNight : MonoBehaviour
             {
                 AMPM = "PM";
             }
+            // stars.GetComponent<ParticleSystem>().Play();
         }
 
         t *= 60;
