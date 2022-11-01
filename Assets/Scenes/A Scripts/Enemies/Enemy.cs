@@ -5,6 +5,11 @@ using System;
 
 public abstract class Enemy : MonoBehaviour, Damageable
 {
+    public enum intelligence
+    {
+        pos, vel, none
+    }
+
     public AI enemyAI;
     protected Trajectory trajectory;
     protected State state;
@@ -14,6 +19,8 @@ public abstract class Enemy : MonoBehaviour, Damageable
     private int damage = 20;
     private int knockback = 5;
     private float hitCooldown = 0;
+    public intelligence intLevel;
+    private Vector3 moveDirection;
     // private bool isInAnimation = false;
 
     // Start is called before the first frame update
@@ -21,6 +28,7 @@ public abstract class Enemy : MonoBehaviour, Damageable
     {
         state = new State();
         trajectory = new Trajectory(this.gameObject,maxSpeed);
+        moveDirection = transform.position;
     }
 
     // Update is called once per frame
@@ -38,13 +46,18 @@ public abstract class Enemy : MonoBehaviour, Damageable
         
 
         Vector3[] nextMove = getNextMove(playerTrajectory);
-        UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        agent.destination = hitCooldown == 0 ? nextMove[0] : transform.position;
+        Debug.Log(nextMove[0]);
+        if (nextMove[0] != moveDirection)
+        {
+            UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+            agent.destination = hitCooldown == 0 ? nextMove[0] : transform.position;
+            moveDirection = nextMove[0];
+        }
+
         hitCooldown = Math.Max(hitCooldown - Time.fixedDeltaTime, 0);
 
-
         //transform.position += nextMove[0];
-        //transform.Rotate(nextMove[1]);
+        transform.Rotate(nextMove[1]);
 
         // ////////////Kelly edit here///////////
         // did not have time to do anything with,

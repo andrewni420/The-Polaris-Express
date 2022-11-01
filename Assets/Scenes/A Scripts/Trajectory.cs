@@ -58,15 +58,15 @@ public class Trajectory
         int waitLength = UnityEngine.Random.Range(20, 40);
         for (int i = 0; i < waitLength; i++)
         {
-            predTraj.Enqueue(new Vector3(0, 0, 0));
+            predTraj.Enqueue(entity.transform.position);
             predAVel.Enqueue(0);
         }
     }
     public void addForwardTraj()
     {
         int moveLength = UnityEngine.Random.Range(60, 100);
-        float moveSpeed = UnityEngine.Random.Range(0.8F, 1F)* maxSpeed*Time.fixedDeltaTime;
-        Vector3 forward = entity.transform.forward*moveSpeed;
+        int moveDist = UnityEngine.Random.Range(10, 30);
+        Vector3 forward = entity.transform.position+entity.transform.forward*moveDist;
         for (int i = 0; i < moveLength; i++)
         {
             predTraj.Enqueue(forward);
@@ -81,7 +81,7 @@ public class Trajectory
         for (int i = 0; i < rotLength; i++)
         {
             predAVel.Enqueue(rotSpeed);
-            predTraj.Enqueue(new Vector3(0,0,0));
+            predTraj.Enqueue(entity.transform.position);
         }
     }
 
@@ -115,9 +115,11 @@ public class Trajectory
 
     public Vector3[] getNextMove()
     {
+
         if (predTraj.Count < 5) predictMovement();
         Vector3 nextTraj = popPredTraj();
         float nextAngle = popPredAVel();
+      
         return new Vector3[] { nextTraj, new Vector3(0, nextAngle, 0) };
     }
 

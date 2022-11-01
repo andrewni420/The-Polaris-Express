@@ -3,15 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
 public class AggressiveEnemy : Enemy
 {
     public override Vector3[] getNextMove(Vector3[] playerTrajectory)
     {
-        UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        //Vector3 nextMove = (playerTrajectory[0] - transform.position).normalized * trajectory.getMaxSpeed() * Time.fixedDeltaTime;
+        if ((transform.position - playerTrajectory[0]).magnitude > 20) return trajectory.getNextMove();
+
+        float speed = GetComponent<UnityEngine.AI.NavMeshAgent>().speed;
         state.addState("attacking");
-        Vector3 nextMove = playerTrajectory[0] + playerTrajectory[1] * (transform.position - playerTrajectory[0]).magnitude / agent.speed;
-        //return new Vector3[] { nextMove, new Vector3(0, 0, 0) };
-        return new Vector3[] { playerTrajectory[0], new Vector3(0, 0, 0) };
+        Vector3 nextMove;
+        switch (intLevel)
+        {
+            case intelligence.pos:
+                nextMove = playerTrajectory[0];
+                break;
+            case intelligence.vel:
+                nextMove = playerTrajectory[0] + playerTrajectory[1] * (transform.position - playerTrajectory[0]).magnitude / speed;
+                break;
+            default:
+                nextMove = transform.position;
+                break;
+        }
+        return new Vector3[] { nextMove, new Vector3(0, 0, 0) };
     }
 }
