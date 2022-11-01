@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
+    private float pushPower = 1f;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -115,6 +117,14 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
     }
 
+    void onControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody body = hit.collider.attachedRigidbody;
+        if (body == null || body.isKinematic) return;
+        Vector3 dir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+        body.AddForceAtPosition(dir * pushPower, transform.position, ForceMode.Impulse);
+    }
+
     // Lab 2
     void OnTriggerEnter(Collider other) {
         switch (other.tag)
@@ -127,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Player ran into a star 1");
                 other.GetComponent<Animator>().SetTrigger("Sky 1");
                 break;
+            
 	    }
     }
 }

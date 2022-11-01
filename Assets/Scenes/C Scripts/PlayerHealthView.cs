@@ -47,7 +47,8 @@ public class PlayerHealthView : MonoBehaviour
                 break;
             case "Enemy":
                 if (immunityTimer > 0) break;
-                Enemy enemy = other.gameObject.GetComponent<Enemy>();
+                Enemy enemy = other.gameObject.GetComponent<AggressiveEnemy>();
+                if (enemy == null) break;
                 enemy.setHitCooldown(1f);
                 onHit(enemy.getDamage());
                 Vector3 dir = (transform.position - enemy.transform.position).normalized;
