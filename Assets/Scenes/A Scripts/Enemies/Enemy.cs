@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public abstract class Enemy : MonoBehaviour, Damageable
 {
@@ -11,7 +12,8 @@ public abstract class Enemy : MonoBehaviour, Damageable
     private int health = 100;
     private int maxHealth = 100;
     private int damage = 20;
-    private int knockback = 3;
+    private int knockback = 5;
+    private float hitCooldown = 0;
     // private bool isInAnimation = false;
 
     // Start is called before the first frame update
@@ -36,10 +38,13 @@ public abstract class Enemy : MonoBehaviour, Damageable
         
 
         Vector3[] nextMove = getNextMove(playerTrajectory);
+        UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        agent.destination = hitCooldown == 0 ? nextMove[0] : transform.position;
+        hitCooldown = Math.Max(hitCooldown - Time.fixedDeltaTime, 0);
 
 
-        transform.position += nextMove[0];
-        transform.Rotate(nextMove[1]);
+        //transform.position += nextMove[0];
+        //transform.Rotate(nextMove[1]);
 
         // ////////////Kelly edit here///////////
         // did not have time to do anything with,
@@ -71,7 +76,7 @@ public abstract class Enemy : MonoBehaviour, Damageable
     }
     
 
-    public abstract Vector3[] getNextMove(Vector3[] playerTrajectory);
+    public abstract Vector3[] getNextMove(Vector3[] position);
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "playerWeapon")
@@ -87,7 +92,10 @@ public abstract class Enemy : MonoBehaviour, Damageable
     // {
     //     isInAnimation = true;
     // }
-
+    public void setHitCooldown(float time)
+    {
+        hitCooldown = time;
+    }
     public void takeDamage(int damage)
     {
         health -= damage;

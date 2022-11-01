@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -32,6 +33,11 @@ public class PlayerHealthView : MonoBehaviour
 
     }
 
+    void OnTriggerStay(Collider other)
+    {
+        OnTriggerEnter(other);
+    }
+
     void OnTriggerEnter(Collider other) {
         switch (other.gameObject.tag)
         {
@@ -42,6 +48,7 @@ public class PlayerHealthView : MonoBehaviour
             case "Enemy":
                 if (immunityTimer > 0) break;
                 Enemy enemy = other.gameObject.GetComponent<Enemy>();
+                enemy.setHitCooldown(1f);
                 onHit(enemy.getDamage());
                 Vector3 dir = (transform.position - enemy.transform.position).normalized;
                 GetComponent<Rigidbody>().AddForce(dir * enemy.getKnockback() + transform.up*3, ForceMode.Impulse);
@@ -95,21 +102,22 @@ public class PlayerHealthView : MonoBehaviour
 
     public void onHit(int damage)
     {
+
         DamagePlayer(damage);
         recentHits += 1;
 
         //Timers in seconds
         stunTimer = 3f / (recentHits + 1);
         recentHitTimer = 5f;
-        immunityTimer = 5f;
+        immunityTimer = 0.5f;
 
         //Backward jump upon hit
     }
     public void updateTimers(float time)
     {
-        stunTimer = stunTimer > time ? stunTimer - time : 0;
-        recentHitTimer = recentHitTimer > time ? recentHitTimer - time : 0;
-        immunityTimer = immunityTimer > time ? immunityTimer - time : 0;
+        stunTimer = Math.Max(stunTimer - time, 0);
+        recentHitTimer = Math.Max(recentHitTimer - time, 0);
+        immunityTimer = Math.Max(immunityTimer - time, 0);
 
         recentHits = recentHitTimer == 0 ? 0 : recentHits;
     }

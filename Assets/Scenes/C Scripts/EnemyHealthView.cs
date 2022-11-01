@@ -23,9 +23,17 @@ public class EnemyHealthView : MonoBehaviour
     }
     
     void Update(){
-    	healthBar.SetHealth(enemy.getHealth());
+        if (enemy == null)
+        {
+            Destroy(healthBar.gameObject);
+            Destroy(gameObject);
+        }
+        else
+        {
+            healthBar.SetHealth(enemy.getHealth());
 
-        transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + 1, enemy.transform.position.z);
-       	transform.rotation = cam.orientation.rotation ; 
+            transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + 1, enemy.transform.position.z);
+            transform.rotation = cam.orientation.rotation;
+        }
     }
 }
