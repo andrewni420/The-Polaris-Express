@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
 
     [Header("Triggers")]
-    private int starCount;
+    // private int starCount;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
-        starCount = 0;
+        // starCount = 0;
     }
 
     private void Update()
@@ -117,11 +117,16 @@ public class PlayerMovement : MonoBehaviour
 
     // Lab 2
     void OnTriggerEnter(Collider other) {
-        if(other.gameObject.tag == "Star")
+        switch (other.tag)
         {
-            other.gameObject.SetActive(false);
-            starCount += 1;
-            Debug.Log("Star triggered.");
-        }
+            case "Star":
+                Debug.Log("Player ran into a star");
+                other.GetComponent<Animator>().SetTrigger("Sky");
+                break;
+            case "Star 1":
+                Debug.Log("Player ran into a star 1");
+                other.GetComponent<Animator>().SetTrigger("Sky 1");
+                break;
+	    }
     }
 }
