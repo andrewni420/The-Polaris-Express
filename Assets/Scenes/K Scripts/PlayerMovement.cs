@@ -7,6 +7,7 @@ using UnityEngine;
 // Dave / Game Development on YouTube
 public class PlayerMovement : MonoBehaviour
 {
+
     [Header("Movement")]
     public float moveSpeed;
 
@@ -125,19 +126,27 @@ public class PlayerMovement : MonoBehaviour
         body.AddForceAtPosition(dir * pushPower, transform.position, ForceMode.Impulse);
     }
 
-    // Lab 2
     void OnTriggerEnter(Collider other) {
         switch (other.tag)
-        {
+        {  
+            case "End":
+                FindObjectOfType<GameManager>().GameOver();
+                break;
+            case "Win":
+                FindObjectOfType<GameManager>().WinGame();
+                break;
             case "Star":
                 Debug.Log("Player ran into a star");
-                other.GetComponent<Animator>().SetTrigger("Sky");
+                other.GetComponent<Animator>().SetTrigger("Fly");
                 break;
-            case "Star 1":
-                Debug.Log("Player ran into a star 1");
-                other.GetComponent<Animator>().SetTrigger("Sky 1");
-                break;
-            
+            // case "Star 1":
+            //     Debug.Log("Player ran into a star 1");
+            //     other.GetComponent<Animator>().SetTrigger("Sky 1");
+            //     break;
+            // case "Star 2":
+            //     Debug.Log("Player ran into a star 2");
+            //     other.GetComponent<Animator>().SetTrigger("Sky 2");
+            //     break;
 	    }
     }
 }

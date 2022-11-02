@@ -7,6 +7,10 @@ TagManager:
   - Food
   - Enemy
   - Health
+  - playerWeapon
+  - Star
+  - End
+  - Win
   layers:
   - Default
   - TransparentFX
