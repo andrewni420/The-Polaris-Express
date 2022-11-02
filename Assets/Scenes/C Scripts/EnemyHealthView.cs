@@ -4,22 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//Tutorial: https://www.youtube.com/watch?v=BLfNP4Sc_iA
+// Initializes the enemy health bar and moves to towards the camera
+
 public class EnemyHealthView : MonoBehaviour
 {
 
     public HealthBar healthBar;
     public Enemy enemy;
-    public  FPCam cam;
-
- 
+    public FPCam cam; 
     
     void Start()
     {
-
         healthBar.SetMaxHealth(enemy.getHealth());
-
-        
-
+        //Intiializes it from enemy class to 100 (full)
     }
     
     void Update(){
@@ -32,6 +30,7 @@ public class EnemyHealthView : MonoBehaviour
         {
             healthBar.SetHealth(enemy.getHealth());
 
+            // Transform rotation to face camera 
             transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + 1, enemy.transform.position.z);
             transform.rotation = cam.orientation.rotation;
         }

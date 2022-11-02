@@ -5,18 +5,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// Tutorial: https://www.youtube.com/watch?v=BLfNP4Sc_iA
+// Stores player health and hunger and takes interactions that influence health and hunger
+
 public class PlayerHealthView : MonoBehaviour
 {
+    public GameManager gameManager; 
+
+    // Health variables 
     public int curHealth;
     public int maxHealth = 100;
+    public HealthBar healthBar;
 
+    // Hunger variables 
     public int curHunger;
     public int maxHunger = 100;
 
-    public HealthBar healthBar;
     public HungerBar hungerBar;
     float elapsed = 0f;
-
 
     private float immunityTimer = 0f;
     private float stunTimer = 0f;
@@ -41,10 +47,12 @@ public class PlayerHealthView : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         switch (other.gameObject.tag)
         {
+            // When interacting with food, increase hunger points and destroy food object
             case "Food":
                 other.gameObject.SetActive(false);
                 Eat(5);
                 break;
+            // When interacting with enemy, decrement health points in hit
             case "Enemy":
                 if (immunityTimer > 0) break;
                 Enemy enemy = other.gameObject.GetComponent<AggressiveEnemy>();
@@ -60,6 +68,7 @@ public class PlayerHealthView : MonoBehaviour
     
     void Update()
     {
+        // Place holder functionality to show the health bar movement  
         if( Input.GetKeyDown( KeyCode.F) )
         {
             DamagePlayer(5);
@@ -72,7 +81,7 @@ public class PlayerHealthView : MonoBehaviour
             Debug.Log("H key was pressed.");
         }
         
-
+        // Have hunger bar decrease in  value over time
         elapsed += Time.deltaTime;
         if (elapsed >= 2) 
           {
@@ -83,8 +92,11 @@ public class PlayerHealthView : MonoBehaviour
           }
 
         updateTimers(Time.deltaTime);
+        if ((curHealth == 0) || (curHunger == 0)){
+            gameManager.GameOver();            }
     }
 
+    // Player takes damage, looses health points
     public void DamagePlayer( int damage )
     {
         curHealth -= damage;
@@ -93,6 +105,7 @@ public class PlayerHealthView : MonoBehaviour
         healthBar.SetHealth(curHealth);
     }
 
+    // Player heals, gains health points
     public void HealPlayer( int damage )
     {
         curHealth += damage;
@@ -101,6 +114,7 @@ public class PlayerHealthView : MonoBehaviour
         healthBar.SetHealth(curHealth);
     }
 
+    // Player takes damage from a hit
     public void onHit(int damage)
     {
 
@@ -152,7 +166,7 @@ public class PlayerHealthView : MonoBehaviour
         return 0;
     }
 
-
+    // Player eats, gain hunger points
     public void Eat( int hunger )
     {
         curHunger += hunger;

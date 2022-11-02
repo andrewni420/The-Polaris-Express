@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -137,15 +137,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.501938
+      value: 679
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.242827
+      value: 356
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -759,15 +759,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.0397596
+      value: 754
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4999962
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.972806
+      value: 346
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1173,9 +1173,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curHealth: 0
   maxHealth: 100
+  healthBar: {fileID: 1556514798}
   curHunger: 0
   maxHunger: 100
-  healthBar: {fileID: 1556514798}
   hungerBar: {fileID: 1614768543}
 --- !u!1 &578397256
 GameObject:
@@ -1326,15 +1326,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.848155
+      value: 876
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.8383512
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1390,15 +1390,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.7
+      value: 305.62
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 230.83
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7372,15 +7372,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.655994
+      value: 546
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4999962
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.934153
+      value: 564
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7559,15 +7559,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7851,11 +7851,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: d7146504a3d354b218b46752325c3487, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -8124,10 +8124,10 @@ RectTransform:
   m_Father: {fileID: 1971906438}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.37869263, y: 0}
-  m_SizeDelta: {x: -1.594, y: -0.5568}
+  m_AnchorMin: {x: 0.21331625, y: 0}
+  m_AnchorMax: {x: 1, y: 0.93312186}
+  m_AnchoredPosition: {x: -9.080457, y: 0.7881303}
+  m_SizeDelta: {x: 17.324303, y: 1.0194597}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1609854365
 MonoBehaviour:
@@ -9016,7 +9016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -9050,7 +9050,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 1
-  m_Value: 100
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9080,7 +9080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1971906441}
-  enemy: {fileID: 1388281934}
+  enemy: {fileID: 1098663446}
   cam: {fileID: 1840423693}
 --- !u!1 &2044475981
 GameObject:
@@ -9162,8 +9162,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 9.25, y: -0.069999695}
-  m_SizeDelta: {x: -22.99, y: -7.2}
+  m_AnchoredPosition: {x: 6.24, y: 0.069999695}
+  m_SizeDelta: {x: -17.53, y: -8.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2094975601
 MonoBehaviour:
@@ -9185,12 +9185,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: d7146504a3d354b218b46752325c3487, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillMethod: 0
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -9261,11 +9261,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: d7146504a3d354b218b46752325c3487, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
