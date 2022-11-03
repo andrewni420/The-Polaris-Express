@@ -21,6 +21,7 @@ public abstract class Enemy : MonoBehaviour, Damageable
     private float hitCooldown = 0;
     public intelligence intLevel;
     private Vector3 moveDirection;
+    private UnityEngine.AI.NavMeshAgent agent;
     // private bool isInAnimation = false;
 
     // Start is called before the first frame update
@@ -29,6 +30,7 @@ public abstract class Enemy : MonoBehaviour, Damageable
         state = new State();
         trajectory = new Trajectory(this.gameObject,maxSpeed);
         moveDirection = transform.position;
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -100,6 +102,21 @@ public abstract class Enemy : MonoBehaviour, Damageable
             // in future, access damage from other
             // hitAnimation();
     }
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider != null && collision.collider.tag == "Ground")
+        {
+            Vector3 position = transform.position;
+            if (agent.enabled)
+            {
+                
+                agent.updatePosition = true;
+                agent.updateRotation = true;
+                agent.isStopped = false;
+                agent.Warp(position);
+            }
+        }
+    }
 
     // public void hitAnimation()
     // {
@@ -132,6 +149,12 @@ public abstract class Enemy : MonoBehaviour, Damageable
     }
     public void onHit(GameObject other)
     {
+        if (agent.enabled)
+        {
+            agent.updatePosition = false;
+            agent.updateRotation = false;
+            agent.isStopped = true;
+        }
         CollisionDetector collisionDetector = other.GetComponent<CollisionDetector>();
         PlayerHealthView player = collisionDetector.getPlayer().GetComponent<PlayerHealthView>();
         if (player == null) return;
