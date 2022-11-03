@@ -117,8 +117,9 @@ public class PlayerHealthView : MonoBehaviour
         updateTimers(Time.deltaTime);
 
         if ((curHealth == 0) || (curHunger == 0)){
-            Cursor.lockState = CursorLockMode.None;
-            SceneManager.LoadScene("LoseMenu");           }
+            
+            SceneManager.LoadScene("LoseMenu");     
+          }
         updateDamage();
     }
 
@@ -204,22 +205,22 @@ public class PlayerHealthView : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        inventory.Container.Clear();
+        // inventory.Container.Clear();
     }
     private void updateDamage()
     {
-        if (inventory.hasItem("Sword"))
-        {
-            damage = 100;
-        }
-        else if (inventory.hasItem("Dagger"))
-        {
-            damage = 10;
-        }
-        else
-        {
-            damage = 0;
-        }
+        // if (inventory.hasItem("Sword"))
+        // {
+        //     damage = 100;
+        // }
+        // else if (inventory.hasItem("Dagger"))
+        // {
+        //     damage = 10;
+        // }
+        // else
+        // {
+        //     damage = 0;
+        // }
         
     }
     public int getDamage()
