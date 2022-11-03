@@ -1,12 +1,23 @@
 # game
-Game Dev Final Project
+QMUL ECS657U: Multu-Platform Game Development Project
+Members: Clara Lyra, Kelly McGuigan, Andrew Ni, Emma Schwartz
 
+*DESCRIPTION*
 Our survival game is an adventure led by star-navigation. The game is set in a post-apocalyptic world where you are running out of resources. In hopes to find a “holy grail”, you discover stars along the way that project into the sky and lead you to your next milestone. Each time, moving closer to the chance at salvation. You live in an underground bunker where you bring back your collected items and use a crafting system to make helpful tools. 
 
 At the moment, we have only been able to implement basic functionality. On a mountanous terrain, you can move around to run into food to increase your hunger level. You can approach the enemy and click on it to fight and deplete its health. The player health takes damage when near the enemy. You can approach spinning cube "stars" to navigate to your next milestone. The environment goes through the cycle of night and day with stars.  
 
 
-Links:
+*HOW  TO PLAY* 
+
+-	Use arrow keys to move player around space (currently platform, eventually larger terrain)
+-	Use mouse to navigate camera perspective
+-	Move towards spheres of “food” to sustain the hunger bar
+-	Fight an enemy using left mouse click to deplete their health and kill them, careful your health will take damage from them too
+-	Move towards cube “stars” to animate them towards your next destination
+-	Placeholder functionality: Press “F” key to remove health points and “G” key to gain health points (eventually health will interact with enemies and combat system)
+
+*LINKS* 
 Day and Night Tutorials: 
 	https://www.youtube.com/watch?v=VZqqrNShOg0
 
