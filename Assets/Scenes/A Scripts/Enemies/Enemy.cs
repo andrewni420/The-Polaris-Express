@@ -48,7 +48,6 @@ public abstract class Enemy : MonoBehaviour, Damageable
         
 
         Vector3[] nextMove = getNextMove(playerTrajectory);
-        Debug.Log(nextMove[0]);
         if (nextMove[0] != moveDirection)
         {
             UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();

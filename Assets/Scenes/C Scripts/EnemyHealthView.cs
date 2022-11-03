@@ -23,7 +23,7 @@ public class EnemyHealthView : MonoBehaviour
     }
     
     void Update(){
-        if (enemy == null)
+        if (enemy == null || enemyObject==null)
         {
             Destroy(healthBar.gameObject);
             Destroy(gameObject);
