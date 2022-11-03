@@ -30,6 +30,11 @@ public class PlayerHealthView : MonoBehaviour
 
     private int recentHits = 0;
 
+    public Inventory inventory;
+
+    public int damage = 0;
+    public int knockback = 7;
+
     void Start()
     {
         curHealth = maxHealth;
@@ -41,6 +46,11 @@ public class PlayerHealthView : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
+        switch (other.gameObject.tag)
+        {
+            case "Item":
+                return;
+        }
         OnTriggerEnter(other);
     }
 
@@ -61,7 +71,14 @@ public class PlayerHealthView : MonoBehaviour
                 onHit(enemy.getDamage());
                 Vector3 dir = (transform.position - enemy.transform.position).normalized;
                 GetComponent<Rigidbody>().AddForce(dir * enemy.getKnockback() + transform.up*3, ForceMode.Impulse);
-                Debug.Log(dir*enemy.getKnockback());
+                break;
+            case "Item":
+                var item = other.GetComponent<Item>();
+                if (item)
+                {
+                    inventory.AddItem(item.getItem(), item.getAmount());
+                    Destroy(other.gameObject);
+                }
                 break;
         }
 		}
@@ -75,12 +92,16 @@ public class PlayerHealthView : MonoBehaviour
             Debug.Log("F key was pressed.");
         }
 
-        if( Input.GetKeyDown( KeyCode.H) )
+        if (Input.GetKeyDown(KeyCode.H))
         {
             HealPlayer(5);
             Debug.Log("H key was pressed.");
         }
-        
+        if (Input.GetKey(KeyCode.E))
+        {
+            inventory.craftSword();
+        }
+
         // Have hunger bar decrease in  value over time
         elapsed += Time.deltaTime;
         if (elapsed >= 2) 
@@ -92,8 +113,11 @@ public class PlayerHealthView : MonoBehaviour
           }
 
         updateTimers(Time.deltaTime);
-        if ((curHealth == 0) || (curHunger == 0)){
-            gameManager.GameOver();            }
+        if ((curHealth == 0) || (curHunger == 0))
+        {
+            gameManager.GameOver();
+        }
+        updateDamage();
     }
 
     // Player takes damage, looses health points
@@ -176,5 +200,33 @@ public class PlayerHealthView : MonoBehaviour
         Debug.Log("yum");
     }
 
+    private void OnApplicationQuit()
+    {
+        inventory.Container.Clear();
+    }
+    private void updateDamage()
+    {
+        if (inventory.hasItem("Sword"))
+        {
+            damage = 100;
+        }
+        else if (inventory.hasItem("Dagger"))
+        {
+            damage = 10;
+        }
+        else
+        {
+            damage = 0;
+        }
+        
+    }
+    public int getDamage()
+    {
+        return damage;
+    }
+    public int getKnockback()
+    {
+        return knockback;
+    }
 
 }

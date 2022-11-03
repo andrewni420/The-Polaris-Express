@@ -94,7 +94,7 @@ public abstract class Enemy : MonoBehaviour, Damageable
     {
         if (other.tag == "playerWeapon")
         {
-            takeDamage(10);
+            onHit(other.gameObject);
         }
             
             // in future, access damage from other
@@ -129,6 +129,15 @@ public abstract class Enemy : MonoBehaviour, Damageable
     public int getKnockback()
     {
         return knockback;
+    }
+    public void onHit(GameObject other)
+    {
+        CollisionDetector collisionDetector = other.GetComponent<CollisionDetector>();
+        PlayerHealthView player = collisionDetector.getPlayer().GetComponent<PlayerHealthView>();
+        if (player == null) return;
+        takeDamage(player.getDamage());
+        Vector3 dir = (transform.position - player.transform.position).normalized;
+        GetComponent<Rigidbody>().AddForce(dir * player.getKnockback() + transform.up * 3, ForceMode.Impulse);
     }
     
 }
