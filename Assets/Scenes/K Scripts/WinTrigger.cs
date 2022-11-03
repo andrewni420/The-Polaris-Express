@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinTrigger : MonoBehaviour
 {
-    public GameManager gameManager;
-
-    void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            gameManager.WinGame();
+            Cursor.lockState = CursorLockMode.None;
+            SceneManager.LoadScene("WinMenu");
         }
     }
 }

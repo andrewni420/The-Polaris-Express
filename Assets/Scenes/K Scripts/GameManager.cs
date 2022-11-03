@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     public void WinGame()
     {
         Debug.Log("WIN");
-        completeLevelUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene("WinMenu");
     }
     
     public void GameOver()

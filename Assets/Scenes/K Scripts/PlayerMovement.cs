@@ -63,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.drag = 0;
         }
+        Debug.Log(Cursor.lockState.ToString());
     }
 
     private void FixedUpdate()
@@ -133,6 +134,8 @@ public class PlayerMovement : MonoBehaviour
                 FindObjectOfType<GameManager>().GameOver();
                 break;
             case "Win":
+                Cursor.lockState = CursorLockMode.None;
+                Debug.Log(Cursor.lockState.ToString());
                 FindObjectOfType<GameManager>().WinGame();
                 break;
             case "Star":

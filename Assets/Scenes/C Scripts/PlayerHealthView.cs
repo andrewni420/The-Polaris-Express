@@ -4,6 +4,8 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 
 // Tutorial: https://www.youtube.com/watch?v=BLfNP4Sc_iA
 // Stores player health and hunger and takes interactions that influence health and hunger
@@ -93,7 +95,8 @@ public class PlayerHealthView : MonoBehaviour
 
         updateTimers(Time.deltaTime);
         if ((curHealth == 0) || (curHunger == 0)){
-            gameManager.GameOver();            }
+            Cursor.lockState = CursorLockMode.None;
+            SceneManager.LoadScene("LoseMenu");           }
     }
 
     // Player takes damage, looses health points
