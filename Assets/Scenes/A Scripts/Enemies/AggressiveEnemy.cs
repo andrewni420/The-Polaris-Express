@@ -8,7 +8,7 @@ public class AggressiveEnemy : Enemy
 {
     public override Vector3[] getNextMove(Vector3[] playerTrajectory)
     {
-        if ((transform.position - playerTrajectory[0]).magnitude > 10) return trajectory.getNextMove();
+        if ((transform.position - playerTrajectory[0]).magnitude > 20) return trajectory.getNextMove();
 
         float speed = GetComponent<UnityEngine.AI.NavMeshAgent>().speed;
         state.addState("attacking");
