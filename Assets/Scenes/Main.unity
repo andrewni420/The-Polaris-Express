@@ -878,7 +878,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 269266032}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36ede319aa070445f8f981f9285c0c57, type: 3}
+  m_Script: {fileID: 11500000, guid: 8849fd02a635b453a98c81824787742d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAI: {fileID: 2044475982}
@@ -1847,7 +1847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAI: {fileID: 2044475982}
-  intLevel: 1
+  intLevel: 0
 --- !u!65 &765627262
 BoxCollider:
   m_ObjectHideFlags: 0
