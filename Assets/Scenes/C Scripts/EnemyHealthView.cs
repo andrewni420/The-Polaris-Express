@@ -11,17 +11,19 @@ public class EnemyHealthView : MonoBehaviour
 {
 
     public HealthBar healthBar;
-    public Enemy enemy;
+    public GameObject enemyObject;
+    private Enemy enemy;
     public FPCam cam; 
     
     void Start()
     {
+        enemy = enemyObject.GetComponent<Enemy>();
         healthBar.SetMaxHealth(enemy.getHealth());
         //Intiializes it from enemy class to 100 (full)
     }
     
     void Update(){
-        if (enemy == null)
+        if (enemy == null || enemyObject==null)
         {
             Destroy(healthBar.gameObject);
             Destroy(gameObject);
