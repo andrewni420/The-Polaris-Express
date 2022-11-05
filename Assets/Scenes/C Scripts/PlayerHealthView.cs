@@ -35,7 +35,7 @@ public class PlayerHealthView : MonoBehaviour
     public Inventory inventory;
 
     public int damage = 0;
-    public int knockback = 7;
+    public int knockback = 0;
 
     void Start()
     {
@@ -205,22 +205,25 @@ public class PlayerHealthView : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        // inventory.Container.Clear();
+        inventory.Container.Clear();
     }
     private void updateDamage()
     {
-        // if (inventory.hasItem("Sword"))
-        // {
-        //     damage = 100;
-        // }
-        // else if (inventory.hasItem("Dagger"))
-        // {
-        //     damage = 10;
-        // }
-        // else
-        // {
-        //     damage = 0;
-        // }
+        if (inventory.hasItem("Sword"))
+        {
+            damage = 100;
+            knockback = 10;
+        }
+        else if (inventory.hasItem("Dagger"))
+        {
+            damage = 10;
+            knockback = 5;
+        }
+        else
+        {
+            damage = 1;
+            knockback = 2;
+        }
         
     }
     public int getDamage()

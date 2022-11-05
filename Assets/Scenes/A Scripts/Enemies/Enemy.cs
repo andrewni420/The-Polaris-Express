@@ -52,10 +52,11 @@ public abstract class Enemy : MonoBehaviour, Damageable
         {
             UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
             agent.destination = hitCooldown == 0 ? nextMove[0] : transform.position;
-            moveDirection = nextMove[0];
+            moveDirection = agent.destination;
         }
 
         hitCooldown = Math.Max(hitCooldown - Time.fixedDeltaTime, 0);
+        
 
         //transform.position += nextMove[0];
         transform.Rotate(nextMove[1]);
@@ -159,7 +160,7 @@ public abstract class Enemy : MonoBehaviour, Damageable
         if (player == null) return;
         takeDamage(player.getDamage());
         Vector3 dir = (transform.position - player.transform.position).normalized;
-        GetComponent<Rigidbody>().AddForce(dir * player.getKnockback() + transform.up * 3, ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddForce((dir * player.getKnockback() + transform.up * 3).normalized*player.getKnockback(), ForceMode.Impulse);
     }
     
 }

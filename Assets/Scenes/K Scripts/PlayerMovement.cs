@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.drag = 0;
         }
-        Debug.Log(Cursor.lockState.ToString());
+        //Debug.Log(Cursor.lockState.ToString());
     }
 
     private void FixedUpdate()

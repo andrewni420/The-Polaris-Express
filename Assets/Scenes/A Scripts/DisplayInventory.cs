@@ -13,6 +13,7 @@ public class DisplayInventory : MonoBehaviour
     private float yStart = -1f;
     Dictionary<InventorySlot, GameObject> itemsDisplayed = new Dictionary<InventorySlot, GameObject>();
     public TextMeshProUGUI craftPrompt;
+    private bool crafting;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,7 @@ public class DisplayInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateDisplay();
+        if (inventory.updateNeeded()) UpdateDisplay();
     }
 
     public void CreateDisplay()
@@ -42,13 +43,19 @@ public class DisplayInventory : MonoBehaviour
     }
     public void UpdateDisplay()
     {
+        inventory.setUpdate(false);
+        List<InventorySlot> toRemove = new List<InventorySlot>();
         foreach (InventorySlot key in itemsDisplayed.Keys)
         {
             if (!inventory.Container.Contains(key))
             {
                 GameObject.Destroy(itemsDisplayed[key]);
-                itemsDisplayed.Remove(key);
+                toRemove.Add(key);
             }
+        }
+        foreach(InventorySlot key in toRemove)
+        {
+            itemsDisplayed.Remove(key);
         }
         for (int i = 0; i < inventory.Container.Count; i++)
         {
@@ -75,4 +82,7 @@ public class DisplayInventory : MonoBehaviour
     {
         return new Vector3(xStart+ xPad * (i % numCols), yStart + (-yPad) * (i / numCols), 0f);
     }
+
+    //public void openCrafting()
+
 }

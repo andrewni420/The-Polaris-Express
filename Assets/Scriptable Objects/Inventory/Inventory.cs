@@ -7,13 +7,33 @@ using System;
 public class Inventory : ScriptableObject
 {
     public List<InventorySlot> Container = new List<InventorySlot>();
+    private string craft;
+    private bool update = false;
+
+    public string getCraft()
+    {
+        return craft;
+    }
+    public void setCraft(string item)
+    {
+        craft = item;
+    }
     public void AddItem(ItemObject item, int amount)
     {
         if (!stackItem(item,amount))
         {
             Container.Add(new InventorySlot(item, amount));
         }
+        update = true;
 
+    }
+    public bool updateNeeded()
+    {
+        return update;
+    }
+    public void setUpdate(bool update)
+    {
+        this.update = update;
     }
     private bool stackItem(ItemObject item, int amount)
     {
@@ -44,6 +64,8 @@ public class Inventory : ScriptableObject
             var item = sword.GetComponent<Item>();
             this.AddItem(item.getItem(), item.getAmount());
             Destroy(sword);
+            craft = "";
+            update = true;
             return true;
         }
         return false;
