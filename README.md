@@ -15,9 +15,10 @@ At the moment, we have only been able to implement basic functionality. On a mou
 -	Use arrow keys to move player around space (currently platform, eventually larger terrain)
 -	Use mouse to navigate camera perspective
 -	Move towards spheres of “food” to sustain the hunger bar
--	Fight an enemy using left mouse click to deplete their health and kill them, careful your health will take damage from them too
--	Move towards cube “stars” to animate them towards your next destination
+-	Attack using left click. Pick up "dagger" (small cylinder) to increase damage and knockback. Pick up "metal" (upright cube) and press "E" to craft a sword for more damage.
+-	Move towards rotating cube “stars” to animate them towards your next destination
 -	Placeholder functionality: Press “F” key to remove health points and “G” key to gain health points (eventually health will interact with enemies and combat system)
+-	Collide with the tan cube to win
 
 *LINKS* 
 
