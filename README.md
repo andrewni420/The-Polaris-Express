@@ -19,7 +19,6 @@ At the moment, we have only been able to implement basic functionality. On a mou
 -	Move towards rotating cube “stars” to animate them towards your next destination
 -	Placeholder functionality: Press “F” key to remove health points and “G” key to gain health points (eventually health will interact with enemies and combat system)
 -	Collide with the tan cube to win
--	Collect the dagger (cylinder) to deal damage. Collect the metal (stationary cube) and press E to craft a sword for OHKO
 
 *LINKS* 
 
