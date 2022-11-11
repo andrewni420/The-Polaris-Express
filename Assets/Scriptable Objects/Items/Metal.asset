@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937317a3b6f87488fa93415dbc0edd28, type: 3}
   m_Name: Metal
   m_EditorClassIdentifier: 
-  prefab: {fileID: 563983030089437671, guid: eaa1b0f526e0d4ec8b561df6497726ab, type: 3}
+  prefab: {fileID: 904401838945550992, guid: 7f22b8146c8d64eeba395ca943c0f1d6, type: 3}
   type: 2
   description: 
   itemName: Metal

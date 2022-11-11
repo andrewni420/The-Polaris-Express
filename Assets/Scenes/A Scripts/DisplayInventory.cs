@@ -9,8 +9,8 @@ public class DisplayInventory : MonoBehaviour
     public float xPad;
     public int numCols=5;
     public float yPad;
-    private float xStart = -343f;
-    private float yStart = -1f;
+    private float xStart = 0f;
+    private float yStart = 0f;
     Dictionary<InventorySlot, GameObject> itemsDisplayed = new Dictionary<InventorySlot, GameObject>();
     public TextMeshProUGUI craftPrompt;
     private bool crafting;
@@ -37,7 +37,7 @@ public class DisplayInventory : MonoBehaviour
     public void CreateItem(int i)
     {
         var obj = Instantiate(inventory.Container[i].item.prefab, Vector3.zero, Quaternion.identity, transform);
-        obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+        obj.GetComponent<RectTransform>().localPosition = GetPosition(i, obj.GetComponent<RectTransform>().localPosition);
         obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].amount.ToString("n0");
         itemsDisplayed.Add(inventory.Container[i], obj);
     }
@@ -78,9 +78,9 @@ public class DisplayInventory : MonoBehaviour
         
     }
 
-    public Vector3 GetPosition(int i)
+    public Vector3 GetPosition(int i, Vector3 pos)
     {
-        return new Vector3(xStart+ xPad * (i % numCols), yStart + (-yPad) * (i / numCols), 0f);
+        return new Vector3(pos.x + 72f + xPad * (i % numCols), 75f + (-yPad) * (i / numCols), 0f);
     }
 
     //public void openCrafting()

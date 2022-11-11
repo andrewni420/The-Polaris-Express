@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8162339026099996040
+--- !u!1001 &2448592122292042802
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2066206161511212056, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
+      propertyPath: m_fontSize
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 2066206161511212056, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 4401281670845996970, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -22,27 +30,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4401281670845996970, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4401281670845996970, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4401281670845996970, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4401281670845996970, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.37725112
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4401281670845996970, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 55.7608
+      value: 142.31
       objectReference: {fileID: 0}
     - target: {fileID: 4401281670845996970, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 45.3171
+      value: 143.22
       objectReference: {fileID: 0}
     - target: {fileID: 4401281670845996970, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -74,11 +82,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4401281670845996970, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -343.4
+      value: 88.359985
       objectReference: {fileID: 0}
     - target: {fileID: 4401281670845996970, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 4.1613
+      value: -84.72699
       objectReference: {fileID: 0}
     - target: {fileID: 4401281670845996970, guid: 42a175ed6fd58490b9ac521738d7208b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
