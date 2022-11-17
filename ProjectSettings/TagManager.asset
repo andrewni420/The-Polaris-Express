@@ -11,6 +11,7 @@ TagManager:
   - Star
   - End
   - Win
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - UI
   - ground
   - 
-  - 
+  - TeleportationSpot
   - 
   - 
   - 
