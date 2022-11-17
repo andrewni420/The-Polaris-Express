@@ -10,19 +10,26 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed;
-
     public float groundDrag;
 
+    [Header("Sprinting")]
+    public float sprintSpeed;
+    public KeyCode sprintKey = KeyCode.LeftShift;
+    public bool canSprint = true;
+    public bool IsSprinting => canSprint && Input.GetKey(sprintKey);
+
+    [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
-
-    [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
 
-    [Header("Triggers")]
-    // private int starCount;
+    [Header("Dodge")]
+    public bool canDodge = true;
+    public KeyCode firstButtonPressed;
+    public float timeOfFirstButton;
+
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -45,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
-        // starCount = 0;
     }
 
     private void Update()
@@ -58,12 +64,15 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             rb.drag = groundDrag;
+            canDodge = true;
         }
         else
         {
             rb.drag = 0;
+            canDodge = false;
         }
-        //Debug.Log(Cursor.lockState.ToString());
+
+
     }
 
     private void FixedUpdate()
@@ -91,9 +100,9 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         if(grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * (IsSprinting ? sprintSpeed : moveSpeed) * 10f, ForceMode.Force);
         else if(!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * (IsSprinting ? sprintSpeed : moveSpeed) * 10f * airMultiplier, ForceMode.Force);
     }
     
     private void SpeedControl()
@@ -142,14 +151,25 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Player ran into a star");
                 other.GetComponent<Animator>().SetTrigger("Fly");
                 break;
-            // case "Star 1":
-            //     Debug.Log("Player ran into a star 1");
-            //     other.GetComponent<Animator>().SetTrigger("Sky 1");
-            //     break;
-            // case "Star 2":
-            //     Debug.Log("Player ran into a star 2");
-            //     other.GetComponent<Animator>().SetTrigger("Sky 2");
-            //     break;
 	    }
+    }
+
+    private bool checkDoubleTap(KeyCode key)
+    {
+        if(Input.GetKeyDown(key) && firstButtonPressed == key)
+        {
+            firstButtonPressed = KeyCode.0;
+            if (Time.time - timeOfFirstButton < 0.5f)
+            {
+                reutn true;
+            }
+        }
+
+        if(Input.GetKeyDown(key) && firstButtonPressed != key)
+        {
+            firstButtonPressed = key;
+            timeOfFirstButton = Time.time;
+            return false;
+        }
     }
 }
