@@ -105,6 +105,7 @@ public class InventorySlot
     public ItemObject item;
     public int amount;
     //public int capacity
+    //Add crafting - repair swords, make items for combat, consumables, curEquipped, different kinds of weapons, skills.
 
 
     public InventorySlot(ItemObject item, int amount)

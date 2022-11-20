@@ -9,8 +9,8 @@ public class DisplayInventory : MonoBehaviour
     public float xPad;
     public int numCols=5;
     public float yPad;
-    private float xStart = 0f;
-    private float yStart = 0f;
+    private float xStart = 72f;
+    private float yStart = 75f;
     Dictionary<InventorySlot, GameObject> itemsDisplayed = new Dictionary<InventorySlot, GameObject>();
     public TextMeshProUGUI craftPrompt;
     private bool crafting;
@@ -80,7 +80,7 @@ public class DisplayInventory : MonoBehaviour
 
     public Vector3 GetPosition(int i, Vector3 pos)
     {
-        return new Vector3(pos.x + 72f + xPad * (i % numCols), 75f + (-yPad) * (i / numCols), 0f);
+        return new Vector3(pos.x + xStart + xPad * (i % numCols), yStart + (-yPad) * (i / numCols), 0f);
     }
 
     //public void openCrafting()

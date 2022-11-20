@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI : MonoBehaviour
+public class AI : MonoBehaviour//Scriptable Object
 {
     public GameObject player;
     private Trajectory playerTrajectory;
     private bool attack = false;
+    //ML prediction. Given player and all agg enemies, predict next movement and action. 
     // Start is called before the first frame update
     void Start()
     {
-        playerTrajectory = new Trajectory(player,0F);
+        playerTrajectory = new Trajectory(player);
     }
 
     // Update is called once per frame
@@ -28,9 +29,9 @@ public class AI : MonoBehaviour
    
 
 
-    public Vector3[] imputeTrajectory()
+    public Vector3[] imputeMotion()
     {
-        return playerTrajectory.getTrajectory();
+        return playerTrajectory.curMotion();
     }
 
     public bool imputeAttack()

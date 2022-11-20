@@ -5,30 +5,29 @@ using System;
 
 public abstract class Enemy : MonoBehaviour, Damageable
 {
-    public enum intelligence
-    {
-        pos, vel, none
-    }
+    
 
-    public AI enemyAI;
-    protected Trajectory trajectory;
+    public AI playerPrediction;
+    protected EnemyTrajectory trajectory;
     protected State state;
-    private float maxSpeed = 1F;
-    private int health = 100;
-    private int maxHealth = 100;
-    private int damage = 20;
-    private int knockback = 5;
-    private float hitCooldown = 0;
-    public intelligence intLevel;
-    private Vector3 moveDirection;
-    private UnityEngine.AI.NavMeshAgent agent;
+    protected float maxSpeed = 1F;
+    protected int health = 100;
+    protected int maxHealth = 100;
+    protected int damage = 20;
+    protected int knockback = 5;
+    protected float hitCooldown = 0;
+    public intelligence intLevel=intelligence.pos;
+    protected Vector3 moveDirection;
+    protected UnityEngine.AI.NavMeshAgent agent;
+    protected (float range, float angle, bool ignoreObstacles) FOV = (10f,90f,false);
+    protected float renderDistance = 50f;
     // private bool isInAnimation = false;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         state = new State();
-        trajectory = new Trajectory(this.gameObject,maxSpeed);
+        trajectory = new EnemyTrajectory(this.gameObject,maxSpeed);
         moveDirection = transform.position;
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
@@ -38,13 +37,11 @@ public abstract class Enemy : MonoBehaviour, Damageable
     {
         
     }
-
-
     void FixedUpdate()
     {
         trajectory.update();
 
-        Vector3[] playerTrajectory = enemyAI.imputeTrajectory();
+        Vector3[] playerTrajectory = playerPrediction.imputeMotion();
         
 
         Vector3[] nextMove = getNextMove(playerTrajectory);
@@ -57,20 +54,9 @@ public abstract class Enemy : MonoBehaviour, Damageable
 
         hitCooldown = Math.Max(hitCooldown - Time.fixedDeltaTime, 0);
         
-
-        //transform.position += nextMove[0];
         transform.Rotate(nextMove[1]);
-
-        // ////////////Kelly edit here///////////
-        // did not have time to do anything with,
-        // worked on making enemy disappear instead
-        // ///
-        // float random = UnityEngine.Random.Range(0F, 100F);
-        // if (random < 25)
-        // {
-        //     float hi = 1;
-        //     ///25% chance each fixedUpdate to play hit animation. Adjust as necessary
-        // }
+        float distance = (transform.position - playerTrajectory[0]).magnitude;
+        if (distance > 50) Destroy(gameObject);
 
     }
 
@@ -161,6 +147,38 @@ public abstract class Enemy : MonoBehaviour, Damageable
         takeDamage(player.getDamage());
         Vector3 dir = (transform.position - player.transform.position).normalized;
         GetComponent<Rigidbody>().AddForce((dir * player.getKnockback() + transform.up * 3).normalized*player.getKnockback(), ForceMode.Impulse);
+    }
+    public bool canSee(Vector3 other)
+    {
+        float angle = Vector3.Angle(transform.forward, other);
+        Vector3 dir = (other - transform.position);
+        float distance = dir.magnitude;
+        if (distance > FOV.range || angle > FOV.angle) return false;
+        if (FOV.ignoreObstacles) return true;
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, dir, out hit, FOV.range))
+        {
+            if (hit.collider.tag != "Player") return false;
+        }
+
+        return true;
+
+    }
+    public bool canSee(GameObject other)
+    {
+        return canSee(other.transform.position);
+    }
+    public void setStats(int maxHealth, int health, int damage, int knockback)
+    {
+        this.maxHealth = maxHealth;
+        this.health = health;
+        this.damage = damage;
+        this.knockback = knockback;
+    }
+    public void setInt(intelligence intLevel)
+    {
+        this.intLevel = intLevel;
     }
     
 }

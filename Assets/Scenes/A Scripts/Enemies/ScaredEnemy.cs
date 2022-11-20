@@ -3,11 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class ScaredEnemy : Enemy
+public class ScaredEnemy : PassiveEnemy
 {
+    private bool scared = false;
+    private float deAggroDistance = 10f;
     public override Vector3[] getNextMove(Vector3[] playerTrajectory)
     {
-        //if ((transform.position - playerTrajectory[0]).magnitude > 20) return trajectory.getNextMove();
+        float distance = (transform.position - playerTrajectory[0]).magnitude;
+        if (canSee(playerTrajectory[0]))
+        {
+            scared = true;
+        }
+        else if (distance > deAggroDistance)
+        {
+            scared = false;
+        }
+
+        if (!scared) return base.getNextMove(playerTrajectory);
 
         Vector3 nextMove;
         switch (intLevel)

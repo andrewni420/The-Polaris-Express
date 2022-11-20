@@ -10,10 +10,11 @@ using UnityEngine.SceneManagement;
 // Tutorial: https://www.youtube.com/watch?v=BLfNP4Sc_iA
 // Stores player health and hunger and takes interactions that influence health and hunger
 
+
 public class PlayerHealthView : MonoBehaviour
 {
-    public GameManager gameManager; 
-
+    public GameManager gameManager;
+    public PlayerHistory history;
     // Health variables 
     public int curHealth;
     public int maxHealth = 100;
@@ -43,7 +44,7 @@ public class PlayerHealthView : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
         curHunger = maxHunger;
         hungerBar.SetMaxHunger(maxHunger);
-
+        history.init(gameObject);
     }
 
     void OnTriggerStay(Collider other)
@@ -121,6 +122,7 @@ public class PlayerHealthView : MonoBehaviour
             SceneManager.LoadScene("LoseMenu");     
           }
         updateDamage();
+        history.updateStats(curHunger, curHealth);
     }
 
     // Player takes damage, looses health points

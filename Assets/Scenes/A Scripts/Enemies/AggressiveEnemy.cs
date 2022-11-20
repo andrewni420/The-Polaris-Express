@@ -4,14 +4,25 @@ using UnityEngine;
 using System;
 
 
-public class AggressiveEnemy : Enemy
+public class AggressiveEnemy : PassiveEnemy
 {
+    private bool aggressive = false;
+    private float deAggroDistance = 10f;
+
     public override Vector3[] getNextMove(Vector3[] playerTrajectory)
     {
-        if ((transform.position - playerTrajectory[0]).magnitude > 20) return trajectory.getNextMove();
+        float distance = (transform.position - playerTrajectory[0]).magnitude;
+        if (canSee(playerTrajectory[0]))
+        {
+            aggressive = true;
+        } else if (distance > deAggroDistance)
+        {
+            aggressive = false;
+        }
+
+        if (!aggressive) return base.getNextMove(playerTrajectory);
 
         float speed = GetComponent<UnityEngine.AI.NavMeshAgent>().speed;
-        state.addState("attacking");
         Vector3 nextMove;
         switch (intLevel)
         {

@@ -7,9 +7,15 @@ using UnityEngine;
 // Dave / Game Development on YouTube
 public class PlayerMovement : MonoBehaviour
 {
+    //Add movement depth for combat. E.g. block, dash, sprint, hitstun, input lag, items
 
     [Header("Movement")]
     public float moveSpeed;
+<<<<<<< Updated upstream
+=======
+
+    public PlayerHistory history;
+>>>>>>> Stashed changes
     public float groundDrag;
 
     [Header("Sprinting")]
