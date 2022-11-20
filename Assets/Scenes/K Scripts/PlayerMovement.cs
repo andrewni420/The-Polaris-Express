@@ -11,11 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed;
-<<<<<<< Updated upstream
-=======
-
     public PlayerHistory history;
->>>>>>> Stashed changes
     public float groundDrag;
 
     [Header("Sprinting")]
@@ -164,10 +160,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Input.GetKeyDown(key) && firstButtonPressed == key)
         {
-            firstButtonPressed = KeyCode.0;
+            //Is this supposed to be alphanumeric 0?
+            firstButtonPressed = KeyCode.Alpha0;
             if (Time.time - timeOfFirstButton < 0.5f)
             {
-                reutn true;
+                return true;
             }
         }
 
@@ -177,5 +174,8 @@ public class PlayerMovement : MonoBehaviour
             timeOfFirstButton = Time.time;
             return false;
         }
+
+        //What's it supposed to return as default?
+        return false;
     }
 }
