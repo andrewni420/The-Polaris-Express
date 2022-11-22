@@ -11,11 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed;
-
     public PlayerHistory history;
-
-    public float groundDrag;
-    // public MovementSettings movementSettings = new MovementSettings();
 
     [Header("Sprinting")]
     public float sprintSpeed;
@@ -41,6 +37,11 @@ public class PlayerMovement : MonoBehaviour
     public float playerHeight;
     public LayerMask ground;
     bool grounded;
+    public float groundDrag;
+
+    [Header("Teleports")]
+    public GameObject teleportToCave;
+    public GameObject teleportToLand;
 
     public Transform orientation;
 
@@ -174,6 +175,12 @@ public class PlayerMovement : MonoBehaviour
             case "Star":
                 Debug.Log("Player ran into a star");
                 other.GetComponent<Animator>().SetTrigger("Fly");
+                break;
+            case "Teleport":
+                Debug.Log("Player ran into a teleport");
+                rb.transform.position = teleportToCave.transform.position;
+                // orientation.transform.position = teleportToCave.transform.position;
+
                 break;
 	    }
     }
