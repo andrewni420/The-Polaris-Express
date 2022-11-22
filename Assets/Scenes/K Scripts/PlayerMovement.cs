@@ -180,7 +180,11 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Player ran into a teleport");
                 rb.transform.position = teleportToCave.transform.position;
                 // orientation.transform.position = teleportToCave.transform.position;
-
+                break;
+            case "TeleportMain":
+                Debug.Log("Player ran into a teleport");
+                rb.transform.position = teleportToLand.transform.position;
+                // orientation.transform.position = teleportToCave.transform.position;
                 break;
 	    }
     }
