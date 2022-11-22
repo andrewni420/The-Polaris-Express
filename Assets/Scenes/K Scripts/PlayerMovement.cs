@@ -11,7 +11,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed;
+
     public PlayerHistory history;
+
     public float groundDrag;
     // public MovementSettings movementSettings = new MovementSettings();
 

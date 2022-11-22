@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+//Source: Coding With Unity https://www.youtube.com/watch?v=_IqTeruf3-s&list=PLJWSdH2kAe_Ij7d7ZFR2NIW8QCJE74CyT&index=1&ab_channel=CodingWithUnity
+
 [CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory System/Inventory")]
 public class Inventory : ScriptableObject
 {
     public List<InventorySlot> Container = new List<InventorySlot>();
     private string craft;
     private bool update = false;
+    private int itemSelected = 0;
 
-    public string getCraft()
-    {
-        return craft;
-    }
-    public void setCraft(string item)
-    {
-        craft = item;
-    }
+    public string getCraft() { return craft; }
+    public void setCraft(string item) { craft = item; }
     public void AddItem(ItemObject item, int amount)
     {
         if (!stackItem(item,amount))
@@ -27,14 +24,18 @@ public class Inventory : ScriptableObject
         update = true;
 
     }
-    public bool updateNeeded()
+    public bool updateNeeded() { return update; }
+    public void setUpdate(bool update) { this.update = update; }
+    public int getSize() { return Container.Count; }
+    public int getSelection() { return itemSelected; }
+    public void setSelection(int selection) { this.itemSelected = selection; }
+    public void changeSelection(int i)
     {
-        return update;
+        int temp = itemSelected;
+        itemSelected = Math.Max(Math.Min(itemSelected+i, Container.Count), 0);
+        update = temp!=itemSelected;
     }
-    public void setUpdate(bool update)
-    {
-        this.update = update;
-    }
+
     private bool stackItem(ItemObject item, int amount)
     {
         for (int i = 0; i < Container.Count; i++)

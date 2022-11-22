@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76d030f2c1e3944bf9a8e627aab78a80, type: 3}
-  m_Name: New Item Database
+  m_Script: {fileID: 11500000, guid: 937317a3b6f87488fa93415dbc0edd28, type: 3}
+  m_Name: Stick
   m_EditorClassIdentifier: 
-  Items: []
+  InvPrefab: {fileID: 0}
+  EnvPrefab: {fileID: 0}
+  type: 2
+  description: What's brown and sticky?
+  itemName: Stick

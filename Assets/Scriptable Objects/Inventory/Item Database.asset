@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac3ab8a634772446abf8a45ee9d1f99c, type: 3}
-  m_Name: Monkfish
+  m_Script: {fileID: 11500000, guid: 76d030f2c1e3944bf9a8e627aab78a80, type: 3}
+  m_Name: Item Database
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  type: 0
-  description: 
-  restoreHungerValue: 0
+  Items: []

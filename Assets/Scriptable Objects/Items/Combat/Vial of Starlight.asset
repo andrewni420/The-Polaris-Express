@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 937317a3b6f87488fa93415dbc0edd28, type: 3}
-  m_Name: Metal
+  m_Name: Vial of Starlight
   m_EditorClassIdentifier: 
-  prefab: {fileID: 904401838945550992, guid: 7f22b8146c8d64eeba395ca943c0f1d6, type: 3}
+  InvPrefab: {fileID: 0}
+  EnvPrefab: {fileID: 0}
   type: 2
-  description: 
-  itemName: Metal
+  description: Concentrated starlight in a vial. It feels surprisingly heavy and
+    pulses slightly, as if the slightest impact would shatter it.
+  itemName: Vial of Starlight

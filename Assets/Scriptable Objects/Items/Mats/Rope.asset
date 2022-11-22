@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2a99d9567f0a40cbb104cd10b82dccd, type: 3}
-  m_Name: Dagger
+  m_Script: {fileID: 11500000, guid: 937317a3b6f87488fa93415dbc0edd28, type: 3}
+  m_Name: Rope
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5804929679324640451, guid: d9fd9bf69ca7640a2afd42737377278f, type: 3}
-  type: 1
-  description: 
-  itemName: Dagger
-  atkBonus: 10
-  defBonus: 0
+  InvPrefab: {fileID: 0}
+  EnvPrefab: {fileID: 0}
+  type: 2
+  description: A thin but strong rope. Now to find a tree and a chair...
+  itemName: 
