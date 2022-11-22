@@ -38,6 +38,8 @@ Health + Hunger Bars:
 Player Movement & Melee Attacks Tutorials:
 	https://www.youtube.com/watch?v=f473C43s8nE
 	https://www.youtube.com/watch?v=aNZw588BQBo
+	https://www.youtube.com/watch?v=Ew4l5RPltG8
+	https://www.youtube.com/watch?v=pRzb9qi8a8Q
 	
 Star Particles Tutorial:
 	https://www.youtube.com/watch?v=-u2YKlMHoS4
