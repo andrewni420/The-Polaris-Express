@@ -200,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
             //no it's 0 on keyboard (can always change this)
             //it is a dummy save
             firstButtonPressed = KeyCode.P;
-            if (Time.time - timeOfFirstButton < 0.5f)
+            if (Time.time - timeOfFirstButton < 0.3f)
             {
                 return true;
             }
