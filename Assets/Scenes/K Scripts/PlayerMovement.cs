@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
     public PlayerHistory history;
     public float groundDrag;
+    // public MovementSettings movementSettings = new MovementSettings();
 
     [Header("Sprinting")]
     public float sprintSpeed;
@@ -31,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
     public bool canDodge = true;
     public KeyCode firstButtonPressed;
     public float timeOfFirstButton;
-
+    public float dodgeForce;
+    public float dodgeJumpForce;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -62,8 +64,8 @@ public class PlayerMovement : MonoBehaviour
 
         MyInput();
         SpeedControl();
-
-        if (grounded)
+        
+        if(grounded)
         {
             rb.drag = groundDrag;
             canDodge = true;
@@ -74,7 +76,25 @@ public class PlayerMovement : MonoBehaviour
             canDodge = false;
         }
 
+        if(checkDoubleTap(KeyCode.W) && canDodge)
+        {
+            dodge(KeyCode.W);
+        }
+        
+        if(checkDoubleTap(KeyCode.A) && canDodge)
+        {
+            dodge(KeyCode.A);
+        }
 
+        if(checkDoubleTap(KeyCode.S) && canDodge)
+        {
+            dodge(KeyCode.S);
+        }
+
+        if(checkDoubleTap(KeyCode.D) && canDodge)
+        {
+            dodge(KeyCode.D);
+        }
     }
 
     private void FixedUpdate()
@@ -156,12 +176,17 @@ public class PlayerMovement : MonoBehaviour
 	    }
     }
 
+
+    // Resource for Dodging: https://www.youtube.com/watch?v=pRzb9qi8a8Q
+    // Firemind on YouTube
     private bool checkDoubleTap(KeyCode key)
     {
         if(Input.GetKeyDown(key) && firstButtonPressed == key)
         {
             //Is this supposed to be alphanumeric 0?
-            firstButtonPressed = KeyCode.Alpha0;
+            //no it's 0 on keyboard (can always change this)
+            //it is a dummy save
+            firstButtonPressed = KeyCode.P;
             if (Time.time - timeOfFirstButton < 0.5f)
             {
                 return true;
@@ -176,6 +201,50 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //What's it supposed to return as default?
+        //supposed to return false
+        //there is only one case when a button is pressed twice
+        //and it must be pressed twice quickly
         return false;
+    }
+
+    public Vector3 findVectorForDirection(KeyCode directionKey)
+    {
+        if(directionKey == KeyCode.W)
+        {
+            return transform.forward;
+        }
+
+        if(directionKey == KeyCode.S)
+        {
+            return -transform.forward;
+        }
+
+        Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
+        Vector3 left = Vector3.Cross(transform.forward.normalized, up.normalized);
+
+        if(directionKey == KeyCode.A) //Left Vector
+        {
+            return left;
+        }
+
+        return -left;
+    }
+
+    public void dodge(KeyCode direction)
+    {
+        float force = dodgeForce;
+
+        if (readyToJump)
+        {
+            force = force / 5;
+        }
+
+        Vector3 directionVector = findVectorForDirection(direction);
+
+        rb.drag = 0f;
+
+        rb.AddForce(new Vector3(0f, dodgeJumpForce / 2, 0f), ForceMode.Impulse);
+        rb.AddForce(new Vector3(directionVector.x * force, directionVector.y * force, directionVector.z * force), ForceMode.Impulse);
+        canDodge = false;
     }
 }
