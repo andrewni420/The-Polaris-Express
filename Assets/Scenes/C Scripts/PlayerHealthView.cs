@@ -40,6 +40,11 @@ public class PlayerHealthView : MonoBehaviour
 
     void Start()
     {
+
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    
         curHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         curHunger = maxHunger;
@@ -88,6 +93,7 @@ public class PlayerHealthView : MonoBehaviour
     
     void Update()
     {
+      
         // Place holder functionality to show the health bar movement  
         if( Input.GetKeyDown( KeyCode.F) )
         {
