@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2a99d9567f0a40cbb104cd10b82dccd, type: 3}
-  m_Name: Sombrero
+  m_Script: {fileID: 11500000, guid: ac3ab8a634772446abf8a45ee9d1f99c, type: 3}
+  m_Name: Beef Jerky
   m_EditorClassIdentifier: 
   InvPrefab: {fileID: 0}
   EnvPrefab: {fileID: 0}
-  type: 1
-  description: Lets you walk in the sunlight without taking damage
-  itemName: Sombrero
-  atkBonus: 0
-  defBonus: 0
+  type: 0
+  description: 
+  itemName: 
+  restoreHungerValue: 0

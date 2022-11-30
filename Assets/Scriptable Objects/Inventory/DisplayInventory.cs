@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using System;
 
+//Coding with Unity Scriptable Object Inventory System
+//https://www.youtube.com/watch?v=_IqTeruf3-s&list=PLJWSdH2kAe_Ij7d7ZFR2NIW8QCJE74CyT&index=1&ab_channel=CodingWithUnity
 public class DisplayInventory : MonoBehaviour
 {
     public Inventory inventory;
@@ -35,6 +37,7 @@ public class DisplayInventory : MonoBehaviour
 
     private void getKeyInput()
     {
+        if (inventory.isSuppressed()) return;
         if (Input.GetKeyDown(KeyCode.Alpha1)) setSelection(0);
         if (Input.GetKeyDown(KeyCode.Alpha2)) setSelection(1);
         if (Input.GetKeyDown(KeyCode.Alpha3)) setSelection(2);
@@ -47,7 +50,6 @@ public class DisplayInventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha0)) setSelection(9);
 
         if (Input.GetKeyDown(KeyCode.Mouse1)) useItem(itemSelected);
-        if (Input.GetKeyDown(KeyCode.E)) openCrafting();
     }
 
     //--------------------
@@ -66,6 +68,7 @@ public class DisplayInventory : MonoBehaviour
         int temp = itemSelected;
         itemSelected = Math.Max(Math.Min(itemSelected + i, numSlots), 0);
         inventory.setUpdate(temp != itemSelected);
+        inventory.setSelection(itemSelected);
     }
     public void setSelection(int i)
     {

@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8fe81483e3cf4d2e9a1610dc3b781ed, type: 3}
-  m_Name: Vial of Starlight
+  m_Name: Beef Jerky
   m_EditorClassIdentifier: 
   leftPrefab: {fileID: 6762086703477779643, guid: 94861395a4c9741648b45e62b806f7a4, type: 3}
   rightPrefab: {fileID: 0}
   ingredients:
+  - {fileID: 11400000, guid: 16fba3220c4064359bc4cafa2e72c04d, type: 2}
   - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
-  numIngredients: 03000000
-  result: {fileID: 11400000, guid: babb44f5d64844170bdb19857d201702, type: 2}
+  numIngredients: 0100000001000000
+  result: {fileID: 11400000, guid: 92e83196420304146a0712cc2cdfc88d, type: 2}
   numResult: 1
-  description: 'Combine drops of starlight into a concentrated vial. '
+  description: 

@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public enum enemyState
+{
+    aggressive, passive, scared, none
+}
+
 public abstract class Enemy : MonoBehaviour, Damageable
 {
     
 
     public AI playerPrediction;
     protected EnemyTrajectory trajectory;
-    protected State state;
     protected float maxSpeed = 1F;
+    public float maxRotSpeed = 1.0F;
     protected int health = 100;
     protected int maxHealth = 100;
     protected int damage = 20;
@@ -19,14 +24,15 @@ public abstract class Enemy : MonoBehaviour, Damageable
     public intelligence intLevel=intelligence.pos;
     protected Vector3 moveDirection;
     protected UnityEngine.AI.NavMeshAgent agent;
-    protected (float range, float angle, bool ignoreObstacles) FOV = (10f,90f,false);
-    protected float renderDistance = 50f;
-    // private bool isInAnimation = false;
+    protected (float range, float angle, bool ignoreObstacles) FOV = (20f,90f,false);
+    protected float renderDistance = 100f;
+    protected enemyState state = enemyState.none;
+    protected EnemyMovement movement;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        state = new State();
+        movement = new EnemyMovement(gameObject);
         trajectory = new EnemyTrajectory(this.gameObject,maxSpeed);
         moveDirection = transform.position;
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -40,23 +46,22 @@ public abstract class Enemy : MonoBehaviour, Damageable
     void FixedUpdate()
     {
         trajectory.update();
-
         Vector3[] playerTrajectory = playerPrediction.imputeMotion();
-        
+        updateState(playerTrajectory);
 
-        Vector3[] nextMove = getNextMove(playerTrajectory);
-        if (nextMove[0] != moveDirection)
+ 
+        (Vector3 dir,Vector3 rot) nextMove = movement.getNextMove(state,playerTrajectory);
+        if (nextMove.dir != moveDirection)
         {
-            UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-            agent.destination = hitCooldown == 0 ? nextMove[0] : transform.position;
+            agent.destination = hitCooldown == 0 ? nextMove.dir : transform.position;
             moveDirection = agent.destination;
         }
 
         hitCooldown = Math.Max(hitCooldown - Time.fixedDeltaTime, 0);
-        
-        transform.Rotate(nextMove[1]);
+
+        transform.Rotate(nextMove.rot);
         float distance = (transform.position - playerTrajectory[0]).magnitude;
-        if (distance > 50) Destroy(gameObject);
+        if (distance > renderDistance) Destroy(gameObject);
 
     }
 
@@ -77,7 +82,6 @@ public abstract class Enemy : MonoBehaviour, Damageable
     }
     
 
-    public abstract Vector3[] getNextMove(Vector3[] position);
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "playerWeapon")
@@ -85,8 +89,6 @@ public abstract class Enemy : MonoBehaviour, Damageable
             onHit(other.gameObject);
         }
             
-            // in future, access damage from other
-            // hitAnimation();
     }
     public void OnCollisionEnter(Collision collision)
     {
@@ -104,10 +106,6 @@ public abstract class Enemy : MonoBehaviour, Damageable
         }
     }
 
-    // public void hitAnimation()
-    // {
-    //     isInAnimation = true;
-    // }
     public void setHitCooldown(float time)
     {
         hitCooldown = time;
@@ -150,8 +148,8 @@ public abstract class Enemy : MonoBehaviour, Damageable
     }
     public bool canSee(Vector3 other)
     {
-        float angle = Vector3.Angle(transform.forward, other);
-        Vector3 dir = (other - transform.position);
+        Vector3 dir = other - transform.position;
+        float angle = Vector3.Angle(transform.forward, dir);
         float distance = dir.magnitude;
         if (distance > FOV.range || angle > FOV.angle) return false;
         if (FOV.ignoreObstacles) return true;
@@ -159,7 +157,7 @@ public abstract class Enemy : MonoBehaviour, Damageable
         RaycastHit hit;
         if (Physics.Raycast(transform.position, dir, out hit, FOV.range))
         {
-            if (hit.collider.tag != "Player") return false;
+            if (hit.collider.gameObject.tag != "Player") return false;
         }
 
         return true;
@@ -180,5 +178,6 @@ public abstract class Enemy : MonoBehaviour, Damageable
     {
         this.intLevel = intLevel;
     }
+    public abstract void updateState(Vector3[] playerTrajectory);
     
 }

@@ -45,12 +45,11 @@ public class Spawner : MonoBehaviour
     public GameObject healthPrefab;
     public GameObject player;
     public List<GameObject> Enemies;
-    public difficulty diff=difficulty.easy;//Presets
+    public GameManager gameManager;
 
-    public toughness enemyToughness = toughness.low;//modifier for health and damage
-    public spawnRate spawnrate = spawnRate.low;//modifier for spawn cap and spawn chance
-    public intelligence intLevel = intelligence.pos;//level of intelligence for interpreting player trajectory
-    public gameArea area = gameArea.first;//modifiers for health, damage, spawn cap, and spawn chance
+    /// <summary>
+
+    /// </summary>
     public AI playerPrediction;//Predicts player movement
     public FPCam cam;
     public GameObject HealthCanvas;
@@ -63,110 +62,14 @@ public class Spawner : MonoBehaviour
     {
         Enemies = new List<GameObject>();
     }
-    public void initDifficulty(string gameDifficulty, string gameSpawnRate, string enemyIntLevel)
-    {
-        this.diff = getDifficulty(gameDifficulty);
-        this.spawnrate = getSpawnRate(gameSpawnRate);
-        this.intLevel = getIntelligence(enemyIntLevel);
-        this.area = getGameArea("first");
-    }
-    public void setGameArea(string g)
-    {
-        this.area = getGameArea(g);
-    }
+    
+    
 
     //Convert strings to enums
-    difficulty getDifficulty(string d)
-    {
-        switch (d)
-        {
-            case "peaceful":
-                return difficulty.peaceful;
-            case "easy":
-                return difficulty.easy;
-            case "hard":
-                return difficulty.hard;
-            default:
-                return difficulty.easy;
-        }
-    }
-    intelligence getIntelligence(string i)
-    {
-        switch (i)
-        {
-            case "pos":
-                return intelligence.pos;
-            case "vel":
-                return intelligence.vel;
-            case "none":
-                return intelligence.none;
-            default:
-                return intelligence.pos;
-        }
-    }
-    spawnRate getSpawnRate(string s)
-    {
-        switch (s)
-        {
-            case "none":
-                return spawnRate.none;
-            case "low":
-                return spawnRate.low;
-            case "medium":
-                return spawnRate.medium;
-            case "high":
-                return spawnRate.high;
-            default:
-                return spawnRate.low;
-        }
-    }
-    gameArea getGameArea(string g)
-    {
-        switch (g)
-        {
-            case "tutorial":
-                return gameArea.tutorial;
-            case "first":
-                return gameArea.first;
-            case "second":
-                return gameArea.second;
-            case "end":
-                return gameArea.end;
-            default:
-                return gameArea.first;
-        }
-    }
-    toughness getToughness(string t)
-    {
-        switch (t)
-        {
-            case "low":
-                return toughness.low;
-            case "medium":
-                return toughness.medium;
-            case "high":
-                return toughness.high;
-            default:
-                return toughness.low;
-        }
-    }
+
 
     //Get prefab for each difficulty
-    (toughness t, intelligence i, spawnRate s) difficultyPrefab(difficulty d)
-    {
-        switch (d)
-        {
-            case difficulty.peaceful:
-            case difficulty.easy:
-                return (toughness.low, intelligence.pos, spawnRate.low);
-            case difficulty.medium:
-                return (toughness.medium, intelligence.pos, spawnRate.medium);
-            case difficulty.hard:
-                return (toughness.high, intelligence.vel, spawnRate.high);
-            default:
-                return (toughness.low, intelligence.none, spawnRate.none);
-        }
-    }
+    
 
     //Get stats of enemies
     (float health, float damage) getModifier(toughness t)
@@ -207,12 +110,13 @@ public class Spawner : MonoBehaviour
     (int health, int damage, int knockback) getStats()
     {
         //Gaussian distribution of health and damage around mean.
-		//Enemies mostly within 10% deviation from mean
+        //Enemies mostly within 10% deviation from mean
         //Ensure nonnegative health and damage
-        float health = 100*getModifier(enemyToughness).health*getModifier(area).health;
+        var settings = gameManager.getSettings();
+        float health = 100*getModifier(settings.t).health*getModifier(settings.a).health;
         float healthStd = health / 30;
         health = Math.Max(0,randNormal(health, healthStd));
-        float damage = 10 * getModifier(enemyToughness).damage * getModifier(area).damage;
+        float damage = 10 * getModifier(settings.t).damage * getModifier(settings.a).damage;
         float damageStd = damage / 30;
         damage = Math.Max(0,randNormal(damage, damageStd));
         return ((int)health, (int)damage,5);
@@ -275,11 +179,11 @@ public class Spawner : MonoBehaviour
     }
     (int cap, float chance) spawnParams()
     {
-        float cap = spawnCap * spawnMultiplier(spawnrate).cap * spawnMultiplier(area).cap;
-        float chance = spawnProb * spawnMultiplier(spawnrate).chance * spawnMultiplier(area).chance;
+        var settings = gameManager.getSettings();
+        float cap = spawnCap * spawnMultiplier(settings.s).cap * spawnMultiplier(settings.a).cap;
+        float chance = spawnProb * spawnMultiplier(settings.s).chance * spawnMultiplier(settings.a).chance;
         return ((int)cap, chance);
     }
-    
 
     //Gaussian distribution
     float randNormal(float mean, float std)
@@ -329,9 +233,9 @@ public class Spawner : MonoBehaviour
             Vector3 position = pos + new Vector3(posDelta.x, 0f, posDelta.y);
             if (projectNavMesh(position, out enemyPos)) break;
         }
-
-        (float passive, float aggressive, float scared) distribution = enemyDistribution(area);
-        if (diff == difficulty.peaceful) distribution = (distribution.passive, 0f, distribution.scared);
+        var settings = gameManager.getSettings();
+        (float passive, float aggressive, float scared) distribution = enemyDistribution(settings.a);
+        if (gameManager.diff == difficulty.peaceful) distribution = (distribution.passive, 0f, distribution.scared);
 
         float enemyType = UnityEngine.Random.Range(0f, distribution.aggressive + distribution.passive + distribution.scared);
 
@@ -342,7 +246,7 @@ public class Spawner : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Clean up enemies list
         Enemies.RemoveAll(item => item==null);
@@ -358,6 +262,7 @@ public class Spawner : MonoBehaviour
             float radius = 15f;
             Vector3 pos = randomCircle(center,radius);
 
+            var settings = gameManager.getSettings();
             GameObject enemy;
             if (spawnRandom(pos, std, out enemy))
             {
@@ -365,7 +270,7 @@ public class Spawner : MonoBehaviour
                 Enemy enemyScript = enemy.GetComponent<Enemy>();
                 (int health, int damage,int knockback) enemyStats = getStats();
                 enemyScript.setStats(enemyStats.health, enemyStats.health, enemyStats.damage, enemyStats.knockback);
-                enemyScript.setInt(intLevel);
+                enemyScript.setInt(settings.i);
                 enemyScript.playerPrediction = this.playerPrediction;
 
                 //Add to list

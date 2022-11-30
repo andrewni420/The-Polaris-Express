@@ -217,22 +217,8 @@ public class PlayerHealthView : MonoBehaviour
     }
     private void updateDamage()
     {
-        if (inventory.hasItem("Sword"))
-        {
-            damage = 100;
-            knockback = 10;
-        }
-        else if (inventory.hasItem("Dagger"))
-        {
-            damage = 10;
-            knockback = 5;
-        }
-        else
-        {
-            damage = 1;
-            knockback = 2;
-        }
-        
+        damage = inventory.getDamage();
+        knockback = inventory.getKnockback();
     }
     public int getDamage()
     {

@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed;
     public PlayerHistory history;
+    public GameManager gameManager;
 
     [Header("Sprinting")]
     public float sprintSpeed;
@@ -187,6 +188,18 @@ public class PlayerMovement : MonoBehaviour
                 // orientation.transform.position = teleportToCave.transform.position;
                 break;
 	    }
+    }
+
+    void onCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Cave")
+        {
+            gameManager.spawnrate = spawnRate.none;
+        }
+        else
+        {
+            gameManager.spawnrate = spawnRate.low;
+        }
     }
 
 

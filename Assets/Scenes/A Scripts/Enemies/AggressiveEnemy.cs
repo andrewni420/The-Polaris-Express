@@ -6,36 +6,18 @@ using System;
 
 public class AggressiveEnemy : PassiveEnemy
 {
-    private bool aggressive = false;
-    private float deAggroDistance = 10f;
+    private float deAggroDistance = 20;
 
-    public override Vector3[] getNextMove(Vector3[] playerTrajectory)
+    public override void updateState(Vector3[] playerTrajectory)
     {
         float distance = (transform.position - playerTrajectory[0]).magnitude;
         if (canSee(playerTrajectory[0]))
         {
-            aggressive = true;
-        } else if (distance > deAggroDistance)
-        {
-            aggressive = false;
+            state = enemyState.aggressive;
         }
-
-        if (!aggressive) return base.getNextMove(playerTrajectory);
-
-        float speed = GetComponent<UnityEngine.AI.NavMeshAgent>().speed;
-        Vector3 nextMove;
-        switch (intLevel)
+        else if (distance > deAggroDistance)
         {
-            case intelligence.pos:
-                nextMove = playerTrajectory[0];
-                break;
-            case intelligence.vel:
-                nextMove = playerTrajectory[0] + playerTrajectory[1] * (transform.position - playerTrajectory[0]).magnitude / speed;
-                break;
-            default:
-                nextMove = transform.position;
-                break;
+            state = enemyState.passive;
         }
-        return new Vector3[] { nextMove, new Vector3(0, 0, 0) };
     }
 }

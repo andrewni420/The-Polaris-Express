@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8fe81483e3cf4d2e9a1610dc3b781ed, type: 3}
-  m_Name: New Recipe
+  m_Script: {fileID: 11500000, guid: d2a99d9567f0a40cbb104cd10b82dccd, type: 3}
+  m_Name: Santa Hat
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  ingredients: []
-  numIngredients: 
-  result: {fileID: 0}
-  description: 
+  InvPrefab: {fileID: 0}
+  EnvPrefab: {fileID: 0}
+  type: 1
+  description: Lets you walk in the sunlight without taking damage
+  itemName: Sombrero
+  atkBonus: 0
+  defBonus: 0
