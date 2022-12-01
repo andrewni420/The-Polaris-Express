@@ -10,7 +10,7 @@ public class WinTrigger : MonoBehaviour
         if (other.tag == "Player")
         {
             Cursor.lockState = CursorLockMode.None;
-            SceneManager.LoadScene("WinMenu");
+            SceneManager.LoadScene("Win Menu");
         }
     }
 }

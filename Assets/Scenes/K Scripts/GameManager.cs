@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("WIN");
         Cursor.lockState = CursorLockMode.None;
-        SceneManager.LoadScene("WinMenu");
+        SceneManager.LoadScene("Win Menu");
     }
     
     public void GameOver()
