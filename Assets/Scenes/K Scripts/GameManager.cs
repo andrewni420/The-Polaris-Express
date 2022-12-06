@@ -122,6 +122,10 @@ public class GameManager : MonoBehaviour
     {
         this.area = getGameArea(g);
     }
+    public void setGameArea(gameArea g)
+    {
+        this.area = g;
+    }
 
     public void WinGame()
     {

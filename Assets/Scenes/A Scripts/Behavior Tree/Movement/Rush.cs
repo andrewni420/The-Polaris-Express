@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rush : MonoBehaviour
+namespace BehaviorTree
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Rush : Node
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

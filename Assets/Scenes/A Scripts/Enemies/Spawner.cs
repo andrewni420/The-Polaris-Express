@@ -21,7 +21,7 @@ public enum spawnRate
 }
 public enum gameArea
 {
-    tutorial, first, second, end
+    tutorial, first, second, end, cave
 }
 public enum toughness
 {
@@ -103,6 +103,8 @@ public class Spawner : MonoBehaviour
                 return (2f, 1f);
             case gameArea.end:
                 return (2.5f, 2.5f);
+            case gameArea.cave:
+                return (1f, 1f);
             default:
                 return (1f, 1f);
         }
@@ -152,6 +154,8 @@ public class Spawner : MonoBehaviour
                 return (1f, 2f, 2f);
             case gameArea.end:
                 return (1f, 4f, 2f);
+            case gameArea.cave:
+                return (1f, 1f, 1f);
             default:
                 return (1f, 1f, 1f);
         }
@@ -163,6 +167,7 @@ public class Spawner : MonoBehaviour
         //Area 1 = normal
         //Area 2 = cap raised. Be careful about too many enemies accumlating
         //Area 3 = cap and rate raised.
+        //cave = 0 cap and chance.
         switch (g)
         {
             case gameArea.tutorial:
@@ -173,6 +178,8 @@ public class Spawner : MonoBehaviour
                 return (2f, 1f);
             case gameArea.end:
                 return (2f, 2f);
+            case gameArea.cave:
+                return (0f, 1f);
             default:
                 return (1f, 1f);
         }

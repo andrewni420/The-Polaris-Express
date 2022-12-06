@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8fe81483e3cf4d2e9a1610dc3b781ed, type: 3}
+  m_Name: Invincibility Potion
+  m_EditorClassIdentifier: 
+  leftPrefab: {fileID: 0}
+  rightPrefab: {fileID: 0}
+  ingredients:
+  - {fileID: 11400000, guid: cc928c0002d71427b9095cd42e50d823, type: 2}
+  - {fileID: 11400000, guid: 16fba3220c4064359bc4cafa2e72c04d, type: 2}
+  - {fileID: 11400000, guid: 9a2120d02682b4af0a470efa05c35b95, type: 2}
+  - {fileID: 11400000, guid: 71c3853e78913414693b3c795065be4a, type: 2}
+  - {fileID: 11400000, guid: 04a18f0561d034649a92985bc394cc1a, type: 2}
+  - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
+  numIngredients: 01000000010000000100000001000000010000000a000000
+  result: {fileID: 11400000, guid: 681699cf42c934fc4a0d00ea0a499660, type: 2}
+  numResult: 1
+  description: 

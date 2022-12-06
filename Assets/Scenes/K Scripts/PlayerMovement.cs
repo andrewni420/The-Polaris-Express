@@ -179,11 +179,13 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case "Teleport":
                 Debug.Log("Player ran into a teleport");
+                gameManager.setGameArea(gameArea.cave);
                 rb.transform.position = teleportToCave.transform.position;
                 // orientation.transform.position = teleportToCave.transform.position;
                 break;
             case "TeleportMain":
                 Debug.Log("Player ran into a teleport");
+                gameManager.setGameArea(gameArea.first);
                 rb.transform.position = teleportToLand.transform.position;
                 // orientation.transform.position = teleportToCave.transform.position;
                 break;
@@ -192,14 +194,6 @@ public class PlayerMovement : MonoBehaviour
 
     void onCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Cave")
-        {
-            gameManager.spawnrate = spawnRate.none;
-        }
-        else
-        {
-            gameManager.spawnrate = spawnRate.low;
-        }
     }
 
 

@@ -20,4 +20,4 @@ MonoBehaviour:
   numIngredients: 0100000001000000
   result: {fileID: 11400000, guid: 92e83196420304146a0712cc2cdfc88d, type: 2}
   numResult: 1
-  description: 
+  description: Starlight enables the curing of meat at 100x normal speed
