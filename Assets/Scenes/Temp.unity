@@ -462,6 +462,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
 --- !u!1 &879686708
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,6 +592,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1122430530}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+=======
+>>>>>>> Stashed changes
 --- !u!1 &1267542169
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,6 +752,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+<<<<<<< Updated upstream
 --- !u!1 &1436564913
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,6 +871,8 @@ Transform:
   m_Father: {fileID: 1436564917}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> Stashed changes
 --- !u!1 &2032440700
 GameObject:
   m_ObjectHideFlags: 0

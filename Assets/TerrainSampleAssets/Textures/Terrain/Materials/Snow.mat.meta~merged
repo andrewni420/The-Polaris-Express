@@ -1,12 +1,12 @@
 fileFormatVersion: 2
 <<<<<<< Updated upstream
+guid: d0828897de6e64ad7a07a4e8f3606816
+=======
 <<<<<<< Updated upstream:Assets/TerrainSampleAssets/Textures/Terrain/Materials/Mountain.mat.meta
 guid: 691810e5086ad4332b5cce63b368dba3
 =======
 guid: d0828897de6e64ad7a07a4e8f3606816
 >>>>>>> Stashed changes:Assets/TerrainSampleAssets/Textures/Terrain/Materials/Snow.mat.meta
-=======
-guid: 691810e5086ad4332b5cce63b368dba3
 >>>>>>> Stashed changes
 NativeFormatImporter:
   externalObjects: {}
