@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8fe81483e3cf4d2e9a1610dc3b781ed, type: 3}
   m_Name: Dagger
   m_EditorClassIdentifier: 
-  leftPrefab: {fileID: 0}
+  leftPrefab: {fileID: 1420907617770726513, guid: 37596d9c778a5e042bee71ad7f27987a, type: 3}
   rightPrefab: {fileID: 0}
   ingredients:
   - {fileID: 11400000, guid: cc928c0002d71427b9095cd42e50d823, type: 2}

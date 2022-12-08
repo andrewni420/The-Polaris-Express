@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2382245599901089199
+--- !u!1 &692416586154925551
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7433965832390277027}
-  - component: {fileID: 8225961110725221859}
-  - component: {fileID: 2696523113258433565}
+  - component: {fileID: 5080036007915870390}
+  - component: {fileID: 6080061310625201610}
+  - component: {fileID: 5864038919150298017}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -18,19 +18,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &7433965832390277027
+--- !u!224 &5080036007915870390
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2382245599901089199}
+  m_GameObject: {fileID: 692416586154925551}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2159782755978493780}
+  m_Father: {fileID: 5323825156539507937}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -38,21 +38,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &8225961110725221859
+--- !u!222 &6080061310625201610
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2382245599901089199}
+  m_GameObject: {fileID: 692416586154925551}
   m_CullTransparentMesh: 1
---- !u!114 &2696523113258433565
+--- !u!114 &5864038919150298017
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2382245599901089199}
+  m_GameObject: {fileID: 692416586154925551}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &6310574976072937741
+--- !u!1 &7321180096043974856
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,9 +84,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2772331824576490678}
-  - component: {fileID: 7595617610565438016}
-  - component: {fileID: 6596023172708437563}
+  - component: {fileID: 5716790749562038788}
+  - component: {fileID: 8050608490300184123}
+  - component: {fileID: 7334273252764907101}
   m_Layer: 5
   m_Name: Icon (1)
   m_TagString: Untagged
@@ -94,19 +94,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &2772331824576490678
+--- !u!224 &5716790749562038788
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6310574976072937741}
+  m_GameObject: {fileID: 7321180096043974856}
   m_LocalRotation: {x: 0, y: -0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2159782755978493780}
+  m_Father: {fileID: 5323825156539507937}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -0.2, y: -0.2}
@@ -114,21 +114,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7595617610565438016
+--- !u!222 &8050608490300184123
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6310574976072937741}
+  m_GameObject: {fileID: 7321180096043974856}
   m_CullTransparentMesh: 1
---- !u!114 &6596023172708437563
+--- !u!114 &7334273252764907101
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6310574976072937741}
+  m_GameObject: {fileID: 7321180096043974856}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 31d5148b91e4840cf998e2a6c30c37ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5224cdc8c14284c799928154d091ad2c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1001 &5060429441322098281
+--- !u!1001 &1306415523162047964
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -246,7 +246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4463347024500203950, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
       propertyPath: m_text
-      value: STRENGTH POTION
+      value: VIAL OF STARLIGHT
       objectReference: {fileID: 0}
     - target: {fileID: 4463347024500203950, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
       propertyPath: m_fontSize
@@ -273,6 +273,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6612224587867496765, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612224587867496765, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
@@ -294,19 +298,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6762086703477779643, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
       propertyPath: m_Name
-      value: Strength Potion Left Recipe
+      value: Vial of Starlight Left Recipe
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6612224587867496765, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7433965832390277027}
+      addedObject: {fileID: 5080036007915870390}
     - targetCorrespondingSourceObject: {fileID: 6612224587867496765, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2772331824576490678}
+      addedObject: {fileID: 5716790749562038788}
   m_SourcePrefab: {fileID: 100100000, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
---- !u!224 &2159782755978493780 stripped
+--- !u!224 &5323825156539507937 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6612224587867496765, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
-  m_PrefabInstance: {fileID: 5060429441322098281}
+  m_PrefabInstance: {fileID: 1306415523162047964}
   m_PrefabAsset: {fileID: 0}

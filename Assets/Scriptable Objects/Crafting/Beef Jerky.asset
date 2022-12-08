@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8fe81483e3cf4d2e9a1610dc3b781ed, type: 3}
   m_Name: Beef Jerky
   m_EditorClassIdentifier: 
-  leftPrefab: {fileID: 6762086703477779643, guid: 94861395a4c9741648b45e62b806f7a4, type: 3}
+  leftPrefab: {fileID: 2391670370776253077, guid: ac991f672e4a4394e858f904c80d8fb8, type: 3}
   rightPrefab: {fileID: 0}
   ingredients:
   - {fileID: 11400000, guid: 16fba3220c4064359bc4cafa2e72c04d, type: 2}

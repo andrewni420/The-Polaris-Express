@@ -33,10 +33,10 @@ RectTransform:
   m_Father: {fileID: 3349326417299602905}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00048828, y: -0.0000042915}
-  m_SizeDelta: {x: 164.5, y: 69.192}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &410614857108690864
 CanvasRenderer:
@@ -109,10 +109,10 @@ RectTransform:
   m_Father: {fileID: 3349326417299602905}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.05}
-  m_AnchorMax: {x: 0.99, y: 1}
-  m_AnchoredPosition: {x: 0.5220032, y: -1.4999981}
-  m_SizeDelta: {x: 17.182205, y: 43.7475}
+  m_AnchorMin: {x: -0.2, y: -0.2}
+  m_AnchorMax: {x: 1.2, y: 1.2}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5247352719739552156
 CanvasRenderer:
@@ -249,13 +249,49 @@ PrefabInstance:
       value: INVINCIBILITY POTION
       objectReference: {fileID: 0}
     - target: {fileID: 4463347024500203950, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
+      propertyPath: m_fontSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463347024500203950, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 671adfdd815774fa79f7a26b4edf146f, type: 2}
     - target: {fileID: 4463347024500203950, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463347024500203950, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -645330385886479913, guid: 671adfdd815774fa79f7a26b4edf146f, type: 2}
+    - target: {fileID: 6612224587867496765, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612224587867496765, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612224587867496765, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612224587867496765, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612224587867496765, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612224587867496765, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612224587867496765, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6762086703477779643, guid: 75dfc86eb2bc4f04cb7e199394cadb86, type: 3}
       propertyPath: m_Name
       value: Invincibility Potion Left Recipe
