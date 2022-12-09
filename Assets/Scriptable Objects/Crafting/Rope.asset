@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rope
   m_EditorClassIdentifier: 
   leftPrefab: {fileID: 2648619181084864705, guid: b82f49b12936c10449473a05ecefdddf, type: 3}
-  rightPrefab: {fileID: 0}
+  rightPrefab: {fileID: 768374566943610299, guid: c4c87c19f4d5c4dc1bf509a3a5244c00, type: 3}
   ingredients:
   - {fileID: 11400000, guid: 9a2120d02682b4af0a470efa05c35b95, type: 2}
   - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}

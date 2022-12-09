@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   leftPrefab: {fileID: 427265838028274856, guid: 37960a76dd1bc2e47b6caa1e8dcb7f15, type: 3}
-  rightPrefab: {fileID: 0}
+  rightPrefab: {fileID: 2547309515356537302, guid: 374a5b90fb5ac4bc4ba7a5eeb7624d95, type: 3}
   ingredients:
   - {fileID: 11400000, guid: cc928c0002d71427b9095cd42e50d823, type: 2}
   - {fileID: 11400000, guid: 04a18f0561d034649a92985bc394cc1a, type: 2}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Strength Potion
   m_EditorClassIdentifier: 
   leftPrefab: {fileID: 2012409487981408978, guid: e6b420bedf7a0d44b8a4d5daa01f7e50, type: 3}
-  rightPrefab: {fileID: 0}
+  rightPrefab: {fileID: 4936158954969895636, guid: efd8cef0be0a642c080a90ee78612111, type: 3}
   ingredients:
   - {fileID: 11400000, guid: cc928c0002d71427b9095cd42e50d823, type: 2}
   - {fileID: 11400000, guid: 92e83196420304146a0712cc2cdfc88d, type: 2}

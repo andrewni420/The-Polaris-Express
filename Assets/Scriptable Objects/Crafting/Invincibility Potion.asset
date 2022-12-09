@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Invincibility Potion
   m_EditorClassIdentifier: 
   leftPrefab: {fileID: 2913731775880769631, guid: f7b6e8c54451eec4ea6993c9ba568a39, type: 3}
-  rightPrefab: {fileID: 0}
+  rightPrefab: {fileID: 1638670527328431346, guid: 687541627693442d6836554a2993982b, type: 3}
   ingredients:
   - {fileID: 11400000, guid: cc928c0002d71427b9095cd42e50d823, type: 2}
   - {fileID: 11400000, guid: 16fba3220c4064359bc4cafa2e72c04d, type: 2}
