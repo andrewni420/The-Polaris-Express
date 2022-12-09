@@ -16,6 +16,9 @@ MonoBehaviour:
   rightPrefab: {fileID: 0}
   ingredients:
   - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
+  - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
+  - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
+  - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
   numIngredients: 03000000
   result: {fileID: 11400000, guid: babb44f5d64844170bdb19857d201702, type: 2}
   numResult: 1
