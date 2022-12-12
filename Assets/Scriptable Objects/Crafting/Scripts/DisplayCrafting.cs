@@ -5,9 +5,10 @@ using TMPro;
 using System;
 
 public class DisplayCrafting : MonoBehaviour
-{
+{//Crashes when you press arrow too many times while changing recipesDisplayed
     public GameObject menuPrefab;
     private (GameObject menu, GameObject selector, GameObject materials) objects = (null,null,null);
+    private (GameObject left, GameObject right) menu = (null,null);
     public GameObject materialsPrefab;
     public string[] materialNames = {"Mat1", "Mat2", "Mat3", "Mat4", "Mat5", "Mat6" };
     public List<RecipeBook> recipeBooks;
@@ -15,7 +16,7 @@ public class DisplayCrafting : MonoBehaviour
     private List<(Recipe recipe, int index, GameObject display)> recipesDisplayed = new List<(Recipe recipe, int index, GameObject display)>();
     public List<bool> craftable;
     public Inventory inventory;
-    public int maxRecipes = 5;
+    private int maxRecipes = 5;
     int recipeSelected = 0;
     bool update = false;
     bool active = false;
@@ -25,6 +26,10 @@ public class DisplayCrafting : MonoBehaviour
     //Ingredients will show in the right side of the book
     //Need to grey out uncraftable recipes
     //Need to craft recipe upon enter
+    void Start()
+    {
+        foreach (RecipeBook book in recipeBooks) readBook(book);
+    }
 
     // Start is called before the first frame update
     void startCrafting()
@@ -34,6 +39,7 @@ public class DisplayCrafting : MonoBehaviour
         CreateMaterials();
         CreateMenu();
         CreateDisplay();
+        update = true;
     }
     void endCrafting()
     {
@@ -44,6 +50,12 @@ public class DisplayCrafting : MonoBehaviour
         Destroy(objects.materials);
     }
 
+    void readBook(RecipeBook book)
+    {
+        recipeBooks.Add(book);
+        foreach (Recipe r in book.recipes) recipes.Add(r);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -51,9 +63,51 @@ public class DisplayCrafting : MonoBehaviour
         if (update)
         {
             update = false;
+
+            int count = 0;
+            while (recipeSelected < recipesDisplayed[0].index && count<10)
+            {
+                Debug.Log("decrement");
+                decrementDisplay();
+                count++;
+            }
+
+            while (recipeSelected > recipesDisplayed[maxRecipes - 1].index&&count<10)
+            {
+                incrementDisplay();
+                count++;
+            }
+            if (count == 10) Debug.Log((count,recipeSelected, recipesDisplayed[0]));
+
+            int position = -1;
+            for (int i = 0; i < maxRecipes; i++)
+            {
+                Debug.Log(i);
+                Debug.Log(recipesDisplayed.Count);
+                if (recipesDisplayed[i].index == recipeSelected)
+                {
+                    position = i;
+                    break;
+                }
+            }
             RectTransform rectTransform = objects.selector.GetComponent<RectTransform>();
-            setPosition(rectTransform, recipeSelected);
+            setPosition(rectTransform, position);
+
+
+            displayRight();
         }
+    }
+
+    void displayRight()
+    {
+        foreach (Transform t in menu.right.transform) Destroy(t.gameObject);
+        var obj = Instantiate(recipes[recipeSelected].rightPrefab, Vector3.zero, Quaternion.identity, menu.right.transform);
+        RectTransform rt = obj.GetComponent<RectTransform>();
+
+        rt.anchorMin = new Vector2(0.05f, 0.05f);
+        rt.anchorMax = new Vector2(0.95f, 0.95f);
+        rt.offsetMin = new Vector2();
+        rt.offsetMax = new Vector2();
     }
 
     bool canCraft(Recipe recipe)
@@ -101,7 +155,9 @@ public class DisplayCrafting : MonoBehaviour
         rectTransform.offsetMax = new Vector2();
 
         recipeSelected = 0;
-        objects = (objects.menu, objects.menu.transform.Find("CraftingLeft").Find("Selector").gameObject, objects.materials);
+        menu = (objects.menu.transform.Find("CraftingLeft").gameObject, objects.menu.transform.Find("CraftingRight").gameObject);
+        objects = (objects.menu, menu.left.transform.Find("Selector").gameObject, objects.materials);
+        
     }
     public void CreateDisplay()
     {
@@ -117,10 +173,10 @@ public class DisplayCrafting : MonoBehaviour
     {
         int n = recipesDisplayed.Count;
         int lastIndex = recipesDisplayed[n - 1].index;
-        if (lastIndex + 1 == recipes.Count) return;
+        if (lastIndex + 1 >= recipes.Count) return;
         Destroy(recipesDisplayed[0].display);
         recipesDisplayed.RemoveAt(0);
-        for (int j = 0; j < recipesDisplayed.Count; j++) setPosition(recipesDisplayed[j].display.GetComponent<RectTransform>(), j);
+        for (int j = 0; j < recipesDisplayed.Count; j++) setPosition(recipesDisplayed[j].display.GetComponent<RectTransform>(), j,0.015f);
         GameObject display = createRecipe(maxRecipes - 1, recipes[lastIndex + 1]);
         recipesDisplayed.Add((recipes[lastIndex+1],lastIndex+1,display));
     }
@@ -129,19 +185,19 @@ public class DisplayCrafting : MonoBehaviour
     {
         int n = recipesDisplayed.Count;
         int firstIndex = recipesDisplayed[0].index;
-        if (firstIndex - 1 <= 0) return;
+        if (firstIndex - 1 < 0) return;
         Destroy(recipesDisplayed[n-1].display);
         recipesDisplayed.RemoveAt(n-1);
-        for (int j = 0; j < recipesDisplayed.Count; j++) setPosition(recipesDisplayed[j].display.GetComponent<RectTransform>(), j + 1);
+        for (int j = 0; j < recipesDisplayed.Count; j++) setPosition(recipesDisplayed[j].display.GetComponent<RectTransform>(), j + 1,0.015f);
         GameObject display = createRecipe(0, recipes[firstIndex-1]);
         recipesDisplayed.Insert(0, (recipes[firstIndex - 1], firstIndex - 1, display));
     }
 
     public GameObject createRecipe(int position, Recipe recipe)
     {
-        var obj = Instantiate(recipe.leftPrefab, Vector3.zero, Quaternion.identity, objects.menu.transform.Find("CraftingLeft"));
+        var obj = Instantiate(recipe.leftPrefab, Vector3.zero, Quaternion.identity, menu.left.transform);
         RectTransform rectTransform = obj.GetComponent<RectTransform>();
-        setPosition(rectTransform, position);
+        setPosition(rectTransform, position,0.015f);
         return obj;
     }
     public (Vector2 min, Vector2 max) GetPosition(int i)
@@ -149,12 +205,13 @@ public class DisplayCrafting : MonoBehaviour
         Vector2 min = new Vector2(0, 1 - (i+1) / (float)maxRecipes);
         Vector2 max = new Vector2(1, 1 - i / (float)maxRecipes);
         return (min, max);
-
     }
-    private void setPosition(RectTransform rectTransform, int i)
+
+    private void setPosition(RectTransform rectTransform, int i, float offset = 0)
     {
-        rectTransform.anchorMin = GetPosition(i).min;
-        rectTransform.anchorMax = GetPosition(i).max;
+        Vector2 offsetVector = new Vector2(0, offset);
+        rectTransform.anchorMin = GetPosition(i).min+offsetVector;
+        rectTransform.anchorMax = GetPosition(i).max-offsetVector;
         rectTransform.offsetMin = new Vector2();
         rectTransform.offsetMax = new Vector2();
     }
@@ -165,6 +222,7 @@ public class DisplayCrafting : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E)) startCrafting();
             return;
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha1)) setSelection(0);
         if (Input.GetKeyDown(KeyCode.Alpha2)) setSelection(1);
         if (Input.GetKeyDown(KeyCode.Alpha3)) setSelection(2);
@@ -181,13 +239,14 @@ public class DisplayCrafting : MonoBehaviour
     {
         int temp = recipeSelected;
         recipeSelected = i;
-        update = temp!=recipeSelected;
+        update = true;
     }
     private void changeSelection(int i)
     {
         int temp = recipeSelected;
-        recipeSelected = Math.Min(Math.Max(0,temp+i), maxRecipes-1);
-        update = temp != recipeSelected;
+        recipeSelected = Math.Min(Math.Max(0,temp+i), recipes.Count-1);
+        if (temp == recipeSelected) return;
+        update = true;
     }
 
 }

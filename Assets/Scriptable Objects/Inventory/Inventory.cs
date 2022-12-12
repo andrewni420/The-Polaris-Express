@@ -14,6 +14,7 @@ public class Inventory : ScriptableObject
     private bool update = false;
     private int itemSelected = 0;
     private bool suppress = false;
+    public ItemObject starlight;
 
     public string getCraft() { return craft; }
     public void setCraft(string item) { craft = item; }
@@ -167,7 +168,7 @@ public class Inventory : ScriptableObject
                 else
                 {
                     amount = -Container[i].getAmount();
-                    Container.RemoveAt(i);
+                    if (item.name!="Drop of Starlight") Container.RemoveAt(i);
                 }
             }
         }
@@ -185,6 +186,16 @@ public class Inventory : ScriptableObject
     }
     public bool isSuppressed() { return suppress; }
     public void setSuppressed(bool s) { suppress = s; }
+
+    public void ensureCollector()
+    {
+        foreach (InventorySlot slot in Container)
+        {
+            if (slot.hasItem("Drop of Starlight")) return;
+        }
+        AddItem(starlight,0);
+        update = true;
+    }
 }
 
 [System.Serializable]
