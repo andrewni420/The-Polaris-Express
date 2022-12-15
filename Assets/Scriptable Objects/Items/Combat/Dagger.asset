@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a99d9567f0a40cbb104cd10b82dccd, type: 3}
   m_Name: Dagger
   m_EditorClassIdentifier: 
-  InvPrefab: {fileID: 2840559372316737672, guid: a21b65b1fa7a74969931b69f7dea9fa8, type: 3}
+  InvPrefab: {fileID: 3571815840212880334, guid: d1ceb3dea568d5542b6b54ba7833accd, type: 3}
   EnvPrefab: {fileID: 0}
   type: 1
   description: Basic weapon

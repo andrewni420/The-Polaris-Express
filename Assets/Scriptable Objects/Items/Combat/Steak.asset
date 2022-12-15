@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3ab8a634772446abf8a45ee9d1f99c, type: 3}
+  m_Name: Steak
+  m_EditorClassIdentifier: 
+  InvPrefab: {fileID: 627818468816255707, guid: a1b6aabf4102abd48bf728b759b93855, type: 3}
+  EnvPrefab: {fileID: 0}
+  type: 0
+  description: 
+  itemName: 
+  restoreHungerValue: 0

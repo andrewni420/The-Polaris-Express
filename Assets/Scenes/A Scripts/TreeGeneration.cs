@@ -10,11 +10,6 @@ public class TreeGeneration : MonoBehaviour
     private NoiseMapGeneration noiseMapGeneration;
     [SerializeField]
     private Wave[] waves;
-    [SerializeField]
-    private float neighborRadius;
-
-
-
 
     public void generateTrees(int distPerVertex, LevelData levelData)
     {
@@ -50,13 +45,6 @@ public class TreeGeneration : MonoBehaviour
 
     public void populateTrees(int distPerVertex, LevelData levelData)
     {
-        //Vector3[] vertices = levelData.tileData[0, 0].mesh.vertices;
-        //Debug.Log(vertices.Length);
-        //foreach (Vector3 v in vertices)
-        //{
-        //    GameObject primaryVeg = Instantiate(test, v, Quaternion.identity, transform) as GameObject;
-        //    primaryVeg.transform.localScale = new Vector3(20, 20, 20);
-        //}
 
         (int z, int x) levelSize = levelData.getSizeInVertices();
         for (int zIndex = 0; zIndex < levelSize.z; zIndex++)
@@ -65,15 +53,12 @@ public class TreeGeneration : MonoBehaviour
             {
     
                 Vector3 vertex = levelData.getVertex(zIndex, xIndex);
-                //Debug.Log(vertex);
                 TerrainType terrainType = levelData.getBiome(zIndex, xIndex);
                 if (terrainType.vegetation.Length > 0)
                 {
                     
-                    if (findMax(levelData, zIndex, xIndex, neighborRadius))
+                    if (findMax(levelData, zIndex, xIndex, terrainType.neighborRadius))
                     {
-                        //Debug.Log((zIndex, xIndex));
-                        //Debug.Log(terrainType.name);
 
                         Vector3 vegPos = new Vector3(xIndex * distPerVertex, vertex.y, zIndex * distPerVertex);
                         GameObject primaryVeg = Instantiate(terrainType.vegetation[0], vegPos, Quaternion.identity, transform) as GameObject;
@@ -81,17 +66,18 @@ public class TreeGeneration : MonoBehaviour
                         primaryVeg.transform.localScale = new Vector3(20, 20, 20);
 
 
-                        //Spawn auxiliary vegetation close to primary vegetation
-                        //for (int i = 1; i < terrainType.vegetation.Length; i++)
-                        //{
-                        //    (int x, int z) v = randomVertex(zIndex, xIndex, neighborRadius / 3, levelData);
-                        //    Vector3 auxVertex = levelData.getVertex(v.z, v.x);
-                        //    //int vPos = vertex.z * tileWidth + vertex.x;
-                        //    Vector3 auxVegPos = new Vector3(v.x * distPerVertex, auxVertex.y, v.z * distPerVertex);
-                        //    //Vector3 auxVegPos = levelData.getVertex(auxVertex.z, auxVertex.x);
-                        //    GameObject auxVeg = Instantiate(terrainType.vegetation[i], auxVegPos, Quaternion.identity, transform) as GameObject;
-                        //    auxVeg.transform.localScale = new Vector3(20, 20, 20);
-                        //}
+                        //Spawn auxiliary vegetation close to primary vegetation - needs to account for mountain terrain
+                        for (int i = 1; i < terrainType.vegetation.Length; i++)
+                        {
+                            (int x, int z) v = randomVertex(zIndex, xIndex, 2.1f, levelData);
+
+                            Vector3 auxVertex = levelData.getVertex(v.z, v.x);
+                            //int vPos = vertex.z * tileWidth + vertex.x;
+                            Vector3 auxVegPos = new Vector3(v.x * distPerVertex, auxVertex.y, v.z * distPerVertex);
+                            //Vector3 auxVegPos = levelData.getVertex(auxVertex.z, auxVertex.x);
+                            GameObject auxVeg = Instantiate(terrainType.vegetation[i], auxVegPos, Quaternion.identity, transform) as GameObject;
+                            auxVeg.transform.localScale = new Vector3(20, 20, 20);
+                        }
                     }
                 }
             }
@@ -102,7 +88,7 @@ public class TreeGeneration : MonoBehaviour
 
     public (int x, int z) randomVertex(int zIndex, int xIndex, float radius, LevelData levelData)
     {
-        (int z, int x) levelSize = levelData.getSizeInTiles();
+        (int z, int x) levelSize = levelData.getSizeInVertices();
         //Find start and end of area for random generation
         int zBegin = (int)Mathf.Max(0, zIndex - radius);
         int zEnd = (int)Mathf.Min(levelSize.z - 1, zIndex + radius);
@@ -116,7 +102,7 @@ public class TreeGeneration : MonoBehaviour
 
         //Try to avoid spawning auxiliary vegetation in same place as primary vegetation
         if (zPos != zIndex && xPos != xIndex) return (xPos, zPos);
-        return randomVertex(zIndex, xIndex, neighborRadius, levelData);
+        return randomVertex(zIndex, xIndex, radius, levelData);
     }
 
     public bool findMax(LevelData levelData, int zIndex, int xIndex, float neighborRadius)

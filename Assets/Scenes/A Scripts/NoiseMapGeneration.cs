@@ -50,7 +50,6 @@ public class NoiseMapGeneration : MonoBehaviour {
 				// normalize the noise value so that it is within 0 and 1
 				noise /= normalization;
 
-
 				noise = heightFunction(noise, zIndex/(float)(mapDepth), xIndex/(float)mapWidth);
 				//noise = Math.Min(Math.Max(noise, 0), 1);
 
@@ -59,8 +58,6 @@ public class NoiseMapGeneration : MonoBehaviour {
 		}
 		return noiseMap;
 	}
-
-
 }
 
 [System.Serializable]

@@ -47,6 +47,8 @@ public class Spawner : MonoBehaviour
     public List<GameObject> Enemies;
     public GameManager gameManager;
 
+    public LevelGeneration levelGenerator;
+
     /// <summary>
 
     /// </summary>
@@ -238,7 +240,12 @@ public class Spawner : MonoBehaviour
             float random = randNormal(0f, std);
             Vector2 posDelta = UnityEngine.Random.insideUnitCircle * random;
             Vector3 position = pos + new Vector3(posDelta.x, 0f, posDelta.y);
-            if (projectNavMesh(position, out enemyPos)) break;
+            Vector3 projection = new Vector3();
+            if (levelGenerator.data.project(position, out projection))
+            {
+                if (projectNavMesh(projection, out enemyPos)) break;
+            }
+            if (i == 9) return false;
         }
         var settings = gameManager.getSettings();
         (float passive, float aggressive, float scared) distribution = enemyDistribution(settings.a);
@@ -246,7 +253,7 @@ public class Spawner : MonoBehaviour
 
         float enemyType = UnityEngine.Random.Range(0f, distribution.aggressive + distribution.passive + distribution.scared);
 
-        if (enemyType < distribution.aggressive) enemy = Instantiate(aggressivePrefab, enemyPos, Quaternion.identity);
+        if (enemyType < distribution.aggressive) enemy = Instantiate(aggressivePrefab, enemyPos + Vector3.up * 0.5f, Quaternion.identity);
         else if (enemyType < distribution.aggressive + distribution.scared) enemy = Instantiate(scaredPrefab, enemyPos, Quaternion.identity);
         else enemy = Instantiate(passivePrefab, enemyPos, Quaternion.identity);
         return true;

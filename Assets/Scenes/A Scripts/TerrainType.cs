@@ -8,12 +8,14 @@ public class TerrainType : GeneralTerrain
 	public string TerrainName;
 	public GameObject[] vegetation;
 	public int numTiles;
+    public int neighborRadius = 10;
     [HideInInspector]
 	public List<int> triangles = new List<int>();
 	public Material material;
 
     public override void initLevels(PDF pdf)
     {
+
     }
 
     public override void initTerrains()

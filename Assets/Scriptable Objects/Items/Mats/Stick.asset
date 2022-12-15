@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937317a3b6f87488fa93415dbc0edd28, type: 3}
   m_Name: Stick
   m_EditorClassIdentifier: 
-  InvPrefab: {fileID: 0}
+  InvPrefab: {fileID: 4942767680326379691, guid: 312b0915fdf8cf84295430b94356e557, type: 3}
   EnvPrefab: {fileID: 0}
   type: 2
   description: What's brown and sticky?

@@ -46,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform orientation;
 
+    public LevelGeneration levelGenerator;
+
     float horizontalInput;
     float verticalInput;
 
@@ -194,6 +196,12 @@ public class PlayerMovement : MonoBehaviour
 
     void onCollisionEnter(Collision other)
     {
+        if (other.collider.tag == "fogGate")
+        {
+            (int z, int x) levelSize = levelGenerator.levelCoordSize();
+            Vector2 relativePosition = new Vector3(transform.position.z/levelSize.z, transform.position.x/levelSize.x);
+            Destroy(levelGenerator.voronoiDiagram.bisectors[levelGenerator.voronoiDiagram.nearestGate(relativePosition)].gateObject);
+        }
     }
 
 

@@ -52,7 +52,6 @@ public class DisplayCrafting : MonoBehaviour
 
     void readBook(RecipeBook book)
     {
-        recipeBooks.Add(book);
         foreach (Recipe r in book.recipes) recipes.Add(r);
     }
 

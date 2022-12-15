@@ -34,7 +34,6 @@ public abstract class GeneralTerrain : ScriptableObject
 		int i = 0;
 		foreach (TerrainType t in terrains)
 		{
-			Debug.Log((t.TerrainName, t.triangles.Count));
 			m.SetTriangles(t.triangles, i);
 			i++;
 		}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.AI.Navigation;
 
 public class LevelGeneration : MonoBehaviour {
 
@@ -11,6 +12,11 @@ public class LevelGeneration : MonoBehaviour {
 
 	public Voronoi voronoiDiagram;
 
+	public LevelData data;
+
+	//public List<NavMeshSurface> surfaces = new List<NavMeshSurface>();
+	public NavMeshSurface surface;
+
 	[SerializeField]
 	private int tileZSize = 20;
 	[SerializeField]
@@ -19,6 +25,13 @@ public class LevelGeneration : MonoBehaviour {
 	private int distPerVertex = 1;
 	[SerializeField]
 	private int randomSeed = 1;
+	public bool useSeed = false;
+
+	[SerializeField]
+	private float heightMultiplier;
+
+	[SerializeField]
+	private GameObject gatePrefab;
 
 	public float mtnThickness = 10;
 
@@ -27,9 +40,15 @@ public class LevelGeneration : MonoBehaviour {
 	private GameObject tilePrefab;
 
 	void Start() {
-		randomSeed = (int)System.DateTime.Now.Ticks;
-		voronoiDiagram.setParams(mtnThickness, groundMountainRatio, falloff, mapWidthInTiles*(tileXSize+1));
+		if (!useSeed) randomSeed = (int)System.DateTime.Now.Ticks;
+		voronoiDiagram.setParams(mtnThickness, groundMountainRatio, falloff, mapWidthInTiles*(tileXSize+1), randomSeed);
 		GenerateMap ();
+		makeGates();
+		//foreach (NavMeshSurface s in surfaces)
+  //      {
+		//	s.BuildNavMesh();
+  //      }
+		surface.BuildNavMesh();
 		
 	}
 
@@ -44,8 +63,10 @@ public class LevelGeneration : MonoBehaviour {
 					this.gameObject.transform.position.y,
 					this.gameObject.transform.position.z + zTileIndex * distPerVertex * tileXSize);
 				// instantiate a new Tile
-				GameObject tile = Instantiate (tilePrefab, tilePosition, Quaternion.identity) as GameObject;
+				GameObject tile = Instantiate (tilePrefab, tilePosition, Quaternion.identity, transform) as GameObject;
 				TileGeneration generator = tile.GetComponent<TileGeneration>();
+				//surfaces.Add(generator.surface);
+				generator.SetParams(heightMultiplier);
 				generator.levelGenerator = this;
 				generator.noiseMapGeneration.setHeightFunction((float noise, float z, float x)=>heightFunction(noise, (z+zTileIndex)/mapDepthInTiles, (x+xTileIndex)/mapWidthInTiles));
 				generator.setSize(tileZSize, tileXSize, distPerVertex, mtnThickness/(tileXSize+1)/mapWidthInTiles);
@@ -59,7 +80,7 @@ public class LevelGeneration : MonoBehaviour {
 		}
 
 
-
+		data = levelData;
 		treeGeneration.generateTrees(distPerVertex, levelData);
 	}
 
@@ -125,6 +146,31 @@ public class LevelGeneration : MonoBehaviour {
 	}
 
 	float sigmoid(float x) { return 1 / (1 + Mathf.Exp(-x)); }
+
+	public void makeGates()
+	{
+		float levelSize = mapDepthInTiles * tileZSize * distPerVertex;
+		foreach (Bisector b in voronoiDiagram.bisectors)
+		{
+			Vector3 pos = new Vector3(b.fogGate.y * levelSize,heightMultiplier/3, b.fogGate.x * levelSize);
+			Vector3 dir = (b.start - b.end).normalized;
+
+			GameObject obj = Instantiate(gatePrefab, pos, Quaternion.LookRotation(new Vector3(dir.x, 0,-dir.y)));
+
+			float width = mtnThickness * distPerVertex*2;
+			float height = heightMultiplier * 2 / 3;
+			float depth = width / 5;
+			obj.transform.localScale = new Vector3(width, height, depth);
+
+			b.gateObject = obj;
+
+		}
+	}
+
+	public (int z, int x) levelCoordSize()
+    {
+		return (mapDepthInTiles * tileZSize * distPerVertex, mapWidthInTiles * tileXSize * distPerVertex);
+    }
 }
 
 /********* Level Data Class **********/
@@ -204,7 +250,24 @@ public class LevelData
 		return tileData[coord.tileZIndex, coord.tileXIndex].mesh.vertices[coord.coordinateZIndex * (getTileSize().x+1) + coord.coordinateXIndex];
 	}
 
+	public bool project(Vector3 point, out Vector3 projection, float maxDistance=1000)
+    {
+		projection = new Vector3(-1, -1, -1);
+		RaycastHit hit;
+		if (Physics.Raycast(point,Vector3.down, out hit, maxDistance, 64))
+        {
+			projection = hit.point;
+			return true;
+        }
+		else if (Physics.Raycast(point, Vector3.up, out hit, maxDistance, 64))
+        {
+			projection = hit.point;
+			return true;
+        }
+		return false;
+    }
 
+	
 
 }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.AI.Navigation;
 
+
 //Parts adapted from Game Dev Academy https://gamedevacademy.org/complete-guide-to-procedural-level-generation-in-unity-part-1/
 //Parts adapted from Catlike Coding https://catlikecoding.com/unity/tutorials/procedural-grid/
 public class TileGeneration : MonoBehaviour {
@@ -18,7 +19,7 @@ public class TileGeneration : MonoBehaviour {
 	public delegate (float x, float y) function(int zIndex, int xIndex);
 	public function toUnitSquare;
 
-	public NavMeshSurface surface;
+	//public NavMeshSurface surface;
 
 	[SerializeField]
 	private MeshRenderer meshRenderer;
@@ -51,7 +52,6 @@ public class TileGeneration : MonoBehaviour {
 	private float[] moistureLevels;
 	private float[] heatLevels;
 
-	[SerializeField]
 	private float heightMultiplier;
 
 	private float mtn;
@@ -74,6 +74,11 @@ public class TileGeneration : MonoBehaviour {
 	{
 		
 	}
+
+	public void SetParams(float heightMultiplier)
+    {
+		this.heightMultiplier = heightMultiplier;
+    }
 
 	public void setLevels()
     {

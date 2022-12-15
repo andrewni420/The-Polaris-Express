@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -635,6 +635,7 @@ MonoBehaviour:
   player: {fileID: 520881712}
   Enemies: []
   gameManager: {fileID: 1652323251}
+  levelGenerator: {fileID: 464600541}
   playerPrediction: {fileID: 2044475982}
   cam: {fileID: 1840423693}
   HealthCanvas: {fileID: 1837166720}
@@ -2133,6 +2134,127 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455081287}
   m_CullTransparentMesh: 1
+--- !u!1 &464600537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 464600542}
+  - component: {fileID: 464600541}
+  - component: {fileID: 464600540}
+  - component: {fileID: 464600539}
+  - component: {fileID: 464600538}
+  m_Layer: 0
+  m_Name: Level
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &464600538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464600537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.41666666
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
+--- !u!114 &464600539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464600537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d090191ad2f39b4cb9276f04e77a867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &464600540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464600537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441ca6b40249b4abfa50ab1d3197c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noiseMapGeneration: {fileID: 464600539}
+  waves:
+  - seed: 0
+    frequency: 0.11
+    amplitude: 1
+--- !u!114 &464600541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464600537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4469953c6d8d694fafca44a0ff4dafc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapWidthInTiles: 2
+  mapDepthInTiles: 2
+  treeGeneration: {fileID: 464600540}
+  voronoiDiagram: {fileID: 11400000, guid: 0ec7dbb85d3914a38946edc236dbc9b8, type: 2}
+  surface: {fileID: 464600538}
+  tileZSize: 100
+  tileXSize: 100
+  distPerVertex: 5
+  randomSeed: 1
+  useSeed: 1
+  heightMultiplier: 200
+  gatePrefab: {fileID: 1604316111451278767, guid: 08b787cf965514f19baa364d3aa61f7a, type: 3}
+  mtnThickness: 10
+  groundMountainRatio: 0.05
+  tilePrefab: {fileID: 2625344590195280488, guid: 22c992eecf10b47beb880b9ab54dcbe4, type: 3}
+--- !u!4 &464600542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464600537}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 38
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &496481354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3869369732537175368, guid: b038d52152ec94bc38a5f939656691a6, type: 3}
@@ -2314,6 +2436,7 @@ MonoBehaviour:
   teleportToCave: {fileID: 0}
   teleportToLand: {fileID: 0}
   orientation: {fileID: 196033658}
+  levelGenerator: {fileID: 0}
 --- !u!54 &520881715
 Rigidbody:
   m_ObjectHideFlags: 0

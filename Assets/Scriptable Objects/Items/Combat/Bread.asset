@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3ab8a634772446abf8a45ee9d1f99c, type: 3}
   m_Name: Bread
   m_EditorClassIdentifier: 
-  InvPrefab: {fileID: 0}
+  InvPrefab: {fileID: 8831184537455625388, guid: a391efd543fad914998fbcb94c4fbc93, type: 3}
   EnvPrefab: {fileID: 0}
   type: 0
   description: Tastes like chicken

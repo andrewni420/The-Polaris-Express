@@ -6,9 +6,7 @@ using UnityEngine;
 public class Voronoi : ScriptableObject
 {
     //todo: 
-    //      increase number of divisions in terrainsets to make terrains more blocky
     //      put in fog gates
-    //      make everything seedable..? -> seed UnityEngine.Random
     //      make resources more scarce as levels go on
     //      maybe decrease neighborradius and make it randomize whether to place things down -> more random item generation
     //      create item prefabs to interact with player inventory (depends on prefabs being made)
@@ -21,6 +19,8 @@ public class Voronoi : ScriptableObject
     private bool centerFound = false;
     private function falloff;
 
+
+
     private int count = 0;
 
     public delegate float function(float z, float x);
@@ -31,8 +31,9 @@ public class Voronoi : ScriptableObject
     public bool generatePoints=true;
     public List<Bisector> bisectors= new List<Bisector>();
 
-    public void setParams(float mtnThickness, float gmr, function f, int levelSize)
+    public void setParams(float mtnThickness, float gmr, function f, int levelSize, int seed)
     {
+        Random.InitState(seed);
         this.mtnThickness = mtnThickness;
         this.levelSize = levelSize;
         setGMR(gmr);
@@ -230,7 +231,7 @@ public class Voronoi : ScriptableObject
         for (int i = 0; i < 3; i++)
         {
             bisectors.Add(perpBisector(i));
-            bisectors[i].chooseFogGate();
+            if (generatePoints) bisectors[i].chooseFogGate();
             gates[i] = bisectors[i].fogGate;
         }
     }
@@ -333,6 +334,25 @@ public class Voronoi : ScriptableObject
         return groundMountainRatio * noise;
     }
 
+    public int nearestGate(Vector2 pos)
+    {
+        float minDist = float.MaxValue;
+        int index = -1;
+        for (int i = 0; i < bisectors.Count; i++)
+        {
+            if (bisectors[i].fogGate == new Vector2(-1, -1)) continue;
+            float dist = Vector2.Distance(pos, bisectors[i].fogGate);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    
+
 }
 
 public class Bisector
@@ -342,6 +362,7 @@ public class Bisector
     public Vector2 end;
 
     public Vector2 fogGate;
+    public GameObject gateObject;
 
     public Vector2 point;
     public Vector2 normal;

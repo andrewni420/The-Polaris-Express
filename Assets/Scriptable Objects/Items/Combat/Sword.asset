@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a99d9567f0a40cbb104cd10b82dccd, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  InvPrefab: {fileID: 2755297953926179731, guid: 825451045680841448d7373bdd0c3aa2, type: 3}
+  InvPrefab: {fileID: 1902287493173578532, guid: 6304c00b5afebe9488cf59b2c4823c35, type: 3}
   EnvPrefab: {fileID: 0}
   type: 1
   description: Deals more damage than a dagger

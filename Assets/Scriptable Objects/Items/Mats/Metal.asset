@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937317a3b6f87488fa93415dbc0edd28, type: 3}
   m_Name: Metal
   m_EditorClassIdentifier: 
-  InvPrefab: {fileID: 7098880354074704633, guid: a711d2c791c7748b3a12b604833f5127, type: 3}
+  InvPrefab: {fileID: 4856051400591814139, guid: bb1672da61f173a42b319c75e9626a02, type: 3}
   EnvPrefab: {fileID: 0}
   type: 2
   description: Upgrade dagger to a sword
