@@ -19,7 +19,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 92e83196420304146a0712cc2cdfc88d, type: 2}
   - {fileID: 11400000, guid: b2b290fbb4c9443d2807248f3cac31e4, type: 2}
   - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
-  numIngredients: 0200000002000000020000000a000000
+  numIngredients: 01000000010000000100000001000000
   result: {fileID: 11400000, guid: c998e728bea7c4750b7b87f3c6f7daf4, type: 2}
   numResult: 1
   description: 

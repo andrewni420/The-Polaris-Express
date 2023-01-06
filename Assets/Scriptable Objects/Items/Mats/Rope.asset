@@ -16,4 +16,4 @@ MonoBehaviour:
   EnvPrefab: {fileID: 0}
   type: 2
   description: A thin but strong rope. Now to find a tree and a chair...
-  itemName: 
+  itemName: Rope

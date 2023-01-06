@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac3ab8a634772446abf8a45ee9d1f99c, type: 3}
-  m_Name: Steak
+  m_Name: Beef Jerky
   m_EditorClassIdentifier: 
   InvPrefab: {fileID: 627818468816255707, guid: a1b6aabf4102abd48bf728b759b93855, type: 3}
   EnvPrefab: {fileID: 0}

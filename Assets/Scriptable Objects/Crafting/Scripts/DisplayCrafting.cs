@@ -10,16 +10,21 @@ public class DisplayCrafting : MonoBehaviour
     private (GameObject menu, GameObject selector, GameObject materials) objects = (null,null,null);
     private (GameObject left, GameObject right) menu = (null,null);
     public GameObject materialsPrefab;
-    public string[] materialNames = {"Mat1", "Mat2", "Mat3", "Mat4", "Mat5", "Mat6" };
-    public List<RecipeBook> recipeBooks;
-    public List<Recipe> recipes;
+    public string[] materialNames = {"Stick", "Grass", "Wheat", "Metal", "Spoiled Meat", "Rope" };
+    public List<RecipeBook> recipeBooks = new List<RecipeBook>();
+    public List<Recipe> recipes = new List<Recipe>();
     private List<(Recipe recipe, int index, GameObject display)> recipesDisplayed = new List<(Recipe recipe, int index, GameObject display)>();
-    public List<bool> craftable;
+    private List<bool> craftable = new List<bool>();
+    private Dictionary<int, GameObject> uncraftables = new Dictionary<int, GameObject>();
+    public GameObject uncraftableSelector;
     public Inventory inventory;
     private int maxRecipes = 5;
     int recipeSelected = 0;
     bool update = false;
     bool active = false;
+
+    public Spawner spawner;
+    public PlayerMovement playerMovement;
     //top left
     //Need to select recipe using up/down/key, outline its display
     //All recipes go in well defined areas, so which one is highlighted just draw a lil box around it.
@@ -36,7 +41,10 @@ public class DisplayCrafting : MonoBehaviour
     {
         active = true;
         inventory.setSuppressed(true);
-        CreateMaterials();
+        spawner.setSuppressed(true);
+        playerMovement.setSuppressed(true);
+        createCraftable();
+        //CreateMaterials();
         CreateMenu();
         CreateDisplay();
         update = true;
@@ -45,15 +53,18 @@ public class DisplayCrafting : MonoBehaviour
     {
         active = false;
         inventory.setSuppressed(false);
+        spawner.setSuppressed(false);
+        playerMovement.setSuppressed(false);
         Destroy(objects.menu);
         Destroy(objects.selector);
-        Destroy(objects.materials);
+        //Destroy(objects.materials);
     }
 
     void readBook(RecipeBook book)
     {
         foreach (Recipe r in book.recipes) recipes.Add(r);
     }
+    
 
     // Update is called once per frame
     void Update()
@@ -66,7 +77,6 @@ public class DisplayCrafting : MonoBehaviour
             int count = 0;
             while (recipeSelected < recipesDisplayed[0].index && count<10)
             {
-                Debug.Log("decrement");
                 decrementDisplay();
                 count++;
             }
@@ -81,8 +91,6 @@ public class DisplayCrafting : MonoBehaviour
             int position = -1;
             for (int i = 0; i < maxRecipes; i++)
             {
-                Debug.Log(i);
-                Debug.Log(recipesDisplayed.Count);
                 if (recipesDisplayed[i].index == recipeSelected)
                 {
                     position = i;
@@ -94,6 +102,9 @@ public class DisplayCrafting : MonoBehaviour
 
 
             displayRight();
+
+            //updateMaterials();
+
         }
     }
 
@@ -109,6 +120,10 @@ public class DisplayCrafting : MonoBehaviour
         rt.offsetMax = new Vector2();
     }
 
+    void createCraftable()
+    {
+        foreach (Recipe r in recipes) craftable.Add(canCraft(r));
+    }
     bool canCraft(Recipe recipe)
     {
         return inventory.canCraft(recipe);
@@ -118,7 +133,31 @@ public class DisplayCrafting : MonoBehaviour
         for (int i = 0; i < craftable.Count; i++)
         {
             craftable[i] = canCraft(recipes[i]);
-            //Reinstantiate
+            if (craftable[i])
+            {
+                if (uncraftables.ContainsKey(i))
+                {
+                    Destroy(uncraftables[i]);
+                    uncraftables.Remove(i);
+                }
+            }
+            else
+            {
+                if (!uncraftables.ContainsKey(i))
+                {
+                    for (int j = 0; j < recipesDisplayed.Count; j++)
+                    {
+                        if (recipesDisplayed[j].index == i)
+                        {
+                            GameObject s = Instantiate(uncraftableSelector, Vector3.zero, Quaternion.identity, recipesDisplayed[j].display.transform);
+                            RectTransform rectTransform = s.GetComponent<RectTransform>();
+                            rectTransform.offsetMin = new Vector2();
+                            rectTransform.offsetMax = new Vector2();
+                            uncraftables.Add(i, s);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -126,9 +165,11 @@ public class DisplayCrafting : MonoBehaviour
     {
         inventory.craftRecipe(recipe);
         updateCraftable();
+        //updateMaterials();
     }
     public void CreateMaterials()
     {
+       
         objects = (objects.menu, objects.selector, Instantiate(materialsPrefab, Vector3.zero, Quaternion.identity, transform));
         RectTransform rectTransform = objects.materials.GetComponent<RectTransform>();
 
@@ -137,6 +178,10 @@ public class DisplayCrafting : MonoBehaviour
         rectTransform.offsetMin = new Vector2();
         rectTransform.offsetMax = new Vector2();
 
+        updateMaterials();
+    }
+    public void updateMaterials()
+    {
         Transform t = objects.materials.transform;
         foreach (string s in materialNames)
         {
@@ -164,7 +209,14 @@ public class DisplayCrafting : MonoBehaviour
         {
             GameObject display = createRecipe(i, recipes[i]);
             recipesDisplayed.Add((recipes[i], i, display));
-            craftable.Add(canCraft(recipes[i]));
+            if (!craftable[i])
+            {
+                GameObject s = Instantiate(uncraftableSelector, Vector3.zero, Quaternion.identity, display.transform);
+                RectTransform rectTransform = s.GetComponent<RectTransform>();
+                rectTransform.offsetMin = new Vector2();
+                rectTransform.offsetMax = new Vector2();
+                uncraftables.Add(i,s);
+            }
         }
     }
 
@@ -174,10 +226,20 @@ public class DisplayCrafting : MonoBehaviour
         int lastIndex = recipesDisplayed[n - 1].index;
         if (lastIndex + 1 >= recipes.Count) return;
         Destroy(recipesDisplayed[0].display);
+        uncraftables.Remove(recipesDisplayed[0].index);
         recipesDisplayed.RemoveAt(0);
         for (int j = 0; j < recipesDisplayed.Count; j++) setPosition(recipesDisplayed[j].display.GetComponent<RectTransform>(), j,0.015f);
         GameObject display = createRecipe(maxRecipes - 1, recipes[lastIndex + 1]);
         recipesDisplayed.Add((recipes[lastIndex+1],lastIndex+1,display));
+
+        if (!craftable[lastIndex+1])
+        {
+            GameObject s = Instantiate(uncraftableSelector, Vector3.zero, Quaternion.identity, display.transform);
+            RectTransform rectTransform = s.GetComponent<RectTransform>();
+            rectTransform.offsetMin = new Vector2();
+            rectTransform.offsetMax = new Vector2();
+            uncraftables.Add(lastIndex+1, s);
+        }
     }
 
     public void decrementDisplay()
@@ -186,10 +248,20 @@ public class DisplayCrafting : MonoBehaviour
         int firstIndex = recipesDisplayed[0].index;
         if (firstIndex - 1 < 0) return;
         Destroy(recipesDisplayed[n-1].display);
+        uncraftables.Remove(recipesDisplayed[n - 1].index);
         recipesDisplayed.RemoveAt(n-1);
         for (int j = 0; j < recipesDisplayed.Count; j++) setPosition(recipesDisplayed[j].display.GetComponent<RectTransform>(), j + 1,0.015f);
         GameObject display = createRecipe(0, recipes[firstIndex-1]);
         recipesDisplayed.Insert(0, (recipes[firstIndex - 1], firstIndex - 1, display));
+
+        if (!craftable[firstIndex-1])
+        {
+            GameObject s = Instantiate(uncraftableSelector, Vector3.zero, Quaternion.identity, display.transform);
+            RectTransform rectTransform = s.GetComponent<RectTransform>();
+            rectTransform.offsetMin = new Vector2();
+            rectTransform.offsetMax = new Vector2();
+            uncraftables.Add(firstIndex-1, s);
+        }
     }
 
     public GameObject createRecipe(int position, Recipe recipe)

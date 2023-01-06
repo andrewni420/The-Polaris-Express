@@ -14,7 +14,6 @@ public class LevelGeneration : MonoBehaviour {
 
 	public LevelData data;
 
-	//public List<NavMeshSurface> surfaces = new List<NavMeshSurface>();
 	public NavMeshSurface surface;
 
 	[SerializeField]
@@ -39,21 +38,28 @@ public class LevelGeneration : MonoBehaviour {
 	[SerializeField]
 	private GameObject tilePrefab;
 
+	public GameObject entrancePrefab;
+	public Transform[] teleportTargets;
+	public TeleportToCave[] teleports;
+	public GameObject player;
+
+	public GameObject[] Level1Stars;
+	public GameObject[] Level2Stars;
+	public GameObject[] Level3Stars;
+
 	void Start() {
 		if (!useSeed) randomSeed = (int)System.DateTime.Now.Ticks;
 		voronoiDiagram.setParams(mtnThickness, groundMountainRatio, falloff, mapWidthInTiles*(tileXSize+1), randomSeed);
-		GenerateMap ();
+		GenerateMap();
 		makeGates();
-		//foreach (NavMeshSurface s in surfaces)
-  //      {
-		//	s.BuildNavMesh();
-  //      }
 		surface.BuildNavMesh();
-		
+
+		makeStars();
+
 	}
 
 	void GenerateMap() {
-		LevelData levelData = new LevelData(tileZSize, tileXSize, mapDepthInTiles, mapWidthInTiles);
+		LevelData levelData = new LevelData(tileZSize, tileXSize, mapDepthInTiles, mapWidthInTiles, distPerVertex);
 
 		// for each Tile, instantiate a Tile in the correct position
 		for (int xTileIndex = 0; xTileIndex < mapWidthInTiles; xTileIndex++) {
@@ -65,7 +71,6 @@ public class LevelGeneration : MonoBehaviour {
 				// instantiate a new Tile
 				GameObject tile = Instantiate (tilePrefab, tilePosition, Quaternion.identity, transform) as GameObject;
 				TileGeneration generator = tile.GetComponent<TileGeneration>();
-				//surfaces.Add(generator.surface);
 				generator.SetParams(heightMultiplier);
 				generator.levelGenerator = this;
 				generator.noiseMapGeneration.setHeightFunction((float noise, float z, float x)=>heightFunction(noise, (z+zTileIndex)/mapDepthInTiles, (x+xTileIndex)/mapWidthInTiles));
@@ -81,7 +86,7 @@ public class LevelGeneration : MonoBehaviour {
 
 
 		data = levelData;
-		treeGeneration.generateTrees(distPerVertex, levelData);
+		treeGeneration.generateTrees(distPerVertex, levelData, groundMountainRatio*heightMultiplier+1);
 	}
 
 	float normalHeight(float noise, float z, float x)
@@ -167,10 +172,96 @@ public class LevelGeneration : MonoBehaviour {
 		}
 	}
 
+	public void makeTeleports()
+	{
+		for (int i=0;i<voronoiDiagram.caveEntrances.Length;i++)
+		{
+			GameObject obj = Instantiate(entrancePrefab, findPosition(voronoiDiagram.points[i], new Vector3()), Quaternion.identity);
+			TeleportToCave t = obj.GetComponent<TeleportToCave>();
+			t.TargetTransform = teleportTargets[i];
+			t.thePlayer = player;
+
+			teleports[i].teleportTarget = findPosition(voronoiDiagram.caveEntrances[i], new Vector3());
+		}
+	}
+
 	public (int z, int x) levelCoordSize()
     {
 		return (mapDepthInTiles * tileZSize * distPerVertex, mapWidthInTiles * tileXSize * distPerVertex);
     }
+
+	public void makeStars()
+    {
+		for (int i = 0; i < 3; i++)
+		{
+			GameObject obj = Instantiate(Level1Stars[i], findPosition(voronoiDiagram.starLocations[0][i], new Vector3(0, 0.5f, 0)), Quaternion.identity);
+			StarMovement movement = obj.GetComponent<StarMovement>();
+			movement.finalPosition = finalPosition(voronoiDiagram.starDestinations[0][i]);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			GameObject obj = Instantiate(Level2Stars[i], findPosition(voronoiDiagram.starLocations[1][i], new Vector3(0, 0.5f, 0)), Quaternion.identity);
+			StarMovement movement = obj.GetComponent<StarMovement>();
+			movement.finalPosition = finalPosition(voronoiDiagram.starDestinations[1][i]);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			GameObject obj = Instantiate(Level3Stars[i], findPosition(voronoiDiagram.starLocations[2][i], new Vector3(0, 0.5f, 0)), Quaternion.identity);
+			StarMovement movement = obj.GetComponent<StarMovement>();
+			movement.finalPosition = finalPosition(voronoiDiagram.starDestinations[2][i]);
+		}
+	}
+
+	public Vector3 findPosition(Vector2 pos, Vector3 offset)
+    {
+		(float z, float x) size = levelCoordSize();
+		Vector3 position = new Vector3(pos.y * size.x, groundMountainRatio*heightMultiplier+1, pos.x * size.z);
+		Vector3 projected;
+		if (data.project(position, out projected))
+        {
+			return projected+offset;
+        }
+		Debug.Log(("projection not found", position));
+		return new Vector3();
+    }
+
+	public Vector3 finalPosition(Vector2 pos)
+    {
+		(float z, float x) size = levelCoordSize();
+		Vector3 position = new Vector3(pos.y * size.x,heightMultiplier + 1, pos.x * size.z);
+		return position;
+    }
+
+	public void unlockGate(int section)
+    {
+		if (section > 1) return;
+		Destroy(voronoiDiagram.bisectors[section].gateObject);
+    }
+
+	public bool checkStars(int section)
+	{
+        switch (section)
+        {
+			case 0:
+				foreach (GameObject s in Level1Stars) if (!s.GetComponent<StarMovement>().touched) return false;
+				break;
+			case 1:
+				foreach (GameObject s in Level2Stars) if (!s.GetComponent<StarMovement>().touched) return false;
+				break;
+			case 2:
+				foreach (GameObject s in Level3Stars) if (!s.GetComponent<StarMovement>().touched) return false;
+				break;
+		}
+		return true;
+	}
+
+	public void updateGates()
+    {
+		if (checkStars(0) && voronoiDiagram.bisectors[0].gateObject) Destroy(voronoiDiagram.bisectors[0].gateObject);
+		if (checkStars(1) && voronoiDiagram.bisectors[1].gateObject) Destroy(voronoiDiagram.bisectors[1].gateObject);
+		if (checkStars(2) && voronoiDiagram.bisectors[2].gateObject) Destroy(voronoiDiagram.bisectors[2].gateObject);
+	}
+
 }
 
 /********* Level Data Class **********/
@@ -178,17 +269,21 @@ public class LevelData
 {
 	private int tileDepthInVertices, tileWidthInVertices;
 	public TileData[,] tileData;
+	private float distPerVertex;
+	public float[,] treeMap;
 
-	public LevelData(int tileDepthInVertices, int tileWidthInVertices, int levelDepthInTiles, int levelWidthInTiles)
+	public LevelData(int tileDepthInVertices, int tileWidthInVertices, int levelDepthInTiles, int levelWidthInTiles, float distPerVertex)
 	{
 		// build the tilesData matrix based on the level depth and width
 		tileData = new TileData[levelDepthInTiles,levelWidthInTiles];
 		this.tileDepthInVertices = tileDepthInVertices;
 		this.tileWidthInVertices = tileWidthInVertices;
+		this.distPerVertex = distPerVertex;
 	}
 	public (int z, int x) getTileSize() { return (tileDepthInVertices, tileWidthInVertices); }
 	public (int z, int x) getSizeInTiles() { return (tileData.GetLength(0), tileData.GetLength(1)); }
 	public (int z, int x) getSizeInVertices() { return (tileData.GetLength(0)* tileDepthInVertices, tileData.GetLength(1)* tileWidthInVertices); }
+	public (float z, float x) getSizeInCoordinates() { return (tileData.GetLength(0) * tileDepthInVertices * distPerVertex, tileData.GetLength(1) * tileWidthInVertices * distPerVertex); }
 	public void AddTileData(TileData data, int tileZIndex, int tileXIndex)
 	{
 		// save the TileData in the corresponding coordinate
@@ -222,6 +317,10 @@ public class LevelData
     {
 		tileData[zIndex, xIndex].treeMap = map;
     }
+	public TerrainType getBiomeByCoord(float zCoord, float xCoord)
+    {
+		return getBiome((int)(zCoord / distPerVertex), (int)(xCoord / distPerVertex));
+    }
 	public TerrainType getBiome(int zIndex, int xIndex)
     {
 		TileCoordinate coord = ConvertToTileCoordinate(zIndex, xIndex);
@@ -245,27 +344,27 @@ public class LevelData
 	}
 
 	public Vector3 getVertex(int zIndex, int xIndex)
-    {
+	{
 		TileCoordinate coord = ConvertToTileCoordinate(zIndex, xIndex);
-		return tileData[coord.tileZIndex, coord.tileXIndex].mesh.vertices[coord.coordinateZIndex * (getTileSize().x+1) + coord.coordinateXIndex];
+		return tileData[coord.tileZIndex, coord.tileXIndex].mesh.vertices[coord.coordinateZIndex * (getTileSize().x + 1) + coord.coordinateXIndex];
+	}
+	public Vector3 getVertexByCoord(float zCoord, float xCoord)
+	{
+		return getVertex((int)(zCoord / distPerVertex), (int)(xCoord / distPerVertex));
 	}
 
 	public bool project(Vector3 point, out Vector3 projection, float maxDistance=1000)
     {
 		projection = new Vector3(-1, -1, -1);
-		RaycastHit hit;
-		if (Physics.Raycast(point,Vector3.down, out hit, maxDistance, 64))
+        RaycastHit hit;
+        if (Physics.Raycast(point, new Vector3(0, -1, 0), out hit, maxDistance, 1 << 6))
         {
-			projection = hit.point;
-			return true;
+            projection = hit.point;
+            return true;
         }
-		else if (Physics.Raycast(point, Vector3.up, out hit, maxDistance, 64))
-        {
-			projection = hit.point;
-			return true;
-        }
-		return false;
-    }
+        return false;
+
+	}
 
 	
 

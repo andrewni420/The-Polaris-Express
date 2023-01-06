@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 816666051463513210, guid: fcfa9c58c453b4f0491aab18cc22a95e, type: 3}
       propertyPath: m_text
-      value: '1 Grass
+      value: '3 Grass
 
         1 Drop of Starlight'
       objectReference: {fileID: 0}

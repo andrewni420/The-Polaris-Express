@@ -30,6 +30,12 @@ public enum toughness
 
 public class Spawner : MonoBehaviour
 {
+
+    //Gotta fix enemies - animations, behavior trees
+    //Gotta fix vegetation generation to no longer be linked to vertex positions
+    //Gotta put in teleportation spots and gates
+    //Gotta make sure inventory always has mlp jar
+    //Crafting still doesn't really work. What was wrong with rope? Gotta make things appear in materials slot instead of in inventory. Gotta fix positions of items too.
     
 
     public GameObject aggressivePrefab;//ranged (bow or item), tack shooter / spinny boi, ... There needs to be a distribution for these too
@@ -65,7 +71,10 @@ public class Spawner : MonoBehaviour
         Enemies = new List<GameObject>();
     }
     
-    
+    public void setSuppressed(bool s)
+    {
+        foreach (GameObject e in Enemies) e.GetComponent<Enemy>().setSuppressed(s);
+    }
 
     //Convert strings to enums
 
@@ -286,6 +295,7 @@ public class Spawner : MonoBehaviour
                 enemyScript.setStats(enemyStats.health, enemyStats.health, enemyStats.damage, enemyStats.knockback);
                 enemyScript.setInt(settings.i);
                 enemyScript.playerPrediction = this.playerPrediction;
+                enemyScript.playerStats = player.GetComponent<PlayerHealthView>();
 
                 //Add to list
                 Enemies.Add(enemy);

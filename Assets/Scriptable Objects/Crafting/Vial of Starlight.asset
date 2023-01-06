@@ -16,10 +16,7 @@ MonoBehaviour:
   rightPrefab: {fileID: 2791532599829424000, guid: 7519b4f3656be4ea6a9f93636ef80e1f, type: 3}
   ingredients:
   - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
-  - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
-  - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
-  - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
-  numIngredients: 03000000
+  numIngredients: 04000000
   result: {fileID: 11400000, guid: babb44f5d64844170bdb19857d201702, type: 2}
   numResult: 1
   description: 'Combine drops of starlight into a concentrated vial. '

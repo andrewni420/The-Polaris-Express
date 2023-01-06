@@ -5,7 +5,7 @@ using System;
 
 public class ScaredEnemy : PassiveEnemy
 {
-    private float deAggroDistance = 10f;
+    private float deAggroDistance = 40f;
 
     public override void updateState(Vector3[] playerTrajectory)
     {

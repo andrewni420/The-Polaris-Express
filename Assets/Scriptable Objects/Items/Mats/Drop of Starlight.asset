@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937317a3b6f87488fa93415dbc0edd28, type: 3}
   m_Name: Drop of Starlight
   m_EditorClassIdentifier: 
-  InvPrefab: {fileID: 0}
+  InvPrefab: {fileID: 149070421434807867, guid: c3a48ab8be2ea44428793c21da31f5de, type: 3}
   EnvPrefab: {fileID: 0}
-  type: 0
+  type: 2
   description: 'A bright gift from the stars. __catch a glimpse of a more advanced
     world when you look at it_
 

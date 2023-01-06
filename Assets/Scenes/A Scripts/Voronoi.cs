@@ -19,6 +19,9 @@ public class Voronoi : ScriptableObject
     private bool centerFound = false;
     private function falloff;
 
+    //prevents infinite loops
+    private int loopCounter = 0;
+
 
 
     private int count = 0;
@@ -30,6 +33,11 @@ public class Voronoi : ScriptableObject
     public Vector2[] gates;
     public bool generatePoints=true;
     public List<Bisector> bisectors= new List<Bisector>();
+
+    public Vector2[][] starLocations;
+    public Vector2[][] starDestinations;
+    public Vector2 endLocation;
+    public Vector2 startLocation;
 
     public void setParams(float mtnThickness, float gmr, function f, int levelSize, int seed)
     {
@@ -54,6 +62,13 @@ public class Voronoi : ScriptableObject
         }
         
         calcBisectors();
+
+        endLocation = chooseEndLocation();
+        loopCounter = 0;
+
+        chooseStarLocations();
+        chooseStarDestinations();
+        
     }
     public void setGMR(float gmr) { groundMountainRatio = gmr; }
     public void setFalloff(function f) { falloff = f; }
@@ -64,7 +79,7 @@ public class Voronoi : ScriptableObject
         for(int i=0;i<3;i++)
         {
             Vector2 r = Random.insideUnitCircle;
-            caveEntrances[i] = points[i] + 8f*r/levelSize;
+            caveEntrances[i] = points[i] + 7f*r/levelSize;
         }
     }
 
@@ -298,6 +313,11 @@ public class Voronoi : ScriptableObject
         return to_return;
     }
 
+    public int section(Vector2 pos)
+    {
+        return section(pos.x, pos.y);
+    }
+
     float caveHeight(float noise, float z, float x)
     {
         float cr = mtnThickness / levelSize;
@@ -351,7 +371,147 @@ public class Voronoi : ScriptableObject
         return index;
     }
 
+    public void chooseStarLocations()
+    {
+
+        List<Vector2>[] starLocLists = new List<Vector2>[3] { new List<Vector2>(), new List<Vector2>(), new List<Vector2>()};
+        while(starLocLists[0].Count<3 || starLocLists[1].Count < 3 || starLocLists[2].Count < 3)
+        {
+            loopCounter++;
+            if (loopCounter>200)
+            {
+                Debug.Log(("first while loop", starLocLists[0].Count, starLocLists[1].Count, starLocLists[2].Count));
+                return;
+            }
+            Vector2 pos = randomSafePos();
+            int sec = section(pos);
+            if (starLocLists[sec].Count < 3) starLocLists[sec].Add(pos);
+        }
+
+        starLocations = new Vector2[3][];
+        for (int i = 0; i < 3; i++)
+        {
+            starLocations[i] = starLocLists[i].ToArray();
+        }
+
+        //starLocations = new Vector2[3][];
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    starLocations[i] = new Vector2[3];
+        //    for (int j = 0; j < 3; j++)
+        //    {
+        //        starLocations[i][j] = chooseStarHelper(i);
+        //        loopCounter = 0;
+        //    }
+        //}
+    }
+
+    public Vector2 randomPos()
+    {
+        float mtn = mtnThickness / levelSize;
+        return new Vector2(Random.Range(mtn, 1 - mtn), Random.Range(mtn, 1 - mtn));
+    }
+
+    public Vector2 randomSafePos()
+    {
+        float mtn = mtnThickness / levelSize;
+        int rspCounter = 0;
+        Vector2 pos = randomPos();
+        while(closestPointDistance(pos) < mtn || closestEdgeDistance(pos.x, pos.y) < mtn)
+        {
+            pos = randomPos();
+            rspCounter++;
+            if (rspCounter > 100)
+            {
+                Debug.Log("rsp failed");
+                return new Vector2();
+            }
+        }
+        return pos;
+    }
+
+    public Vector2 chooseStarHelper(int s)
+    {
+        float mtn = mtnThickness / levelSize;
+        loopCounter++;
+        if (loopCounter > 100)
+        {
+            Debug.Log(("loop failed starhelper", s));
+            return new Vector2(0, 0);
+        }
+
+        Vector2 pos = new Vector2(Random.Range(mtn, 1 - mtn), Random.Range(mtn, 1 - mtn));
+        if (section(pos) != s) return chooseStarHelper(s);
+        if (closestPointDistance(pos) < mtn) return chooseStarHelper(s);
+        if (closestEdgeDistance(pos.x, pos.y) < mtn) return chooseStarHelper(s);
+        return pos;
+    }
+
+    public void chooseStarDestinations()
+    {
+        float mtn = mtnThickness / levelSize;
+        starDestinations = new Vector2[3][];
+        Vector2[] dir = new Vector2[3];
+        dir[0] = bisectors[0].fogGate-points[0];
+        dir[1] = bisectors[1].fogGate - points[1];
+        dir[2] = endLocation - points[2];
+
+        float length = 1 - mtn;
+        float[] values = new float[] { mtn + length / 6, mtn + length / 2, mtn + 5 * length / 6 };
+
+        for (int i = 0; i < 3; i++)
+        {
+            starDestinations[i] = new Vector2[] { points[i] + dir[i]*values[0], points[i] + dir[i] * values[1], points[i] + dir[i] * values[2] };
+        }
+
+    }
+
+    public Vector2 chooseEndLocation()
+    {
+        float mtn = 2*mtnThickness / levelSize;
+        loopCounter += 1;
+        if (loopCounter > 100)
+        {
+            Debug.Log("loop failed endlocation");
+            return new Vector2(0, 0);
+        }
+
+        Vector2 loc;
+        float temp = Random.Range(mtn, 1 - mtn);
+
+        loc = new Vector2(mtn, temp);
+        if (section(loc) == 2) return loc;
+
+        loc = new Vector2(1 - mtn, temp);
+        if (section(loc) == 2) return loc;
+
+        loc = new Vector2(temp, mtn);
+        if (section(loc) == 2) return loc;
+
+        loc = new Vector2(temp, 1 - mtn);
+        if (section(loc) == 2) return loc;
+
+        Debug.Log(("section", section(loc)));
+        return chooseEndLocation();
+    }
+
     
+
+    public void chooseStartLocation()
+    {
+        //maybe spawn player in cave 1 and have tutorial there
+    }
+
+
+    public float closestPointDistance(Vector2 pos)
+    {
+        float dist = float.MaxValue;
+        foreach (Vector2 p in points)
+        {
+            dist = Mathf.Min(dist, Vector2.Distance(p, pos));
+        }
+        return dist;
+    }
 
 }
 

@@ -9,12 +9,27 @@ using System;
 [CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory System/Inventory")]
 public class Inventory : ScriptableObject
 {
+    public Inventory defaultInv;
     public List<InventorySlot> Container = new List<InventorySlot>();
+    public InventorySlot[] materials;
     private string craft;
     private bool update = false;
     private int itemSelected = 0;
     private bool suppress = false;
     public ItemObject starlight;
+
+    public void Awake()
+    {
+        if (defaultInv)
+        {
+            foreach (InventorySlot s in defaultInv.Container)
+            {
+                Container.Add(new InventorySlot(s.item, s.amount));
+            }
+            update = true;
+        }
+        suppress = false;
+    }
 
     public string getCraft() { return craft; }
     public void setCraft(string item) { craft = item; }
@@ -35,20 +50,28 @@ public class Inventory : ScriptableObject
     public int getDamage()
     {
         if (itemSelected >= Container.Count) return 1;
-        else if (Container[itemSelected].hasItem("sword")) return 100;
-        else if (Container[itemSelected].hasItem("dagger")) return 10;
+        else if (Container[itemSelected].hasItem("Sword")) return 50;
+        else if (Container[itemSelected].hasItem("Dagger")) return 10;
         else return 1;
     }
     public int getKnockback()
     {
         if (itemSelected >= Container.Count) return 2;
-        else if (Container[itemSelected].hasItem("sword")) return 10;
-        else if (Container[itemSelected].hasItem("dagger")) return 5;
+        else if (Container[itemSelected].hasItem("Sword")) return 10;
+        else if (Container[itemSelected].hasItem("Dagger")) return 5;
         else return 2;
     }
 
     private bool stackItem(ItemObject item, int amount)
     {
+        for (int i = 0; i < materials.Length; i++)
+        {
+            if (materials[i].hasItem(item))
+            {
+                materials[i].AddAmount(amount);
+                return true;
+            }
+        }
         for (int i = 0; i < Container.Count; i++)
         {
             if (Container[i].hasItem(item))
@@ -60,42 +83,12 @@ public class Inventory : ScriptableObject
         update = true;
         return false;
     }
-    public bool craftSword()
-    {
-        int daggerSlot = -1;
-        int metalSlot = -1;
-        for (int i = 0; i < Container.Count; i++)
-        {
-            if (Container[i].hasItem("Dagger")) daggerSlot = i;
-            if (Container[i].hasItem("Metal")) metalSlot = i;
-        }
-        if (daggerSlot>=0 && metalSlot>=0)
-        {
-            Container.RemoveAt(Math.Max(daggerSlot,metalSlot));
-            Container.RemoveAt(Math.Min(daggerSlot, metalSlot));
-            GameObject sword = GameObject.Find("Sword");
-            var item = sword.GetComponent<Item>();
-            this.AddItem(item.getItem(), item.getAmount());
-            Destroy(sword);
-            craft = "";
-            update = true;
-            return true;
-        }
-        return false;
-    }
-    public bool canCraftSword()
-    {
-        int daggerSlot = -1;
-        int metalSlot = -1;
-        for (int i = 0; i < Container.Count; i++)
-        {
-            if (Container[i].hasItem("Dagger")) daggerSlot = i;
-            if (Container[i].hasItem("Metal")) metalSlot = i;
-        }
-        return daggerSlot >= 0 && metalSlot >= 0;
-    }
     public bool hasItem(ItemObject item)
     {
+        foreach (InventorySlot s in materials)
+        {
+            if (s.hasItem(item)) return true;
+        }
         foreach (InventorySlot slot in Container)
         {
             if (slot.hasItem(item)) return true;
@@ -104,6 +97,10 @@ public class Inventory : ScriptableObject
     }
     public bool hasItem(string itemName)
     {
+        foreach (InventorySlot s in materials)
+        {
+            if (s.hasItem(itemName)) return true;
+        }
         foreach (InventorySlot slot in Container)
         {
             if (slot.hasItem(itemName)) return true;
@@ -113,6 +110,10 @@ public class Inventory : ScriptableObject
     public bool hasItem(ItemObject item, int amount)
     {
         int invAmount = 0;
+        foreach (InventorySlot slot in materials)
+        {
+            if (slot.hasItem(item)) invAmount += slot.getAmount();
+        }
         foreach (InventorySlot slot in Container)
         {
             if (slot.hasItem(item)) invAmount+=slot.getAmount();
@@ -126,6 +127,10 @@ public class Inventory : ScriptableObject
         {
             if (slot.hasItem(itemName)) invAmount += slot.getAmount();
         }
+        foreach (InventorySlot slot in Container)
+        {
+            if (slot.hasItem(itemName)) invAmount += slot.getAmount();
+        }
         return invAmount>=amount;
     }
     public void craftRecipe(Recipe recipe)
@@ -134,7 +139,7 @@ public class Inventory : ScriptableObject
         {
             removeItem(recipe.ingredients[i], recipe.numIngredients[i]);
         }
-        Container.Add(new InventorySlot(recipe.result,recipe.numResult));
+        AddItem(recipe.result,recipe.numResult);
         update = true;
     }
     public bool canCraft(Recipe recipe)
@@ -156,10 +161,22 @@ public class Inventory : ScriptableObject
             }
         }
         update = true;
+        ensureCollector();
     }
     public bool removeItem(ItemObject item, int amount)
     {
         if (!hasItem(item, amount)) return false;
+        for (int i = 0; i < materials.Length; i++)
+        {
+            if (materials[i].hasItem(item) && amount >= 0)
+            {
+                if (materials[i].AddAmount(-amount)) return true;
+                else
+                {
+                    amount -= materials[i].getAmount(); 
+                }
+            }
+        }
         for (int i = 0; i < Container.Count; i++)
         {
             if (Container[i].hasItem(item) && amount>=0)
@@ -167,21 +184,26 @@ public class Inventory : ScriptableObject
                 if (Container[i].AddAmount(-amount)) return true;
                 else
                 {
-                    amount = -Container[i].getAmount();
+                    amount -= Container[i].getAmount();
                     if (item.name!="Drop of Starlight") Container.RemoveAt(i);
                 }
             }
         }
         update = true;
+        ensureCollector();
         return amount <= 0;
     }
     public int getAmount(string itemName)
     {
-         int amount = 0;
-         for (int i = 0; i < Container.Count; i++)
-         {
-            if (Container[i].hasItem(itemName)) amount += Container[i].getAmount();
-         }
+        int amount = 0;
+        for (int i = 0; i < materials.Length; i++)
+        {
+            if (materials[i].hasItem(itemName)) amount += materials[i].getAmount();
+        }
+        for (int i = 0; i < Container.Count; i++)
+        {
+           if (Container[i].hasItem(itemName)) amount += Container[i].getAmount();
+        }
         return amount;
     }
     public bool isSuppressed() { return suppress; }

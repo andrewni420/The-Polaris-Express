@@ -34,9 +34,21 @@ public class PlayerHealthView : MonoBehaviour
     private int recentHits = 0;
 
     public Inventory inventory;
+    public ItemObject starlight;
+    private float starlightTimer = 1f;
+    //Should be low to encourage killing enemies
+    private float starlightChance = 0.1f;
 
     public int damage = 0;
     public int knockback = 0;
+
+    public float invincibilityTimer = 0f;
+    public float strengthTimer = 0f;
+    public float lightTimer = 0;
+
+    public GameObject strengthIcon;
+    public GameObject invincibilityIcon;
+
 
     void Start()
     {
@@ -50,19 +62,21 @@ public class PlayerHealthView : MonoBehaviour
         curHunger = maxHunger;
         hungerBar.SetMaxHunger(maxHunger);
         history.init(gameObject);
+        inventory.Awake();
     }
 
     void OnTriggerStay(Collider other)
     {
-        switch (other.gameObject.tag)
-        {
-            case "Item":
-                return;
-        }
-        OnTriggerEnter(other);
+        //switch (other.gameObject.tag)
+        //{
+        //    case "Item":
+        //        return;
+        //}
+        //OnTriggerEnter(other);
     }
 
     void OnTriggerEnter(Collider other) {
+        
         switch (other.gameObject.tag)
         {
             // When interacting with food, increase hunger points and destroy food object
@@ -72,13 +86,14 @@ public class PlayerHealthView : MonoBehaviour
                 break;
             // When interacting with enemy, decrement health points in hit
             case "Enemy":
+                Debug.Log("enemy");
                 if (immunityTimer > 0) break;
                 Enemy enemy = other.gameObject.GetComponent<AggressiveEnemy>();
                 if (enemy == null) break;
                 enemy.setHitCooldown(1f);
                 onHit(enemy.getDamage());
                 Vector3 dir = (transform.position - enemy.transform.position).normalized;
-                GetComponent<Rigidbody>().AddForce(dir * enemy.getKnockback() + transform.up*3, ForceMode.Impulse);
+                GetComponent<Rigidbody>().AddForce((dir * enemy.getKnockback() + transform.up * 3).normalized*enemy.getKnockback(), ForceMode.Impulse);
                 break;
             case "Item":
                 var item = other.GetComponent<Item>();
@@ -89,28 +104,38 @@ public class PlayerHealthView : MonoBehaviour
                 }
                 break;
         }
-		}
+	}
+
+    void onCollisionEnter(Collision other)
+    {
+        Debug.Log(other);
+        if (other.collider.tag == "Enemy")
+        {
+            if (immunityTimer > 0) return;
+            Enemy enemy = other.gameObject.GetComponent<AggressiveEnemy>();
+            Debug.Log(enemy);
+            if (enemy == null) return;
+            enemy.setHitCooldown(1f);
+            onHit(enemy.getDamage());
+            Vector3 dir = (transform.position - enemy.transform.position).normalized;
+            GetComponent<Rigidbody>().AddForce(dir * enemy.getKnockback() + transform.up * 3, ForceMode.Impulse);
+        }
+    }
+
+    //void onhit(GameObject obj)
+    //{
+    //    if (immunityTimer > 0) return;
+    //    Enemy enemy = obj.GetComponent<AggressiveEnemy>();
+    //    Debug.Log(enemy);
+    //    if (enemy == null) return;
+    //    enemy.setHitCooldown(1f);
+    //    onHit(enemy.getDamage());
+    //    Vector3 dir = (transform.position - enemy.transform.position).normalized;
+    //    GetComponent<Rigidbody>().AddForce(dir * enemy.getKnockback() + transform.up * 3, ForceMode.Impulse);
+    //}
     
     void Update()
     {
-      
-        // Place holder functionality to show the health bar movement  
-        if( Input.GetKeyDown( KeyCode.F) )
-        {
-            DamagePlayer(5);
-            Debug.Log("F key was pressed.");
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            HealPlayer(5);
-            Debug.Log("H key was pressed.");
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            inventory.craftSword();
-        }
-
         // Have hunger bar decrease in  value over time
         elapsed += Time.deltaTime;
         if (elapsed >= 2) 
@@ -129,11 +154,30 @@ public class PlayerHealthView : MonoBehaviour
           }
         updateDamage();
         history.updateStats(curHunger, curHealth);
+
+        if (starlightTimer == 0)
+        {
+            starlightTimer = 1f;
+            if (UnityEngine.Random.Range(0f, 1f) < starlightChance) inventory.AddItem(starlight, 1);
+        }
+
+        updateIcons();
+        
+
+    }
+
+    public void updateIcons()
+    {
+        if (invincibilityTimer > 0) invincibilityIcon.SetActive(true);
+        else invincibilityIcon.SetActive(false);
+        if (strengthTimer > 0) strengthIcon.SetActive(true);
+        else strengthIcon.SetActive(false);
     }
 
     // Player takes damage, looses health points
     public void DamagePlayer( int damage )
     {
+        if (invincibilityTimer > 0) return;
         curHealth -= damage;
         enforceHealthBounds();
 
@@ -168,8 +212,12 @@ public class PlayerHealthView : MonoBehaviour
         stunTimer = Math.Max(stunTimer - time, 0);
         recentHitTimer = Math.Max(recentHitTimer - time, 0);
         immunityTimer = Math.Max(immunityTimer - time, 0);
+        invincibilityTimer = Math.Max(invincibilityTimer - time, 0);
+        strengthTimer = Math.Max(strengthTimer - time, 0);
+        lightTimer = Math.Max(lightTimer - time, 0);
 
         recentHits = recentHitTimer == 0 ? 0 : recentHits;
+        starlightTimer = Math.Max(starlightTimer - time, 0);
     }
     //Ensure health/hunger is always between 0 and maxHealth/maxHunger
     public int enforceHealthBounds()
@@ -201,6 +249,24 @@ public class PlayerHealthView : MonoBehaviour
         return 0;
     }
 
+    public void activateBuff(string buff)
+    {
+        switch (buff)
+        {
+            case "Invincibility":
+                invincibilityTimer = 20;
+                break;
+            case "Strength":
+                strengthTimer = 15;
+                break;
+            case "Light":
+                lightTimer = 10;
+                break;
+            default:
+                break;
+        }
+    }
+
     // Player eats, gain hunger points
     public void Eat( int hunger )
     {
@@ -222,10 +288,12 @@ public class PlayerHealthView : MonoBehaviour
     }
     public int getDamage()
     {
+        if (strengthTimer > 0) return damage * 2;
         return damage;
     }
     public int getKnockback()
     {
+        if (strengthTimer > 0) return (int)(knockback*1.25f);
         return knockback;
     }
 

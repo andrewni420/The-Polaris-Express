@@ -14,16 +14,21 @@ public class DisplayInventory : MonoBehaviour
     private float width = 0.09f;
     private float height = 0.9f;
     private int numSlots = 10;
-    Dictionary<InventorySlot, GameObject> itemsDisplayed = new Dictionary<InventorySlot, GameObject>();
-    public TextMeshProUGUI craftPrompt;
+    Dictionary<InventorySlot, (GameObject display, int pos)> itemsDisplayed = new Dictionary<InventorySlot, (GameObject display, int pos)>();
+    Dictionary<InventorySlot, GameObject> materialsDisplayed = new Dictionary<InventorySlot, GameObject>();
     private bool crafting;
     public GameObject itemSelector;
     private int itemSelected = 0;
+    public PlayerHealthView playerStats;
+
+    public GameObject materials;
+    public string[] materialNames = { "Stick", "Grass", "Wheat", "Metal", "Spoiled Meat", "Rope" };
 
     // Start is called before the first frame update
     void Start()
     {
         CreateDisplay();
+        updateMaterials();
     }
 
     // Update is called once per frame
@@ -35,8 +40,21 @@ public class DisplayInventory : MonoBehaviour
         
     }
 
+    
+
+    public void updateMaterials()
+    {
+        foreach (string s in materialNames)
+        {
+            materials.transform.Find(s).GetComponentInChildren<TextMeshProUGUI>().text = inventory.getAmount(s).ToString();
+        }
+    }
+
+
     private void getKeyInput()
     {
+        if (Input.GetMouseButton(0)) Cursor.lockState = CursorLockMode.Locked;
+        if (Input.GetKey(KeyCode.Escape)) Cursor.lockState = CursorLockMode.None;
         if (inventory.isSuppressed()) return;
         if (Input.GetKeyDown(KeyCode.Alpha1)) setSelection(0);
         if (Input.GetKeyDown(KeyCode.Alpha2)) setSelection(1);
@@ -49,17 +67,32 @@ public class DisplayInventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9)) setSelection(8);
         if (Input.GetKeyDown(KeyCode.Alpha0)) setSelection(9);
 
-        if (Input.GetKeyDown(KeyCode.Mouse1)) useItem(itemSelected);
+        if (Input.GetKeyDown(KeyCode.Mouse1)) useItem(inventory.Container[itemSelected].item);
     }
 
     //--------------------
-    public void useItem(int item)
+    public void useItem(ItemObject item)
     {
-        
-    }
-    public void openCrafting()
-    {
-
+        if (item.type == ItemType.Food)
+        {
+            playerStats.Eat(((FoodObject)item).restoreHungerValue);
+            inventory.removeItem(item, 1);
+        }
+        switch (item.itemName)
+        {
+            case "Invincibility Potion":
+                playerStats.activateBuff("Invincibility");
+                break;
+            case "Strength Potion":
+                playerStats.activateBuff("Strength");
+                break;
+            case "Starlight Vial":
+                playerStats.activateBuff("Light");
+                break;
+            default:
+                break;
+        }
+        UpdateDisplay();
     }
     //---------------------
 
@@ -75,6 +108,12 @@ public class DisplayInventory : MonoBehaviour
         changeSelection(i - itemSelected);
     }
 
+    public ItemObject getSelection()
+    {
+        if (itemSelected >= inventory.Container.Count) return null;
+        return inventory.Container[itemSelected].item;
+    }
+
     public void CreateDisplay()
     {
         for (int i = 0; i < inventory.Container.Count; i++)
@@ -88,7 +127,15 @@ public class DisplayInventory : MonoBehaviour
         RectTransform rectTransform = obj.GetComponent<RectTransform>();
         setPosition(rectTransform, i);
         obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].amount.ToString("n0");
-        itemsDisplayed.Add(inventory.Container[i], obj);
+        itemsDisplayed.Add(inventory.Container[i], (obj,i));
+    }
+    public (GameObject obj, int i) createAndReturn(int i)
+    {
+        var obj = Instantiate(inventory.Container[i].item.InvPrefab, Vector3.zero, Quaternion.identity, transform);
+        RectTransform rectTransform = obj.GetComponent<RectTransform>();
+        setPosition(rectTransform, i);
+        obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].amount.ToString("n0");
+        return (obj, i);
     }
     private void setPosition(RectTransform rectTransform, int i, bool offset = true)
     {
@@ -107,7 +154,7 @@ public class DisplayInventory : MonoBehaviour
         {
             if (!inventory.Container.Contains(key))
             {
-                GameObject.Destroy(itemsDisplayed[key]);
+                GameObject.Destroy(itemsDisplayed[key].display);
                 toRemove.Add(key);
             }
         }
@@ -121,7 +168,13 @@ public class DisplayInventory : MonoBehaviour
         {
             if (itemsDisplayed.ContainsKey(inventory.Container[i]))
             {
-                itemsDisplayed[inventory.Container[i]].GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].amount.ToString("n0");
+                itemsDisplayed[inventory.Container[i]].display.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].amount.ToString("n0");
+                Debug.Log(inventory.Container[i].item.itemName);
+                if (i != itemsDisplayed[inventory.Container[i]].pos)
+                {
+                    setPosition(itemsDisplayed[inventory.Container[i]].display.GetComponent<RectTransform>(), i);
+                    itemsDisplayed[inventory.Container[i]] = (itemsDisplayed[inventory.Container[i]].display, i);
+                }
             }
             else
             {
@@ -129,19 +182,21 @@ public class DisplayInventory : MonoBehaviour
             }
         }
 
-        //Craft prompt
-        if (inventory.canCraftSword())
-        {
-            craftPrompt.text = "Press E to craft Sword";
-        }
-        else
-        {
-            craftPrompt.text = "";
-        }
+        ////Craft prompt
+        //if (inventory.canCraftSword())
+        //{
+        //    craftPrompt.text = "Press E to craft Sword";
+        //}
+        //else
+        //{
+        //    craftPrompt.text = "";
+        //}
 
         //Change item selected
         RectTransform rectTransform = itemSelector.GetComponent<RectTransform>();
         setPosition(rectTransform, itemSelected, false);
+
+        updateMaterials();
 
     }
 

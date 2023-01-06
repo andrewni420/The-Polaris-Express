@@ -16,5 +16,5 @@ MonoBehaviour:
   EnvPrefab: {fileID: 0}
   type: 0
   description: 
-  itemName: 
+  itemName: Strength Potion
   restoreHungerValue: 0

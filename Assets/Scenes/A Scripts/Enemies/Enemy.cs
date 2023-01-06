@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using System;
 
 public enum enemyState
@@ -8,7 +9,7 @@ public enum enemyState
     aggressive, passive, scared, none
 }
 
-public abstract class Enemy : MonoBehaviour, Damageable
+public abstract class Enemy : MonoBehaviour
 {
     
 
@@ -18,20 +19,25 @@ public abstract class Enemy : MonoBehaviour, Damageable
     public float maxRotSpeed = 1.0F;
     protected int health = 100;
     protected int maxHealth = 100;
-    protected int damage = 20;
-    protected int knockback = 5;
+    public int damage = 20;
+    public int knockback = 5;
     protected float hitCooldown = 0;
     public intelligence intLevel=intelligence.pos;
     protected Vector3 moveDirection;
     protected UnityEngine.AI.NavMeshAgent agent;
-    protected (float range, float angle, bool ignoreObstacles) FOV = (20f,90f,false);
+    protected (float range, float angle) FOV = (20f,90f);
     protected float renderDistance = 100f;
     protected enemyState state = enemyState.none;
     protected EnemyMovement movement;
+    public PlayerHealthView playerStats;
+    public Loot[] lootTable;
+    private Rigidbody rigidBody;
+    private bool movementSuppressed;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        rigidBody = gameObject.GetComponent<Rigidbody>();
         movement = new EnemyMovement(gameObject);
         trajectory = new EnemyTrajectory(this.gameObject,maxSpeed);
         moveDirection = transform.position;
@@ -61,8 +67,35 @@ public abstract class Enemy : MonoBehaviour, Damageable
 
         transform.Rotate(nextMove.rot);
         float distance = (transform.position - playerTrajectory[0]).magnitude;
-        if (distance > renderDistance) Destroy(gameObject);
+        if (distance > renderDistance)
+        {
+            Destroy(gameObject);
+        }
+        CorrectBaseHeight();
 
+
+        if (movementSuppressed)
+        {
+            agent.destination = transform.position;
+            moveDirection = transform.position;
+        }
+    }
+
+    public void setSuppressed(bool s) { movementSuppressed = s; }
+
+    private void CorrectBaseHeight()
+    {
+        NavMeshHit navhit;
+        if (NavMesh.SamplePosition(transform.position, out navhit, 4f, NavMesh.AllAreas))
+        {
+            Ray r = new Ray(navhit.position, Vector3.down);
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit, 5f, LayerMask.GetMask("ground")))
+            {
+                //Debug.Log(navhit.position);
+                agent.baseOffset = -hit.distance;
+            }
+        }
     }
 
     public int getHealth()
@@ -104,6 +137,10 @@ public abstract class Enemy : MonoBehaviour, Damageable
                 agent.Warp(position);
             }
         }
+        //if (collision.collider.tag == "Player")
+        //{
+        //    collision.gameObject.GetComponent
+        //}
     }
 
     public void setHitCooldown(float time)
@@ -119,8 +156,21 @@ public abstract class Enemy : MonoBehaviour, Damageable
     {
         if (health <= 0)
         {
-            Destroy(gameObject);
+
+            onDeath();
+            
         }
+    }
+
+    public void onDeath()
+    {
+        Debug.Log("dead");
+        foreach (Loot l in lootTable)
+        {
+            if (UnityEngine.Random.Range(0f, 1f) < l.chance) playerStats.inventory.AddItem(l.item, l.amount);
+        }
+        Destroy(gameObject);
+        
     }
 
     public int getDamage()
@@ -143,24 +193,21 @@ public abstract class Enemy : MonoBehaviour, Damageable
         PlayerHealthView player = collisionDetector.getPlayer().GetComponent<PlayerHealthView>();
         if (player == null) return;
         takeDamage(player.getDamage());
-        Vector3 dir = (transform.position - player.transform.position).normalized;
-        GetComponent<Rigidbody>().AddForce((dir * player.getKnockback() + transform.up * 3).normalized*player.getKnockback(), ForceMode.Impulse);
+        Vector3 dir = (transform.position - player.transform.position);
+        dir = new Vector3(dir.x, 0, dir.z);
+        dir = dir.normalized;
+        rigidBody.AddForce((dir * player.getKnockback() + Vector3.up * 3).normalized * player.getKnockback(), ForceMode.Impulse);
+        Debug.Log((dir * player.getKnockback() + Vector3.up * 3).normalized * player.getKnockback());
     }
     public bool canSee(Vector3 other)
     {
         Vector3 dir = other - transform.position;
+
         float angle = Vector3.Angle(transform.forward, dir);
         float distance = dir.magnitude;
         if (distance > FOV.range || angle > FOV.angle) return false;
-        if (FOV.ignoreObstacles) return true;
-
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, dir, out hit, FOV.range))
-        {
-            if (hit.collider.gameObject.tag != "Player") return false;
-        }
-
         return true;
+
 
     }
     public bool canSee(GameObject other)
@@ -180,4 +227,12 @@ public abstract class Enemy : MonoBehaviour, Damageable
     }
     public abstract void updateState(Vector3[] playerTrajectory);
     
+}
+
+[System.Serializable]
+public class Loot
+{
+    public ItemObject item;
+    public int amount;
+    public float chance;
 }

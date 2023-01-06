@@ -16,4 +16,4 @@ MonoBehaviour:
   EnvPrefab: {fileID: 0}
   type: 2
   description: 'A tuft of unusually long and fibrous grass. '
-  itemName: 
+  itemName: Grass

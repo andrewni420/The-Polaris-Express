@@ -38,7 +38,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7271519692402457815
 MeshFilter:
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: afb626637b6be41988cc773e121939b4, type: 2}
+  - {fileID: 2100000, guid: 15e5d9495ecb4dc488bb03aeec3313cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -201,5 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398a42b769c1143d8858892202c22562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAI: {fileID: 0}
+  playerPrediction: {fileID: 0}
+  maxRotSpeed: 1
   intLevel: 0
+  playerStats: {fileID: 0}
+  lootTable: []

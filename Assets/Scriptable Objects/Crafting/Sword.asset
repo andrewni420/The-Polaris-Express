@@ -18,9 +18,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cc928c0002d71427b9095cd42e50d823, type: 2}
   - {fileID: 11400000, guid: 04a18f0561d034649a92985bc394cc1a, type: 2}
   - {fileID: 11400000, guid: 9afda87432b734dc88e079d967af91ca, type: 2}
-  - {fileID: 11400000, guid: c998e728bea7c4750b7b87f3c6f7daf4, type: 2}
   - {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
-  numIngredients: 02000000010000000100000005000000
+  - {fileID: 11400000, guid: c998e728bea7c4750b7b87f3c6f7daf4, type: 2}
+  numIngredients: 0100000001000000010000000100000001000000
   result: {fileID: 11400000, guid: 5b3d64220bf71488bb6bb942ce5c721d, type: 2}
   numResult: 1
   description: Embrace the bonk

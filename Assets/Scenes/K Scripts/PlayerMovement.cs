@@ -47,6 +47,12 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
 
     public LevelGeneration levelGenerator;
+    public Camera mainCamera;
+    public GameObject tempCamPrefab;
+    public GameObject tempCam;
+    private GameObject starFollowed = null;
+    private bool movementSuppressed;
+
 
     float horizontalInput;
     float verticalInput;
@@ -59,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        starFollowed = null;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
@@ -66,6 +73,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (starFollowed)
+        {
+            if (!starFollowed.GetComponent<StarMovement>().inAnimation())
+            {
+                starFollowed = null;
+                unfollowStar();
+            }
+        }
+        if (movementSuppressed) return;
+
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, ground);
 
         MyInput();
@@ -101,12 +118,20 @@ public class PlayerMovement : MonoBehaviour
         {
             dodge(KeyCode.D);
         }
+
+        
     }
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (!movementSuppressed)
+        {
+            MovePlayer();
+        }
+            
     }
+
+    public void setSuppressed(bool s) { movementSuppressed = s; }
 
     private void MyInput()
     {
@@ -165,6 +190,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
+        Debug.Log(other.tag);
+        Debug.Log(other.gameObject.tag);
         switch (other.tag)
         {  
             case "End":
@@ -190,6 +217,11 @@ public class PlayerMovement : MonoBehaviour
                 gameManager.setGameArea(gameArea.first);
                 rb.transform.position = teleportToLand.transform.position;
                 // orientation.transform.position = teleportToCave.transform.position;
+                break;
+            case "Star2":
+                other.gameObject.GetComponent<StarMovement>().onTouch();
+                levelGenerator.updateGates();
+                followStar(other.gameObject);
                 break;
 	    }
     }
@@ -274,5 +306,18 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(new Vector3(0f, dodgeJumpForce / 2, 0f), ForceMode.Impulse);
         rb.AddForce(new Vector3(directionVector.x * force, directionVector.y * force, directionVector.z * force), ForceMode.Impulse);
         canDodge = false;
+    }
+
+    public void followStar(GameObject star)
+    {
+        mainCamera.GetComponent<Camera>().enabled = true;
+        tempCam = Instantiate(tempCamPrefab, mainCamera.transform.position, mainCamera.transform.rotation);
+        tempCam.GetComponent<FollowObject>().obj = star;
+        starFollowed = star;
+    }
+    public void unfollowStar()
+    {
+        mainCamera.GetComponent<Camera>().enabled = true;
+        Destroy(tempCam);
     }
 }
