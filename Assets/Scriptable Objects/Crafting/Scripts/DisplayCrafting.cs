@@ -14,7 +14,7 @@ public class DisplayCrafting : MonoBehaviour
     public List<RecipeBook> recipeBooks = new List<RecipeBook>();
     public List<Recipe> recipes = new List<Recipe>();
     private List<(Recipe recipe, int index, GameObject display)> recipesDisplayed = new List<(Recipe recipe, int index, GameObject display)>();
-    private List<bool> craftable = new List<bool>();
+    private bool[] craftable;
     private Dictionary<int, GameObject> uncraftables = new Dictionary<int, GameObject>();
     public GameObject uncraftableSelector;
     public Inventory inventory;
@@ -34,6 +34,8 @@ public class DisplayCrafting : MonoBehaviour
     void Start()
     {
         foreach (RecipeBook book in recipeBooks) readBook(book);
+        recipesDisplayed = new List<(Recipe recipe, int index, GameObject display)>();
+        craftable = new bool[recipes.Count];
     }
 
     // Start is called before the first frame update
@@ -122,7 +124,8 @@ public class DisplayCrafting : MonoBehaviour
 
     void createCraftable()
     {
-        foreach (Recipe r in recipes) craftable.Add(canCraft(r));
+
+        for (int i=0;i<recipes.Count;i++) craftable[i]=canCraft(recipes[i]);
     }
     bool canCraft(Recipe recipe)
     {
@@ -130,7 +133,7 @@ public class DisplayCrafting : MonoBehaviour
     }
     void updateCraftable()
     {
-        for (int i = 0; i < craftable.Count; i++)
+        for (int i = 0; i < craftable.Length; i++)
         {
             craftable[i] = canCraft(recipes[i]);
             if (craftable[i])
@@ -205,6 +208,7 @@ public class DisplayCrafting : MonoBehaviour
     }
     public void CreateDisplay()
     {
+        recipesDisplayed.Clear();
         for(int i = 0; i < maxRecipes; i++)
         {
             GameObject display = createRecipe(i, recipes[i]);

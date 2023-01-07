@@ -47,6 +47,7 @@ public class PlayerHealthView : MonoBehaviour
     public float invincibilityTimer = 0f;
     public float strengthTimer = 0f;
     public float lightTimer = 0;
+    public Spawner spawner;
 
     public GameObject strengthIcon;
     public GameObject invincibilityIcon;
@@ -177,12 +178,15 @@ public class PlayerHealthView : MonoBehaviour
         
         if (lightTimer > 0) 
         {
-            lightIcon.SetActive(true);
+            //lightIcon.SetActive(true);
             lightLight.SetActive(true);
+            spawner.setSuppressed(true);
         } else {
-            lightIcon.SetActive(false);
+            //lightIcon.SetActive(false);
             lightLight.SetActive(false);
+            spawner.setSuppressed(false);
         }
+
     }
 
     // Player takes damage, looses health points
@@ -273,7 +277,7 @@ public class PlayerHealthView : MonoBehaviour
                 strengthTimer = 15;
                 break;
             case "Light":
-                lightTimer = 10;
+                lightTimer = 5;
                 break;
             default:
                 break;

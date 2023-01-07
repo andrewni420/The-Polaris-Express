@@ -86,7 +86,7 @@ public class DisplayInventory : MonoBehaviour
             case "Strength Potion":
                 playerStats.activateBuff("Strength");
                 break;
-            case "Starlight Vial":
+            case "Vial of Starlight":
                 playerStats.activateBuff("Light");
                 break;
             default:

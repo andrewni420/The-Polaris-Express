@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 937317a3b6f87488fa93415dbc0edd28, type: 3}
+  m_Script: {fileID: 11500000, guid: ac3ab8a634772446abf8a45ee9d1f99c, type: 3}
   m_Name: Vial of Starlight
   m_EditorClassIdentifier: 
   InvPrefab: {fileID: 7827642233497851354, guid: 5a3de9b13bcde124a93ea249c0806d3d, type: 3}
   EnvPrefab: {fileID: 0}
-  type: 2
+  type: 0
   description: Concentrated starlight in a vial. It feels surprisingly heavy and
     pulses slightly, as if the slightest impact would shatter it.
   itemName: Vial of Starlight
+  restoreHungerValue: 0
