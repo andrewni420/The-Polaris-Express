@@ -190,8 +190,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log(other.tag);
-        Debug.Log(other.gameObject.tag);
+        // Debug.Log(other.tag);
+        // Debug.Log(other.gameObject.tag);
         switch (other.tag)
         {  
             case "End":
