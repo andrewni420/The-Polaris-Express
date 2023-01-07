@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject completeLevelUI;
 
-    public difficulty diff = difficulty.easy;//Presets
+    public  difficulty diff = difficulty.easy;
+
 
     public toughness enemyToughness = toughness.low;//modifier for health and damage
     public spawnRate spawnrate = spawnRate.low;//modifier for spawn cap and spawn chance
@@ -22,6 +23,20 @@ public class GameManager : MonoBehaviour
     public GameObject player;
 
     public (toughness t, spawnRate s, intelligence i, gameArea a) getSettings() { return (enemyToughness, spawnrate, intLevel, area);}
+    
+    void Awake()
+    {
+        SetDifficultyFromPlayerPrefs();
+ 
+    }
+
+    public void SetDifficultyFromPlayerPrefs()
+    {
+        string diffString = PlayerPrefs.GetString("difficulty", "easy");
+        Debug.Log(diffString);
+        diff = getDifficulty(diffString);
+    }
+
     public difficulty getDifficulty(string d)
     {
         switch (d)
@@ -30,6 +45,8 @@ public class GameManager : MonoBehaviour
                 return difficulty.peaceful;
             case "easy":
                 return difficulty.easy;
+                case "medium":
+                return difficulty.medium;
             case "hard":
                 return difficulty.hard;
             default:

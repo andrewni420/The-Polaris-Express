@@ -11,8 +11,9 @@ using UnityEngine.UI;
 public class DifficultyModes : MonoBehaviour
 {
 	public static string diff;
+	public difficulty gamval;
 
-	string[] diffTypes = {"peaceful", "easy", "hard"};
+	string[] diffTypes = {"peaceful", "easy", "medium", "hard"};
 
 	int val = 0; 
 
@@ -22,10 +23,10 @@ public class DifficultyModes : MonoBehaviour
 	public void StartGame()
     {  
     	diff = diffTypes[val];
-        Debug.Log(val);
-       
+        
+        PlayerPrefs.SetString("difficulty", diff);
 		SceneManager.LoadScene("Main");
-		
+
         
     }
 

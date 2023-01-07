@@ -14,4 +14,8 @@ public class ConfirmPanel : MonoBehaviour
     		panel.SetActive(true);
     	}
     }
+    public void ClosePanel(){
+    	panel.SetActive(false);
+
+    }
 }

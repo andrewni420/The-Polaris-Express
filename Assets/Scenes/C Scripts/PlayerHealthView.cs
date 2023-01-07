@@ -204,11 +204,11 @@ public class PlayerHealthView : MonoBehaviour
         
         if (lightTimer > 0) 
         {
-            //lightIcon.SetActive(true);
+            lightIcon.SetActive(true);
             lightLight.SetActive(true);
             spawner.setSuppressed(true);
         } else {
-            //lightIcon.SetActive(false);
+            lightIcon.SetActive(false);
             lightLight.SetActive(false);
             spawner.setSuppressed(false);
         }
