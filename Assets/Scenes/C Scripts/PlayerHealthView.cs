@@ -162,26 +162,29 @@ public class PlayerHealthView : MonoBehaviour
             SceneManager.LoadScene("LoseMenu");     
         }
 
-        runningTime = Mathf.Floor((dayTime.GetComponent<DayNight>().translateTime) * 24f);
-        curTime = runningTime % 24;
-
-        if (curTime == 0)
+        if (gameManager.area != gameArea.cave) 
         {
-            lastTimeSunDamage = 0;
-        }
+            runningTime = Mathf.Floor((dayTime.GetComponent<DayNight>().translateTime) * 24f);
+            curTime = runningTime % 24;
 
-        if ((11.0f < curTime) && (curTime < 17.0f))
-        {
-            if ((curTime == lastTimeSunDamage + 2) || (lastTimeSunDamage == 0))
+            if (curTime == 0)
             {
-                curHealth -= 5;
-                enforceHealthBounds();
-                healthBar.SetHealth(curHealth);
-                Debug.Log("Damage from Sun");
-                lastTimeSunDamage = curTime;
+                lastTimeSunDamage = 0;
+            }
+
+            if ((0.0f < curTime) && (curTime < 8.0f))
+            {
+                if ((curTime == lastTimeSunDamage + 1) || (lastTimeSunDamage == 0))
+                {
+                    curHealth -= 5;
+                    enforceHealthBounds();
+                    healthBar.SetHealth(curHealth);
+                    Debug.Log("Damage from Sun");
+                    lastTimeSunDamage = curTime;
+                }
             }
         }
-
+        
         updateDamage();
         history.updateStats(curHunger, curHealth);
 
