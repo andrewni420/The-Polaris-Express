@@ -25,8 +25,10 @@ At the moment, we have only been able to implement basic functionality. On a mou
 Day and Night Tutorials: 
 	https://www.youtube.com/watch?v=VZqqrNShOg0
 
-Terrain: https://www.youtube.com/watch?v=ddy12WHqt-M
+Terrain: 
+	https://www.youtube.com/watch?v=ddy12WHqt-M
 	https://www.youtube.com/watch?v=7xGYmR3CJ3Y
+	https://www.youtube.com/watch?v=MVeI9y6k8MU
 
 Health + Hunger Bars: 
 	Tutorials:
@@ -42,8 +44,9 @@ Player Movement & Melee Attacks Tutorials:
 	https://www.youtube.com/watch?v=Ew4l5RPltG8
 	https://www.youtube.com/watch?v=pRzb9qi8a8Q
 	
-Star Particles Tutorial:
+Particles Tutorials:
 	https://www.youtube.com/watch?v=-u2YKlMHoS4
+	https://www.youtube.com/watch?v=UllkvfMR96s
 
 Animation Tutorials:
 	https://www.youtube.com/watch?v=JVFg9g4f-ME
@@ -52,3 +55,9 @@ Animation Tutorials:
 Game Over/Win Game Screens/Triggers Tutorials:
 	https://www.youtube.com/watch?v=r5NWZoTSjWs
 	https://www.youtube.com/watch?v=VbZ9_C4-Qbo
+
+Blender Turotials:
+	https://blender.stackexchange.com/questions/160880/concave-square-with-straight-sides
+	https://www.youtube.com/watch?v=yPMzwfNBoN4&t=183s
+	https://www.youtube.com/watch?v=A98ZKOzmE1w
+	
