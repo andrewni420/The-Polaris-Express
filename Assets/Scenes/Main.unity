@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1929,11 +1929,16 @@ MonoBehaviour:
   inventory: {fileID: 11400000, guid: ad13b587eb7c744dea1cf8af80a49dd3, type: 2}
   starlight: {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
   lightLight: {fileID: 47041472158187309}
+  dayTime: {fileID: 777272274}
+  curTime: 0
+  lastTimeSunDamage: 0
+  runningTime: 0
   damage: 1
   knockback: 2
   invincibilityTimer: 0
   strengthTimer: 0
   lightTimer: 0
+  spawner: {fileID: 0}
   strengthIcon: {fileID: 428052236}
   invincibilityIcon: {fileID: 712981452}
   lightIcon: {fileID: 0}
@@ -2621,8 +2626,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTime: 0
-  dayLengthMin: 3
+  dayLengthMin: 0.2
   timeText: {fileID: 455081289}
+  translateTime: 0
 --- !u!1 &862688928
 GameObject:
   m_ObjectHideFlags: 0

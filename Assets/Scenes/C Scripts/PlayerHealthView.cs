@@ -41,6 +41,11 @@ public class PlayerHealthView : MonoBehaviour
 
     public GameObject lightLight;
 
+    public GameObject dayTime;
+    public float curTime;
+    public float lastTimeSunDamage;
+    public float runningTime;
+
     public int damage = 0;
     public int knockback = 0;
 
@@ -65,6 +70,7 @@ public class PlayerHealthView : MonoBehaviour
         hungerBar.SetMaxHunger(maxHunger);
         history.init(gameObject);
         inventory.Awake();
+        lastTimeSunDamage = dayTime.GetComponent<DayNight>().currentTime;
     }
 
     void OnTriggerStay(Collider other)
@@ -154,6 +160,26 @@ public class PlayerHealthView : MonoBehaviour
         {
             
             SceneManager.LoadScene("LoseMenu");     
+        }
+
+        runningTime = Mathf.Floor((dayTime.GetComponent<DayNight>().translateTime) * 24f);
+        curTime = runningTime % 24;
+
+        if (curTime == 0)
+        {
+            lastTimeSunDamage = 0;
+        }
+
+        if ((11.0f < curTime) && (curTime < 17.0f))
+        {
+            if ((curTime == lastTimeSunDamage + 2) || (lastTimeSunDamage == 0))
+            {
+                curHealth -= 5;
+                enforceHealthBounds();
+                healthBar.SetHealth(curHealth);
+                Debug.Log("Damage from Sun");
+                lastTimeSunDamage = curTime;
+            }
         }
 
         updateDamage();
