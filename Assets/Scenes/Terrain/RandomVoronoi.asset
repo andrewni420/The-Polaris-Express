@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8feddba5f710a4c9db08f7193eade76c, type: 3}
+  m_Name: RandomVoronoi
+  m_EditorClassIdentifier: 
+  points:
+  - {x: 0.31041652, y: 0.22353673}
+  - {x: 0.65173674, y: 0.715388}
+  - {x: 0.7091302, y: 0.2895772}
+  caveEntrances:
+  - {x: 0.3105658, y: 0.22961609}
+  - {x: 0.6438912, y: 0.6803609}
+  - {x: 0.69969654, y: 0.3003684}
+  gates:
+  - {x: 0.22691242, y: 0.64583963}
+  - {x: 0.7517985, y: 0.51210165}
+  - {x: -1, y: -1}
+  generatePoints: 1

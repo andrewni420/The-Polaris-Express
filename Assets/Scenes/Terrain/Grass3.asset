@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60291c20df4f043dc801e515f0b8c108, type: 3}
+  m_Name: Grass3
+  m_EditorClassIdentifier: 
+  terrains:
+  - {fileID: 11400000}
+  TerrainName: grass
+  vegetation:
+  - {fileID: 1029203982337709053, guid: 3ae189d0da7ee4045a30b0cbe91707fd, type: 3}
+  numTiles: 0
+  neighborRadius: 8
+  triangles: 
+  material: {fileID: 2100000, guid: ff74fbec2bd1b418899d3f9882ce2fef, type: 2}

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1845a29b3bb8f4e388010bb05a429db6, type: 3}
+  m_Name: Section2
+  m_EditorClassIdentifier: 
+  terrains:
+  - {fileID: 11400000, guid: 3035ce3cc9ed84dbcb1f34136d57861a, type: 2}
+  - {fileID: 11400000, guid: 89185897761ed4f7ba6395ace704caeb, type: 2}
+  - {fileID: 11400000, guid: 946f9e93cfd344bef92537b9f35ae97f, type: 2}
+  - {fileID: 11400000, guid: 2946cbfc0e5d948729fe65f66d54342c, type: 2}
+  _terrains:
+  - {fileID: 11400000, guid: e1913217b288b4094bbdb903fcee7964, type: 2}
+  - {fileID: 11400000, guid: 5b8b8cfb6e1814ab092c95180c06b1e6, type: 2}
+  - {fileID: 11400000, guid: c7fdb920cd08141768509b5ad25061b1, type: 2}
+  levels:
+  - 0.32
+  - 0.45
+  - 0.57
+  - 1
+  usePreset: 0
+  modifier: heat

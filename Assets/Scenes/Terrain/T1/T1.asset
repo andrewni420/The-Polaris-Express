@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1845a29b3bb8f4e388010bb05a429db6, type: 3}
+  m_Name: T1
+  m_EditorClassIdentifier: 
+  terrains:
+  - {fileID: 11400000, guid: 870bb2b05648c4aee81dab50e9eb7a73, type: 2}
+  - {fileID: 11400000, guid: 4f8bc32635059429cb249f2c8fc25410, type: 2}
+  - {fileID: 11400000, guid: 9139bb181f8cb4efb9c43e95ce990416, type: 2}
+  - {fileID: 11400000, guid: 7ff6af929151641cdbe56734e8a1c918, type: 2}
+  - {fileID: 11400000, guid: 6f10572360768405899702c5f82e5f74, type: 2}
+  - {fileID: 11400000, guid: 249c1c059d3c84df49f5bfac788f4a44, type: 2}
+  _terrains:
+  - {fileID: 11400000, guid: 15bbc06f5b91f4a5f87985fd9e582594, type: 2}
+  - {fileID: 11400000, guid: 6f10572360768405899702c5f82e5f74, type: 2}
+  - {fileID: 11400000, guid: 249c1c059d3c84df49f5bfac788f4a44, type: 2}
+  levels:
+  - 0.1
+  - 0.7
+  - 1
+  usePreset: 1
+  modifier: height
