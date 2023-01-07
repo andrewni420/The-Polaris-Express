@@ -16,7 +16,7 @@ public class WeaponControls : MonoBehaviour
     public bool isAttacking = false;
 
     [Header("Access Points Needed")]
-    public Inventory inventory;
+    public DisplayInventory inventory;
     public GameObject thePlayer;
     public WeaponControls weaponHolder;
 
@@ -38,7 +38,7 @@ public class WeaponControls : MonoBehaviour
 
     public void FixedUpdate()
     {
-        ItemObject weaponObject = inventory.Container[inventory.getSelection()].item;        
+        ItemObject weaponObject = inventory.getSelection();        
 
         if (weaponObject != null)
         {
