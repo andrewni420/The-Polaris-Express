@@ -14,17 +14,22 @@ public class TeleportToCave : MonoBehaviour
     {
         
         if(other.tag == "Player"){
-            if (!suppressTeleport)
-            {
-                if (TargetTransform) teleportTarget = TargetTransform.position;
-                thePlayer.transform.position = teleportTarget;
-            }
+            
         }
         //else
         //{
         //    thePlayer.transform.position = teleportTarget.transform.position;
         //}
        
+    }
+
+    public void teleport()
+    {
+        if (!suppressTeleport)
+        {
+            if (TargetTransform) teleportTarget = TargetTransform.position;
+            thePlayer.transform.position = teleportTarget;
+        }
     }
 
     void setSuppressed(bool s) { suppressTeleport = s; }

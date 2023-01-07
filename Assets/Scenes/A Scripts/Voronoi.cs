@@ -79,7 +79,7 @@ public class Voronoi : ScriptableObject
         for(int i=0;i<3;i++)
         {
             Vector2 r = Random.insideUnitCircle;
-            caveEntrances[i] = points[i] + 7f*r/levelSize;
+            caveEntrances[i] = points[i] + 8f*r/levelSize;
         }
     }
 

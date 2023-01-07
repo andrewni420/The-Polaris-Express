@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1359,7 +1359,7 @@ MonoBehaviour:
   CanAttack: 1
   AttackCooldown: 1
   isAttacking: 0
-  inventory: {fileID: 11400000, guid: ad13b587eb7c744dea1cf8af80a49dd3, type: 2}
+  inventory: {fileID: 0}
   thePlayer: {fileID: 520881712}
   weaponHolder: {fileID: 415074144}
   sword: {fileID: 6159087205744537799, guid: 197adbb1242608241bdd1b0f1a612c79, type: 3}
@@ -2640,7 +2640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!154 &862688929
 TerrainCollider:
   m_ObjectHideFlags: 0

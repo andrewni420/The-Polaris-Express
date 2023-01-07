@@ -15,6 +15,8 @@ public class Inventory : ScriptableObject
     private string craft;
     private bool update = false;
     private int itemSelected = 0;
+    public int numStars = 0;
+    public int maxStars = 99;
     private bool suppress = false;
     public ItemObject starlight;
 
@@ -27,10 +29,12 @@ public class Inventory : ScriptableObject
                 Container.Add(new InventorySlot(s.item, s.amount));
             }
             update = true;
+            numStars = defaultInv.numStars;
         }
         suppress = false;
     }
-
+    public int getNumStars() { return numStars; }
+    public int getMaxStars() { return maxStars; }
     public string getCraft() { return craft; }
     public void setCraft(string item) { craft = item; }
     public void AddItem(ItemObject item, int amount)
@@ -64,6 +68,12 @@ public class Inventory : ScriptableObject
 
     private bool stackItem(ItemObject item, int amount)
     {
+        update = true;
+        if (item.itemName=="Drop of Starlight")
+        {
+            numStars = (int)Mathf.Max(amount+numStars,maxStars);
+            return true;
+        }
         for (int i = 0; i < materials.Length; i++)
         {
             if (materials[i].hasItem(item))
@@ -80,11 +90,11 @@ public class Inventory : ScriptableObject
                 return true;
             }
         }
-        update = true;
         return false;
     }
     public bool hasItem(ItemObject item)
     {
+        if (item.itemName == "Drop of Starlight") return numStars > 0;
         foreach (InventorySlot s in materials)
         {
             if (s.hasItem(item)) return true;
@@ -97,6 +107,7 @@ public class Inventory : ScriptableObject
     }
     public bool hasItem(string itemName)
     {
+        if (itemName == "Drop of Starlight") return numStars > 0;
         foreach (InventorySlot s in materials)
         {
             if (s.hasItem(itemName)) return true;
@@ -109,6 +120,7 @@ public class Inventory : ScriptableObject
     }
     public bool hasItem(ItemObject item, int amount)
     {
+        if (item.itemName == "Drop of Starlight") return numStars >= amount;
         int invAmount = 0;
         foreach (InventorySlot slot in materials)
         {
@@ -122,6 +134,7 @@ public class Inventory : ScriptableObject
     }
     public bool hasItem(string itemName, int amount)
     {
+        if (itemName == "Drop of Starlight") return numStars >= amount;
         int invAmount = 0;
         foreach (InventorySlot slot in Container)
         {
@@ -161,11 +174,15 @@ public class Inventory : ScriptableObject
             }
         }
         update = true;
-        ensureCollector();
     }
     public bool removeItem(ItemObject item, int amount)
     {
         if (!hasItem(item, amount)) return false;
+        if (item.itemName=="Drop of Starlight")
+        {
+            numStars -= amount;
+            return true;
+        }
         for (int i = 0; i < materials.Length; i++)
         {
             if (materials[i].hasItem(item) && amount >= 0)
@@ -185,16 +202,16 @@ public class Inventory : ScriptableObject
                 else
                 {
                     amount -= Container[i].getAmount();
-                    if (item.name!="Drop of Starlight") Container.RemoveAt(i);
+                    Container.RemoveAt(i);
                 }
             }
         }
         update = true;
-        ensureCollector();
         return amount <= 0;
     }
     public int getAmount(string itemName)
     {
+        if (itemName == "Drop of Starlight") return numStars;
         int amount = 0;
         for (int i = 0; i < materials.Length; i++)
         {
@@ -208,16 +225,6 @@ public class Inventory : ScriptableObject
     }
     public bool isSuppressed() { return suppress; }
     public void setSuppressed(bool s) { suppress = s; }
-
-    public void ensureCollector()
-    {
-        foreach (InventorySlot slot in Container)
-        {
-            if (slot.hasItem("Drop of Starlight")) return;
-        }
-        AddItem(starlight,0);
-        update = true;
-    }
 }
 
 [System.Serializable]

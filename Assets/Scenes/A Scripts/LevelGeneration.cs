@@ -55,6 +55,7 @@ public class LevelGeneration : MonoBehaviour {
 		surface.BuildNavMesh();
 
 		makeStars();
+		makeTeleports();
 
 	}
 
@@ -176,12 +177,15 @@ public class LevelGeneration : MonoBehaviour {
 	{
 		for (int i=0;i<voronoiDiagram.caveEntrances.Length;i++)
 		{
-			GameObject obj = Instantiate(entrancePrefab, findPosition(voronoiDiagram.points[i], new Vector3()), Quaternion.identity);
+			Vector2 dir = voronoiDiagram.caveEntrances[i] - voronoiDiagram.points[i];
+			Vector2 pos = voronoiDiagram.points[i] + dir / 5;
+			GameObject obj = Instantiate(entrancePrefab, findPosition(pos, new Vector3()), Quaternion.identity);
+			Debug.Log(findPosition(voronoiDiagram.points[i], new Vector3()));
 			TeleportToCave t = obj.GetComponent<TeleportToCave>();
 			t.TargetTransform = teleportTargets[i];
 			t.thePlayer = player;
 
-			teleports[i].teleportTarget = findPosition(voronoiDiagram.caveEntrances[i], new Vector3());
+			teleports[i].teleportTarget = findPosition(voronoiDiagram.caveEntrances[i]+dir/5, new Vector3());
 		}
 	}
 
@@ -215,7 +219,7 @@ public class LevelGeneration : MonoBehaviour {
 	public Vector3 findPosition(Vector2 pos, Vector3 offset)
     {
 		(float z, float x) size = levelCoordSize();
-		Vector3 position = new Vector3(pos.y * size.x, groundMountainRatio*heightMultiplier+1, pos.x * size.z);
+		Vector3 position = new Vector3(pos.y * size.x, heightMultiplier+1, pos.x * size.z);
 		Vector3 projected;
 		if (data.project(position, out projected))
         {

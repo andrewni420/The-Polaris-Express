@@ -209,13 +209,15 @@ public class PlayerMovement : MonoBehaviour
             case "Teleport":
                 Debug.Log("Player ran into a teleport");
                 gameManager.setGameArea(gameArea.cave);
-                rb.transform.position = teleportToCave.transform.position;
+                other.GetComponent<TeleportToCave>().teleport();
+                //rb.transform.position = teleportToCave.transform.position;
                 // orientation.transform.position = teleportToCave.transform.position;
                 break;
             case "TeleportMain":
                 Debug.Log("Player ran into a teleport");
                 gameManager.setGameArea(gameArea.first);
-                rb.transform.position = teleportToLand.transform.position;
+                other.GetComponent<TeleportToCave>().teleport();
+                //rb.transform.position = teleportToLand.transform.position;
                 // orientation.transform.position = teleportToCave.transform.position;
                 break;
             case "Star2":

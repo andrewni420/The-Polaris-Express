@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6327130098164224579}
   - component: {fileID: 6327130098164224576}
   - component: {fileID: 6327130098164224577}
-  - component: {fileID: 6327130098164224582}
   - component: {fileID: 6327130098164224583}
+  - component: {fileID: 5764318139016503946}
   m_Layer: 8
   m_Name: TeleportationSpotToCave
   m_TagString: Teleport
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 35
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &6327130098164224576
 MeshFilter:
@@ -85,20 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6327130098164224582
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6327130098164224580}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 1.0000002
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6327130098164224583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,5 +97,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c44387a8356a453c829f2c6fecc4f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportTarget: {fileID: 0}
+  TargetTransform: {fileID: 0}
+  teleportTarget: {x: 0, y: 0, z: 0}
   thePlayer: {fileID: 0}
+  suppressTeleport: 0
+--- !u!65 &5764318139016503946
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327130098164224580}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
