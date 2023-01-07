@@ -8,6 +8,10 @@ public class StarFillAmount : MonoBehaviour
     // The Image component to set the fill amount of
     public Image fillImage;
 
+    //Declare public inventory variable 
+    public Inventory inventory;
+
+
     // The current number of stars
     public int starCount;
 
@@ -16,6 +20,10 @@ public class StarFillAmount : MonoBehaviour
 
     void Update()
     {
+         // Get the star count and max stars from the inventory
+        starCount = inventory.getNumStars();
+        maxStars = inventory.getMaxStars();
+
         // Calculate the fill amount as a value between 0 and 1
         float fillAmount = (float)starCount / (float)maxStars;
 
