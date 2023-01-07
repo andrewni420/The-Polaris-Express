@@ -1,5 +1,5 @@
 # game
-QMUL ECS657U: Multu-Platform Game Development Project
+QMUL ECS657U: Multi-Platform Game Development Project
 
 Members: Clara Lyra, Kelly McGuigan, Andrew Ni, Emma Schwartz
 
