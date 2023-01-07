@@ -39,6 +39,8 @@ public class PlayerHealthView : MonoBehaviour
     //Should be low to encourage killing enemies
     private float starlightChance = 0.1f;
 
+    public GameObject lightLight;
+
     public int damage = 0;
     public int knockback = 0;
 
@@ -48,12 +50,11 @@ public class PlayerHealthView : MonoBehaviour
 
     public GameObject strengthIcon;
     public GameObject invincibilityIcon;
+    public GameObject lightIcon;
 
 
     void Start()
     {
-
-
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     
@@ -148,10 +149,12 @@ public class PlayerHealthView : MonoBehaviour
 
         updateTimers(Time.deltaTime);
 
-        if ((curHealth == 0) || (curHunger == 0)){
+        if ((curHealth == 0) || (curHunger == 0))
+        {
             
             SceneManager.LoadScene("LoseMenu");     
-          }
+        }
+
         updateDamage();
         history.updateStats(curHunger, curHealth);
 
@@ -161,17 +164,25 @@ public class PlayerHealthView : MonoBehaviour
             if (UnityEngine.Random.Range(0f, 1f) < starlightChance) inventory.AddItem(starlight, 1);
         }
 
-        updateIcons();
-        
-
+        updateIcons();  
     }
 
     public void updateIcons()
     {
         if (invincibilityTimer > 0) invincibilityIcon.SetActive(true);
         else invincibilityIcon.SetActive(false);
+        
         if (strengthTimer > 0) strengthIcon.SetActive(true);
         else strengthIcon.SetActive(false);
+        
+        if (lightTimer > 0) 
+        {
+            lightIcon.SetActive(true);
+            lightLight.SetActive(true);
+        } else {
+            lightIcon.SetActive(false);
+            lightLight.SetActive(false);
+        }
     }
 
     // Player takes damage, looses health points
@@ -219,6 +230,7 @@ public class PlayerHealthView : MonoBehaviour
         recentHits = recentHitTimer == 0 ? 0 : recentHits;
         starlightTimer = Math.Max(starlightTimer - time, 0);
     }
+    
     //Ensure health/hunger is always between 0 and maxHealth/maxHunger
     public int enforceHealthBounds()
     {
@@ -234,6 +246,7 @@ public class PlayerHealthView : MonoBehaviour
         }
         return 0;
     }
+
     public int enforceHungerBounds()
     {
         if (curHunger > maxHunger)
@@ -268,7 +281,7 @@ public class PlayerHealthView : MonoBehaviour
     }
 
     // Player eats, gain hunger points
-    public void Eat( int hunger )
+    public void Eat(int hunger)
     {
         curHunger += hunger;
         enforceHungerBounds();
@@ -281,16 +294,19 @@ public class PlayerHealthView : MonoBehaviour
     {
         inventory.Container.Clear();
     }
+
     private void updateDamage()
     {
         damage = inventory.getDamage();
         knockback = inventory.getKnockback();
     }
+    
     public int getDamage()
     {
         if (strengthTimer > 0) return damage * 2;
         return damage;
     }
+
     public int getKnockback()
     {
         if (strengthTimer > 0) return (int)(knockback*1.25f);
