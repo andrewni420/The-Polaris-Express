@@ -27,7 +27,6 @@ public class WeaponControls : MonoBehaviour
 
     public void Start()
     {
-        Debug.Log("Weapon changed to Cylinder");
         weapon = Instantiate(cylinder, new Vector3(((transform.position.x)-3),((transform.position.y)), ((transform.position.z))-2), Quaternion.identity);
         weapon.transform.parent = gameObject.transform;
         // weapon = Instantiate(cylinder);
@@ -43,27 +42,8 @@ public class WeaponControls : MonoBehaviour
         if (weaponObject != null)
         {
             string weaponName = weaponObject.itemName;
-            Debug.Log(weaponName + " is the item selected");
             string currentWeapon = weapon.name;
-            
-            // if ((weaponName.Equals("Sword")) && (!(currentWeapon.Equals("Sword(Clone)"))))
-            // {
-            //     Debug.Log("Weapon changed to Sword");
-            //     weapon = Instantiate(sword, new Vector3(transform.position.x,transform.position.y, transform.position.z), Quaternion.identity);
-            //     weapon.transform.parent = gameObject.transform;
-            //     weapon.GetComponent<CollisionDetector>().wc = weaponHolder;
-            //     weapon.GetComponent<CollisionDetector>().player = thePlayer;
-            // }
-            
-            // if ((weaponName.Equals("Dagger")) && (!(currentWeapon.Equals("Dagger(Clone)"))))
-            // {
-            //     Debug.Log("Weapon changed to Dagger");
-            //     weapon = Instantiate(dagger, new Vector3(transform.position.x,transform.position.y, transform.position.z), Quaternion.identity);
-            //     weapon.transform.parent = gameObject.transform;
-            //     // makeChanges(weapon);
-            //     weapon.GetComponent<CollisionDetector>().wc = weaponHolder;
-            //     weapon.GetComponent<CollisionDetector>().player = thePlayer;
-            // }
+
             if ((weaponName.Equals("Sword")) || (weaponName.Equals("Dagger")))
             {
                 switch (weaponName)
@@ -76,7 +56,7 @@ public class WeaponControls : MonoBehaviour
                             weapon.transform.parent = gameObject.transform;
                             weapon.GetComponent<CollisionDetector>().wc = weaponHolder;
                             weapon.GetComponent<CollisionDetector>().player = thePlayer;
-                            Debug.Log("Weapon changed to Sword");
+        
                         }
                         // makeChanges(weapon);
                         break;
@@ -85,7 +65,7 @@ public class WeaponControls : MonoBehaviour
                         if (currentWeapon.Equals("Dagger(Clone)"))              
                         {
                             Destroy(weapon);
-                            Debug.Log("Weapon changed to Dagger");
+       
                             weapon = Instantiate(dagger, new Vector3(transform.position.x,transform.position.y, transform.position.z), Quaternion.identity);
                             weapon.transform.parent = gameObject.transform;
                             // makeChanges(weapon);
@@ -108,7 +88,6 @@ public class WeaponControls : MonoBehaviour
         {
             if (CanAttack)
             {
-                Debug.Log("Weapon Swung");
                 attack();
             }
         }

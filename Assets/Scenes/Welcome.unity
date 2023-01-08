@@ -1354,7 +1354,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.00009117633}
-  m_SizeDelta: {x: 0, y: 851.6714}
+  m_SizeDelta: {x: 0, y: 1069.2654}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &612063667
 GameObject:
@@ -8996,7 +8996,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 222}
+  m_AnchoredPosition: {x: 0, y: 366.13}
   m_SizeDelta: {x: 792.92, y: 337.0146}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1747117044
@@ -9019,37 +9019,24 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '-Use WASD to move around
-
-    -Move camera around with mouse
-
-    -E opens
-    inventory
-
-    -Left-Click swings your sword
-
-    -TAB pauses
-
-    -Left shift
-    for sprint
-
-    -Double tap direction key to strafe
-
-    -Inventory slots correspond
-    to different numbers on keyboard
-
-    -Space is jump
-
-
-    As you explore the
-    world of The Polaris Express, you''ll be able to keep track of your progress
-    in a number of ways. The upper right corner of the screen will display your health
-    and hunger bars, as well as any active buffs you may have. Your inventory will
-    be available to you during gameplay, and in the right corner of the screen you''ll
-    find a counter that measures how many stars you have collected. These features
-    will be essential as you navigate the treacherous landscape and fight for your
-    survival. Stay vigilant and stay determined, and you just might find the holy
-    grail and achieve salvation.'
+  m_text: "-\tUse WASD to move around\n-\tMove camera around with mouse\n-\tE opens
+    inventory\n-\tLeft-Click swings your sword\n-\tTAB pauses\n-\tLeft shift for
+    sprint\n-\tDouble tap direction key to strafe\n-\tInventory slots correspond
+    to different numbers on keyboard\n-\tSpace is jump\n-\tEnter/exit caves using
+    blue teleporters.\n\nThe player will take damage during the day. Enter caves
+    to refill health and escape the daytime. Move towards rotating cube \u201Cstars\u201D
+    to animate them. Collected stars will form a line in the sky between the cave
+    entrance and the next section. Once all three stars are collected, the gate will
+    be unlocked. Collect resources by picking up items and defeating enemies Starlight
+    is required for all recipes. Fill up your starlight meter by defeating enemies.
+    It will also refill over time during the night.\n\nAs you explore the world of
+    The Polaris Express, you'll be able to keep track of your progress in a number
+    of ways. The upper right corner of the screen will display your health and hunger
+    bars, as well as any active buffs you may have. Your inventory will be available
+    to you during gameplay, and in the right corner of the screen you'll find a counter
+    that measures how many stars you have collected. These features will be essential
+    as you navigate the treacherous landscape and fight for your survival. Stay vigilant
+    and stay determined, and you just might find the holy grail and achieve salvation.\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 671adfdd815774fa79f7a26b4edf146f, type: 2}
   m_sharedMaterial: {fileID: -645330385886479913, guid: 671adfdd815774fa79f7a26b4edf146f, type: 2}

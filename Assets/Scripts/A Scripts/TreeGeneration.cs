@@ -71,7 +71,6 @@ public class TreeGeneration : MonoBehaviour
                         Vector3 vegPos;
                         if (levelData.project(new Vector3(xIndex*distPerTree, maxHeight+0.5f, zIndex*distPerTree), out vegPos))
                         {
-                            Debug.Log("veg");
                             GameObject primaryVeg = Instantiate(terrainType.vegetation[0], vegPos, Quaternion.identity, transform) as GameObject;
                             primaryVeg.transform.localScale = new Vector3(4, 4, 4);
 

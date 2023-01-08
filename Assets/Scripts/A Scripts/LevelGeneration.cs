@@ -203,7 +203,6 @@ public class LevelGeneration : MonoBehaviour {
 			Vector2 dir = voronoiDiagram.caveEntrances[i] - voronoiDiagram.points[i];
 			Vector2 pos = voronoiDiagram.points[i] + dir.normalized*5/tileXSize/mapWidthInTiles;
 			GameObject obj = Instantiate(entrancePrefab, findPosition(pos, new Vector3()), Quaternion.identity);
-			Debug.Log(findPosition(voronoiDiagram.points[i], new Vector3()));
 			TeleportToCave t = obj.GetComponent<TeleportToCave>();
 			t.TargetTransform = teleportTargets[i];
 			t.thePlayer = player;
@@ -254,7 +253,6 @@ public class LevelGeneration : MonoBehaviour {
         {
 			return projected+offset;
         }
-		Debug.Log(("projection not found", position));
 		return new Vector3();
     }
 

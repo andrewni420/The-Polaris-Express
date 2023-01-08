@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     public void SetDifficultyFromPlayerPrefs()
     {
         string diffString = PlayerPrefs.GetString("difficulty", "easy");
-        Debug.Log(diffString);
         diff = getDifficulty(diffString);
     }
 
