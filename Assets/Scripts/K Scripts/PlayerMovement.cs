@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 // Resource: https://www.youtube.com/watch?v=f473C43s8nE
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
     public PlayerHistory history;
     public GameManager gameManager;
+
 
     [Header("Sprinting")]
     public float sprintSpeed;
@@ -235,11 +237,11 @@ public class PlayerMovement : MonoBehaviour
             case "End":
                 FindObjectOfType<GameManager>().GameOver();
                 break;
-            case "Win":
-                Cursor.lockState = CursorLockMode.None;
-                Debug.Log(Cursor.lockState.ToString());
-                FindObjectOfType<GameManager>().WinGame();
-                break;
+            //case "Win":
+            //    Cursor.lockState = CursorLockMode.None;
+            //    Debug.Log(Cursor.lockState.ToString());
+            //    FindObjectOfType<GameManager>().WinGame();
+            //    break;
             case "Star":
                 Debug.Log("Player ran into a star");
                 other.GetComponent<Animator>().SetTrigger("Fly");
@@ -265,7 +267,11 @@ public class PlayerMovement : MonoBehaviour
                 levelGenerator.updateGates();
                 followStar(other.gameObject);
                 break;
-	    }
+            case "Win":
+                Cursor.lockState = CursorLockMode.None;
+                SceneManager.LoadScene("Win Menu");
+                break;
+        }
     }
 
     public gameArea getArea()

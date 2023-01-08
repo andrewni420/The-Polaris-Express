@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.AI.Navigation;
 
+//Parts adapted from Game Dev Academy https://gamedevacademy.org/complete-guide-to-procedural-level-generation-in-unity-part-1/
+//Parts adapted from Catlike Coding https://catlikecoding.com/unity/tutorials/procedural-grid/
 public class LevelGeneration : MonoBehaviour {
 
 	[SerializeField]
@@ -31,6 +33,7 @@ public class LevelGeneration : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject gatePrefab;
+	public GameObject winbox;
 
 	public float mtnThickness = 10;
 
@@ -110,10 +113,12 @@ public class LevelGeneration : MonoBehaviour {
 		//if (zdist < 0.4 && xdist < 0.4) return gmr * noise;
 
 		//Use L-infinity norm to make equidistant surfaces in the shape of squares
-		//Linear function to go from 0 at 0.40 to 1 at 0.47 and back down.
+		//Linear function to go from 0 at 0.40 to 1 at 0.46 and back down.
 		//Positioning max at 0.46 prevents an awkward patch of 0 height terrain at edge of world;
 		float offset = mtn * 6 / 5;
 		float s = (offset - Mathf.Abs(0.5f-4*mtn/5 - Mathf.Max(zdist, xdist))) / offset;
+
+		if (Vector2.Distance(new Vector2(z, x), voronoiDiagram.endLocation) < offset) return 0;
 
 		//Exponential function to slowly transition from 0 to 0.6 prevents "ground level" biomes from going too high on the mountains
 		//Linearly increase amplitude of noise to smoothly transition into mountain peaks
@@ -163,7 +168,7 @@ public class LevelGeneration : MonoBehaviour {
 		foreach (Bisector b in voronoiDiagram.bisectors)
 		{
 			Vector3 pos = new Vector3(b.fogGate.y * levelSize,heightMultiplier/3, b.fogGate.x * levelSize);
-			Vector3 dir = (b.start - b.end).normalized;
+			Vector2 dir = (b.start - b.end).normalized;
 
 			GameObject obj = Instantiate(gatePrefab, pos, Quaternion.LookRotation(new Vector3(dir.x, 0,-dir.y)));
 
@@ -175,7 +180,21 @@ public class LevelGeneration : MonoBehaviour {
 			b.gateObject = obj;
 
 		}
+
+		Vector3 p = new Vector3(voronoiDiagram.endLocation.y * levelSize, heightMultiplier / 3, voronoiDiagram.endLocation.x * levelSize);
+		Vector2 di = voronoiDiagram.getDir(voronoiDiagram.endLocation);
+
+		GameObject o = Instantiate(gatePrefab, p, Quaternion.LookRotation(new Vector3(di.x, 0, -di.y)));
+
+		float w = mtnThickness * distPerVertex * 2;
+		float h = heightMultiplier * 2 / 3;
+		float d = w / 5;
+		o.transform.localScale = new Vector3(w, h, d);
+
+		voronoiDiagram.endGate = o;
 	}
+
+
 
 	public void makeTeleports()
 	{
@@ -262,7 +281,23 @@ public class LevelGeneration : MonoBehaviour {
     {
 		if (checkStars(0) && voronoiDiagram.bisectors[0].gateObject) Destroy(voronoiDiagram.bisectors[0].gateObject);
 		if (checkStars(1) && voronoiDiagram.bisectors[1].gateObject) Destroy(voronoiDiagram.bisectors[1].gateObject);
-		if (checkStars(2) && voronoiDiagram.bisectors[2].gateObject) Destroy(voronoiDiagram.bisectors[2].gateObject);
+		if (checkStars(2) && voronoiDiagram.endGate)
+		{
+			Destroy(voronoiDiagram.endGate);
+			float levelSize = mapDepthInTiles * tileZSize * distPerVertex;
+			Vector3 p = new Vector3(voronoiDiagram.endLocation.y * levelSize, heightMultiplier / 3, voronoiDiagram.endLocation.x * levelSize);
+			Vector2 di = voronoiDiagram.getDir(voronoiDiagram.endLocation);
+
+			GameObject o = Instantiate(winbox, p, Quaternion.LookRotation(new Vector3(di.x, 0, -di.y)));
+
+			float w = mtnThickness * distPerVertex * 2;
+			float h = heightMultiplier * 2 / 3;
+			float d = w / 5;
+			o.transform.localScale = new Vector3(w, h, d);
+
+			voronoiDiagram.endGate = o;
+		}
+		
 	}
 
 }

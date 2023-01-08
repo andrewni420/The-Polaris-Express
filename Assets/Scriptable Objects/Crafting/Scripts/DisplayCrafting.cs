@@ -5,7 +5,7 @@ using TMPro;
 using System;
 
 public class DisplayCrafting : MonoBehaviour
-{//Crashes when you press arrow too many times while changing recipesDisplayed
+{
     public GameObject menuPrefab;
     private (GameObject menu, GameObject selector, GameObject materials) objects = (null,null,null);
     private (GameObject left, GameObject right) menu = (null,null);
@@ -25,12 +25,7 @@ public class DisplayCrafting : MonoBehaviour
 
     public Spawner spawner;
     public PlayerMovement playerMovement;
-    //top left
-    //Need to select recipe using up/down/key, outline its display
-    //All recipes go in well defined areas, so which one is highlighted just draw a lil box around it.
-    //Ingredients will show in the right side of the book
-    //Need to grey out uncraftable recipes
-    //Need to craft recipe upon enter
+
     void Start()
     {
         foreach (RecipeBook book in recipeBooks) readBook(book);

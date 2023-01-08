@@ -222,7 +222,7 @@ public class Spawner : MonoBehaviour
     }
 
     //Attempt to find nearest point on navmesh
-    bool projectNavMesh(Vector3 point, out Vector3 projected)
+    public bool projectNavMesh(Vector3 point, out Vector3 projected)
     {
         projected = point;
         UnityEngine.AI.NavMeshHit hit;
@@ -296,6 +296,7 @@ public class Spawner : MonoBehaviour
                 enemyScript.setInt(settings.i);
                 enemyScript.playerPrediction = this.playerPrediction;
                 enemyScript.playerStats = player.GetComponent<PlayerHealthView>();
+                enemyScript.spawner = this;
 
                 //Add to list
                 Enemies.Add(enemy);

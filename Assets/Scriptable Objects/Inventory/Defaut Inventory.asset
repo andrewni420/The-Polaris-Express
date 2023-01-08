@@ -13,14 +13,20 @@ MonoBehaviour:
   m_Name: Defaut Inventory
   m_EditorClassIdentifier: 
   defaultInv: {fileID: 0}
-  Container:
-  - item: {fileID: 11400000, guid: c998e728bea7c4750b7b87f3c6f7daf4, type: 2}
-    amount: 20
-  - item: {fileID: 11400000, guid: 681699cf42c934fc4a0d00ea0a499660, type: 2}
-    amount: 20
-  - item: {fileID: 11400000, guid: 5b3d64220bf71488bb6bb942ce5c721d, type: 2}
-    amount: 20
-  materials: []
+  Container: []
+  materials:
+  - item: {fileID: 11400000, guid: 04a18f0561d034649a92985bc394cc1a, type: 2}
+    amount: 0
+  - item: {fileID: 11400000, guid: 9a2120d02682b4af0a470efa05c35b95, type: 2}
+    amount: 0
+  - item: {fileID: 11400000, guid: 71c3853e78913414693b3c795065be4a, type: 2}
+    amount: 0
+  - item: {fileID: 11400000, guid: cc928c0002d71427b9095cd42e50d823, type: 2}
+    amount: 0
+  - item: {fileID: 11400000, guid: 16fba3220c4064359bc4cafa2e72c04d, type: 2}
+    amount: 0
+  - item: {fileID: 11400000, guid: 9afda87432b734dc88e079d967af91ca, type: 2}
+    amount: 0
   numStars: 0
   maxStars: 99
   starlight: {fileID: 0}

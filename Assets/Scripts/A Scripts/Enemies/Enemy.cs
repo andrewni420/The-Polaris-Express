@@ -33,6 +33,7 @@ public abstract class Enemy : MonoBehaviour
     public Loot[] lootTable;
     private Rigidbody rigidBody;
     private bool movementSuppressed;
+    public Spawner spawner;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -49,6 +50,7 @@ public abstract class Enemy : MonoBehaviour
     {
         
     }
+  
     void FixedUpdate()
     {
         trajectory.update();
@@ -57,11 +59,17 @@ public abstract class Enemy : MonoBehaviour
 
  
         (Vector3 dir,Vector3 rot) nextMove = movement.getNextMove(state,playerTrajectory);
-        if (nextMove.dir != moveDirection)
+        Vector3 dir;
+        if (spawner.projectNavMesh(nextMove.dir, out dir))
         {
-            agent.destination = hitCooldown == 0 ? nextMove.dir : transform.position;
-            moveDirection = agent.destination;
+            Debug.Log("projected");
+            if (dir != moveDirection)
+            {
+                agent.destination = hitCooldown == 0 ? dir : transform.position;
+                moveDirection = agent.destination;
+            }
         }
+        
 
         hitCooldown = Math.Max(hitCooldown - Time.fixedDeltaTime, 0);
 

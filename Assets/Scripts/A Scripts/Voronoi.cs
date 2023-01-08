@@ -37,6 +37,7 @@ public class Voronoi : ScriptableObject
     public Vector2[][] starLocations;
     public Vector2[][] starDestinations;
     public Vector2 endLocation;
+    public GameObject endGate;
     public Vector2 startLocation;
 
     public void setParams(float mtnThickness, float gmr, function f, int levelSize, int seed)
@@ -285,6 +286,7 @@ public class Voronoi : ScriptableObject
         {
             if (Vector2.Distance(b.fogGate, pos) < mtn) return 0;
         }
+        if (Vector2.Distance(pos, endLocation) < mtn * 6 / 5) return 0;
 
 
         //Find closest edge
@@ -340,7 +342,7 @@ public class Voronoi : ScriptableObject
             //minDist goes from 0 at the edge of the hill to 1 at the center
             minDist = (cr - minDist) / cr;
             //shape minDist to go to 0.9 early and slowly increase to 1
-            minDist = Mathf.Min(minDist * 9 / 6, minDist / 4f + 0.75f);
+            minDist = Mathf.Min(minDist * 8 / 6, minDist / 2f + 0.5f);
 
             //d = 2 * Mathf.Min(d, 0.75f);
 
@@ -468,7 +470,7 @@ public class Voronoi : ScriptableObject
 
     public Vector2 chooseEndLocation()
     {
-        float mtn = 2*mtnThickness / levelSize;
+        float mtn = mtnThickness / levelSize*4/5;
         loopCounter += 1;
         if (loopCounter > 100)
         {
@@ -511,6 +513,13 @@ public class Voronoi : ScriptableObject
             dist = Mathf.Min(dist, Vector2.Distance(p, pos));
         }
         return dist;
+    }
+
+    public Vector2 getDir(Vector2 pos)
+    {
+        float mtn = mtnThickness / levelSize * 4 / 5;
+        if (pos.x == mtn|| pos.x==1-mtn) return new Vector2(0, 1);
+        return new Vector2(1, 0);
     }
 
 }
