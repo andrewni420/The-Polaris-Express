@@ -12,8 +12,8 @@ public class PauseGameScript : MonoBehaviour
 
     void Update()
     {
-        // Check if the "P" key is pressed
-        if (Input.GetKeyDown(KeyCode.P))
+        // Check if the "KeyCode.Tab" key is pressed
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             // Toggle the pause panel
             if (pausePanel.activeSelf)

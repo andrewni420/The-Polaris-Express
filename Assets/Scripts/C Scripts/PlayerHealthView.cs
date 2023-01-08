@@ -134,18 +134,6 @@ public class PlayerHealthView : MonoBehaviour
             GetComponent<Rigidbody>().AddForce(dir * enemy.getKnockback() + transform.up * 3, ForceMode.Impulse);
         }
     }
-
-    //void onhit(GameObject obj)
-    //{
-    //    if (immunityTimer > 0) return;
-    //    Enemy enemy = obj.GetComponent<AggressiveEnemy>();
-    //    Debug.Log(enemy);
-    //    if (enemy == null) return;
-    //    enemy.setHitCooldown(1f);
-    //    onHit(enemy.getDamage());
-    //    Vector3 dir = (transform.position - enemy.transform.position).normalized;
-    //    GetComponent<Rigidbody>().AddForce(dir * enemy.getKnockback() + transform.up * 3, ForceMode.Impulse);
-    //}
     
     void Update()
     {
