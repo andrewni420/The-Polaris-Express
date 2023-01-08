@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2507,8 +2507,6 @@ MonoBehaviour:
   levelGenerator: {fileID: 2040168203}
   mainCamera: {fileID: 1840423695}
   tempCamPrefab: {fileID: 8678431657777498286, guid: 672c42aa778464ee7a66e82829dc34bc, type: 3}
-  isMoving: 0
-  footSteps: {fileID: 0}
 --- !u!54 &520881715
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2580,7 +2578,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520881712}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 27a77ac6f2c5c49e2b63b1c08830fe25, type: 2}
   m_audioClip: {fileID: 8300000, guid: 44737e645aa918043b3d8cab5d1511bc, type: 3}
