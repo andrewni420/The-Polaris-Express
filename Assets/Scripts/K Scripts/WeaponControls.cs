@@ -100,6 +100,7 @@ public class WeaponControls : MonoBehaviour
         Animator anim = weapon.GetComponent<Animator>();
         anim.SetTrigger("Attack");
         // play the sound here if decide to use it
+        GetComponent<AudioSource>().Play();
         Invoke(nameof(ResetIsAttacking), AttackCooldown);
         Invoke(nameof(ResetAttack), AttackCooldown);
     }
