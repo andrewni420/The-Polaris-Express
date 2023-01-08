@@ -1,4 +1,4 @@
-# game
+# The Polaris Express
 QMUL ECS657U: Multi-Platform Game Development Project
 
 Members: Clara Lyra, Kelly McGuigan, Andrew Ni, Emma Schwartz
@@ -108,3 +108,5 @@ Invincibility Buff:
 Sun Buff:  
 	https://favpng.com/png_view/symbol-symbol-black-sun-clip-art-png/rAThyKYn
 
+Sound:
+	https://assetstore.unity.com/packages/audio/sound-fx/free-casual-game-sfx-pack-54116
