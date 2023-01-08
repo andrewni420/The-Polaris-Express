@@ -22,7 +22,7 @@ At the moment, we have only been able to implement basic functionality. On a mou
 -	Starlight is required for all recipes. Fill up your starlight meter by defeating enemies. It will also refill over time during the night.
 -	Collide with the tan cube to win
 
-*LINKS* 
+*TUTORIAL LINKS* 
 
 Day and Night Tutorials: 
 	https://www.youtube.com/watch?v=VZqqrNShOg0
@@ -70,4 +70,41 @@ Behavior Trees:
 	
 Inventory:
 	https://www.youtube.com/watch?v=_IqTeruf3-s&list=PLJWSdH2kAe_Ij7d7ZFR2NIW8QCJE74CyT&index=1&ab_channel=CodingWithUnity
+
+Dropdownhandling tutorials: 
+	https://www.youtube.com/watch?v=5onggHOiZaw
+	https://www.youtube.com/watch?v=FteXwEdED0Y
 	
+*ASSET LINKS* 
+Simple Foods (used for 2d decals for inventory)
+	https://assetstore.unity.com/packages/3d/props/food/simple-foods-207032
+
+Spider polygon (used for enemies)
+	https://assetstore.unity.com/packages/3d/characters/animals/insects/spider-polygon-221108
+
+Meshtint Free Polygonal Metalon (used for enemies)
+	https://assetstore.unity.com/packages/3d/characters/creatures/meshtint-free-polygonal-metalon-151383
+
+LOWPOLY - Weapon Pack (used for weapons)
+	https://assetstore.unity.com/packages/3d/props/weapons/lowpoly-weapon-pack-216486
+
+Low-Poly Simple Nature Pack (used for 2d decals for inventory)
+	https://assetstore.unity.com/packages/3d/environments/landscapes/low-poly-simple-nature-pack-162153
+
+Low Poly Weapons (used for Potions)
+	https://assetstore.unity.com/packages/3d/props/weapons/low-poly-weapons-71680
+	
+Geiger counter:
+
+	https://www.pngfind.com/mpng/hibwmwT_dial-clock-minutes-marks-design-seconds-dial-png/
+	https://www.flaticon.com/free-icon/geiger-counter_3325167
+
+Strength Buff:
+	https://freeicons.io/workout-icon-set/arm-athlete-biceps-body-building-hand-muscles-triceps-icon-61738
+
+Invincibility Buff:
+	https://freeicons.io/medical-3/medical-health-icon-shield-icon-40718
+
+Sun Buff:  
+	https://favpng.com/png_view/symbol-symbol-black-sun-clip-art-png/rAThyKYn
+
