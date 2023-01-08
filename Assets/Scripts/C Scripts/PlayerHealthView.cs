@@ -42,16 +42,21 @@ public class PlayerHealthView : MonoBehaviour
     public GameObject lightLight;
 
     public GameObject dayTime;
-    public float curTime;
-    public float lastTimeSunDamage;
-    public float runningTime;
+    private float curTime;
+    private float lastTimeSunDamage;
+    private float runningTime;
+    public int sunDamage;
+    public float sunDamageInterval;
+    public int caveHeal;
+    public float caveHealInterval;
+    private float caveHealTimer =0f;
 
     public int damage = 0;
     public int knockback = 0;
 
-    public float invincibilityTimer = 0f;
-    public float strengthTimer = 0f;
-    public float lightTimer = 0;
+    private float invincibilityTimer = 0f;
+    private float strengthTimer = 0f;
+    private float lightTimer = 0;
     public Spawner spawner;
 
     public GameObject strengthIcon;
@@ -172,16 +177,21 @@ public class PlayerHealthView : MonoBehaviour
                 lastTimeSunDamage = 0;
             }
 
-            if ((0.0f < curTime) && (curTime < 8.0f))
+            if ((0.0f < curTime) && (curTime < 8f))
             {
-                if ((curTime == lastTimeSunDamage + 1) || (lastTimeSunDamage == 0))
+                if ((curTime == lastTimeSunDamage + sunDamageInterval) || (lastTimeSunDamage == 0))
                 {
-                    curHealth -= 5;
-                    enforceHealthBounds();
-                    healthBar.SetHealth(curHealth);
-                    Debug.Log("Damage from Sun");
+                    DamagePlayer(sunDamage);
                     lastTimeSunDamage = curTime;
                 }
+            }
+        }
+        else
+        {
+            if (caveHealTimer == 0)
+            {
+                caveHealTimer = caveHealInterval;
+                HealPlayer(caveHeal);
             }
         }
         
@@ -262,6 +272,7 @@ public class PlayerHealthView : MonoBehaviour
 
         recentHits = recentHitTimer == 0 ? 0 : recentHits;
         starlightTimer = Math.Max(starlightTimer - time, 0);
+        caveHealTimer = Math.Max(caveHealTimer - time, 0);
     }
     
     //Ensure health/hunger is always between 0 and maxHealth/maxHunger
@@ -326,6 +337,8 @@ public class PlayerHealthView : MonoBehaviour
     private void OnApplicationQuit()
     {
         inventory.Container.Clear();
+        foreach (InventorySlot s in inventory.materials) s.amount = 0;
+        inventory.numStars = 0;
     }
 
     private void updateDamage()

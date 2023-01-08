@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2202,7 +2202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520881712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 100, y: 20, z: 100}
+  m_LocalPosition: {x: -5550, y: 3, z: 2550}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2245,13 +2245,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   groundDrag: 7
-  teleportToCave: {fileID: 0}
-  teleportToLand: {fileID: 0}
+  dayNight: {fileID: 777272277}
   orientation: {fileID: 196033658}
   levelGenerator: {fileID: 2040168203}
-  mainCamera: {fileID: 0}
-  tempCamPrefab: {fileID: 0}
-  tempCam: {fileID: 0}
+  mainCamera: {fileID: 1840423695}
+  tempCamPrefab: {fileID: 8678431657777498286, guid: 672c42aa778464ee7a66e82829dc34bc, type: 3}
 --- !u!54 &520881715
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2292,14 +2290,12 @@ MonoBehaviour:
   starlight: {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
   lightLight: {fileID: 47041472158187309}
   dayTime: {fileID: 777272274}
-  curTime: 0
-  lastTimeSunDamage: 0
-  runningTime: 0
+  sunDamage: 1
+  sunDamageInterval: 1
+  caveHeal: 5
+  caveHealInterval: 1
   damage: 1
   knockback: 2
-  invincibilityTimer: 0
-  strengthTimer: 0
-  lightTimer: 0
   spawner: {fileID: 73311632}
   strengthIcon: {fileID: 428052236}
   invincibilityIcon: {fileID: 712981452}
@@ -2794,7 +2790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTime: 0
-  dayLengthMin: 0.2
+  dayLengthMin: 2
   timeText: {fileID: 455081289}
   translateTime: 0
 --- !u!1 &910320135
@@ -11839,7 +11835,7 @@ MonoBehaviour:
   enemyToughness: 0
   spawnrate: 1
   intLevel: 0
-  area: 1
+  area: 4
   player: {fileID: 520881712}
 --- !u!4 &1652323252
 Transform:
@@ -13892,7 +13888,7 @@ MonoBehaviour:
   heightMultiplier: 200
   gatePrefab: {fileID: 1604316111451278767, guid: 08b787cf965514f19baa364d3aa61f7a, type: 3}
   mtnThickness: 10
-  groundMountainRatio: 0
+  groundMountainRatio: 0.1
   tilePrefab: {fileID: 2625344590195280488, guid: 22c992eecf10b47beb880b9ab54dcbe4, type: 3}
   entrancePrefab: {fileID: 6327130098164224580, guid: 597b7d2e6d97b45519e8b2960f23a048, type: 3}
   teleportTargets:
@@ -13904,18 +13900,18 @@ MonoBehaviour:
   - {fileID: 39145442}
   - {fileID: 1953932518}
   player: {fileID: 520881712}
-  Level1Stars:
-  - {fileID: 5290576592809843425, guid: 71a8db04242cf41648c19f71f16ee16e, type: 3}
-  - {fileID: 5290576592809843425, guid: 71a8db04242cf41648c19f71f16ee16e, type: 3}
-  - {fileID: 5290576592809843425, guid: 71a8db04242cf41648c19f71f16ee16e, type: 3}
-  Level2Stars:
-  - {fileID: 5290576592809843425, guid: 71a8db04242cf41648c19f71f16ee16e, type: 3}
-  - {fileID: 5290576592809843425, guid: 71a8db04242cf41648c19f71f16ee16e, type: 3}
-  - {fileID: 5290576592809843425, guid: 71a8db04242cf41648c19f71f16ee16e, type: 3}
-  Level3Stars:
-  - {fileID: 5290576592809843425, guid: 71a8db04242cf41648c19f71f16ee16e, type: 3}
-  - {fileID: 5290576592809843425, guid: 71a8db04242cf41648c19f71f16ee16e, type: 3}
-  - {fileID: 5290576592809843425, guid: 71a8db04242cf41648c19f71f16ee16e, type: 3}
+  Level1StarPrefabs:
+  - {fileID: 1239247381138885994, guid: a80ea065b39daff4caf8559c2bf316f3, type: 3}
+  - {fileID: 1239247381138885994, guid: a80ea065b39daff4caf8559c2bf316f3, type: 3}
+  - {fileID: 1239247381138885994, guid: a80ea065b39daff4caf8559c2bf316f3, type: 3}
+  Level2StarPrefabs:
+  - {fileID: 1239247381138885994, guid: a80ea065b39daff4caf8559c2bf316f3, type: 3}
+  - {fileID: 1239247381138885994, guid: a80ea065b39daff4caf8559c2bf316f3, type: 3}
+  - {fileID: 1239247381138885994, guid: a80ea065b39daff4caf8559c2bf316f3, type: 3}
+  Level3StarPrefabs:
+  - {fileID: 1239247381138885994, guid: a80ea065b39daff4caf8559c2bf316f3, type: 3}
+  - {fileID: 1239247381138885994, guid: a80ea065b39daff4caf8559c2bf316f3, type: 3}
+  - {fileID: 1239247381138885994, guid: a80ea065b39daff4caf8559c2bf316f3, type: 3}
 --- !u!4 &2040168204
 Transform:
   m_ObjectHideFlags: 0

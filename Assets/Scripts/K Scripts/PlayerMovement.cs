@@ -40,16 +40,14 @@ public class PlayerMovement : MonoBehaviour
     bool grounded;
     public float groundDrag;
 
-    [Header("Teleports")]
-    public GameObject teleportToCave;
-    public GameObject teleportToLand;
+    public DayNight dayNight;
 
     public Transform orientation;
 
     public LevelGeneration levelGenerator;
     public Camera mainCamera;
     public GameObject tempCamPrefab;
-    public GameObject tempCam;
+    private GameObject tempCam;
     private GameObject starFollowed = null;
     private bool movementSuppressed;
 
@@ -207,6 +205,7 @@ public class PlayerMovement : MonoBehaviour
                 other.GetComponent<Animator>().SetTrigger("Fly");
                 break;
             case "Teleport":
+                dayNight.fixNight();
                 Debug.Log("Player ran into a teleport");
                 gameManager.setGameArea(gameArea.cave);
                 other.GetComponent<TeleportToCave>().teleport();
@@ -214,9 +213,10 @@ public class PlayerMovement : MonoBehaviour
                 // orientation.transform.position = teleportToCave.transform.position;
                 break;
             case "TeleportMain":
+                dayNight.unfixTime();
                 Debug.Log("Player ran into a teleport");
-                gameManager.setGameArea(gameArea.first);
                 other.GetComponent<TeleportToCave>().teleport();
+                gameManager.setGameArea(getArea());
                 //rb.transform.position = teleportToLand.transform.position;
                 // orientation.transform.position = teleportToCave.transform.position;
                 break;
@@ -226,6 +226,24 @@ public class PlayerMovement : MonoBehaviour
                 followStar(other.gameObject);
                 break;
 	    }
+    }
+
+    public gameArea getArea()
+    {
+        (float z, float x) size = levelGenerator.levelCoordSize();
+        float z = transform.position.z / size.z;
+        float x = transform.position.x / size.x;
+        switch (levelGenerator.voronoiDiagram.section(z, x))
+        {
+            case 0:
+                return gameArea.first;
+            case 1:
+                return gameArea.second;
+            case 2:
+                return gameArea.end;
+            default:
+                return gameArea.first;
+        }
     }
 
     void onCollisionEnter(Collision other)

@@ -103,7 +103,8 @@ public class WeaponControls : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.Z))
+        //if(Input.GetKey(KeyCode.Z))
+        if (Input.GetMouseButton(0))
         {
             if (CanAttack)
             {

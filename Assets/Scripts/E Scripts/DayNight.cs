@@ -14,6 +14,9 @@ public class DayNight : MonoBehaviour
     public float translateTime;
     string AMPM = "PM";
 
+    private float fixedTime;
+    private bool timeFixed;
+
     // public ParticleSystem stars;
 
     // Start is called before the first frame update
@@ -21,12 +24,28 @@ public class DayNight : MonoBehaviour
     {
         rotationSpeed = 360 / dayLengthMin / 60;
         midday = dayLengthMin * 60 / 2;
+        fixTime(60);
     }
+
+    public void fixTime(float time)
+    {
+        timeFixed = true;
+        fixedTime = time;
+        transform.Rotate(new Vector3(1, 0, 0) * rotationSpeed * (time-currentTime));
+    }
+    public void unfixTime()
+    {
+        timeFixed = false;
+    }
+
+    public void fixNight() { fixTime(dayLengthMin*30); }
 
     // Update is called once per frame
     void Update()
     {
+
         currentTime += 1 * Time.deltaTime;
+        if (timeFixed) currentTime = fixedTime;
         translateTime = (currentTime / (midday * 2));
 
         float t = translateTime * 24f;
@@ -70,6 +89,7 @@ public class DayNight : MonoBehaviour
         string displayTime = displayHours + ":" + displayMinutes + " " + AMPM;
         timeText.text = displayTime;
 
-        transform.Rotate(new Vector3(1, 0, 0) * rotationSpeed * Time.deltaTime);
+        if (!timeFixed) { transform.Rotate(new Vector3(1, 0, 0) * rotationSpeed * Time.deltaTime); }
+        
     }
 }

@@ -182,14 +182,16 @@ public class LevelGeneration : MonoBehaviour {
 		for (int i=0;i<voronoiDiagram.caveEntrances.Length;i++)
 		{
 			Vector2 dir = voronoiDiagram.caveEntrances[i] - voronoiDiagram.points[i];
-			Vector2 pos = voronoiDiagram.points[i] + dir / 5;
+			Vector2 pos = voronoiDiagram.points[i] + dir.normalized*5/tileXSize/mapWidthInTiles;
 			GameObject obj = Instantiate(entrancePrefab, findPosition(pos, new Vector3()), Quaternion.identity);
 			Debug.Log(findPosition(voronoiDiagram.points[i], new Vector3()));
 			TeleportToCave t = obj.GetComponent<TeleportToCave>();
 			t.TargetTransform = teleportTargets[i];
 			t.thePlayer = player;
+			Vector3 lookTowards = findPosition(voronoiDiagram.caveEntrances[i], new Vector3());
+			obj.transform.LookAt(new Vector3(lookTowards.x, obj.transform.position.y, lookTowards.z));
 
-			teleports[i].teleportTarget = findPosition(voronoiDiagram.caveEntrances[i]+dir/5, new Vector3());
+			teleports[i].teleportTarget = findPosition(voronoiDiagram.caveEntrances[i]+dir/2, new Vector3(0, 2, 0));
 		}
 	}
 

@@ -287,10 +287,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrediction: {fileID: 0}
   maxRotSpeed: 1
+  damage: 20
+  knockback: 5
   intLevel: 0
   playerStats: {fileID: 0}
   lootTable:
   - item: {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}
+    amount: 1
+    chance: 1
+  - item: {fileID: 11400000, guid: 16fba3220c4064359bc4cafa2e72c04d, type: 2}
     amount: 1
     chance: 1
 --- !u!54 &7266750357055080840
