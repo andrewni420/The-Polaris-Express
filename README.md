@@ -5,22 +5,27 @@ Members: Clara Lyra, Kelly McGuigan, Andrew Ni, Emma Schwartz
 
 *DESCRIPTION*
 
-Our survival game is an adventure led by star-navigation. The game is set in a post-apocalyptic world where you are running out of resources. In hopes to find a “holy grail”, you discover stars along the way that project into the sky and lead you to your next milestone. Each time, moving closer to the chance at salvation. You live in an underground bunker where you bring back your collected items and use a crafting system to make helpful tools. 
-
-At the moment, we have only been able to implement basic functionality. On a mountanous terrain, you can move around to run into food to increase your hunger level. You can approach the enemy and click on it to fight and deplete its health. The player health takes damage when near the enemy. You can approach spinning cube "stars" to navigate to your next milestone. The environment goes through the cycle of night and day with stars. The player looses when health reaches 0. 
+Welcome to The Polaris Express! You are the brave adventurer tasked with navigating the desolate land using the guidance of the spinning stars. Your ultimate goal is to find the holy grail to save yourself and your people, but the journey will not be easy. Along the way, you'll need to use all of your wit and resources to survive the harsh environment and the dangers that lurk at every turn.
+As you journey through three distinct biomes, you'll have to keep a close eye on your health and hunger. Eat from your inventory to replenish your hunger points, and hide in the caves to gain health points. Avoid letting either bar reach zero, or you'll lose the game. Hide away in your cave to gain health points.  You'll also need to be mindful of the sun, which will drain your health with every passing moment.
+To help you on your quest, you'll find spinning stars scattered throughout the world. These stars will animate and lead you to your next milestone, drawing you closer and closer to the holy grail. But be warned, you'll need to collect all of the stars within each biome before the fog will lift and let you move on to the next section. Collect all of the stars in the final section to exit the level and win the game.
+When you first start the game, you'll have the option to choose between four different difficulty modes. Choose wisely, as each mode will present its own unique challenges. But no matter what mode you choose, you'll need to be brave, resourceful, and determined if you hope to emerge victorious and complete The Polaris Express.
 
 
 *HOW  TO PLAY* 
+-	Use WASD to move around
+-	Move camera around with mouse
+-	E opens inventory
+-	Left-Click swings your sword
+-	TAB pauses
+-	Left shift for sprint
+-	Double tap direction key to strafe
+-	Inventory slots correspond to different numbers on keyboard
+-	Space is jump
+-	Enter/exit caves using blue teleporters.
 
--	Use wasd/arrow keys to move player around terrain
--	Use mouse to navigate camera perspective
--	Attack using left click. 
--	Enter/exit caves using blue teleporters. 
--	The player will take damage during the day. Enter caves to refill health and escape the daytime.
--	Move towards rotating cube “stars” to animate them. Collected stars will form a line in the sky between the cave entrance and the next section. Once all three stars are collected, the gate will be unlocked.
--	Collect resources by picking up items and defeating enemies
--	Starlight is required for all recipes. Fill up your starlight meter by defeating enemies. It will also refill over time during the night.
--	Collide with the tan cube to win
+The player will take damage during the day. Enter caves to refill health and escape the daytime. Move towards rotating cube “stars” to animate them. Collected stars will form a line in the sky between the cave entrance and the next section. Once all three stars are collected, the gate will be unlocked. Collect resources by picking up items and defeating enemies Starlight is required for all recipes. Fill up your starlight meter by defeating enemies. It will also refill over time during the night.
+
+As you explore the world of The Polaris Express, you'll be able to keep track of your progress in a number of ways. The upper right corner of the screen will display your health and hunger bars, as well as any active buffs you may have. Your inventory will be available to you during gameplay, and in the right corner of the screen you'll find a counter that measures how many stars you have collected. These features will be essential as you navigate the treacherous landscape and fight for your survival. Stay vigilant and stay determined, and you just might find the holy grail and achieve salvation.
 
 *TUTORIAL LINKS* 
 
