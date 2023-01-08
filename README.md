@@ -12,12 +12,14 @@ At the moment, we have only been able to implement basic functionality. On a mou
 
 *HOW  TO PLAY* 
 
--	Use arrow keys to move player around space (currently platform, eventually larger terrain)
+-	Use wasd/arrow keys to move player around terrain
 -	Use mouse to navigate camera perspective
--	Move towards spheres of “food” to sustain the hunger bar
--	Attack using left click. Pick up "dagger" (small cylinder) to increase damage and knockback. Pick up "metal" (upright cube) and press "E" to craft a sword for more damage.
--	Move towards rotating cube “stars” to animate them towards your next destination
--	Placeholder functionality: Press “F” key to remove health points and “G” key to gain health points (eventually health will interact with enemies and combat system)
+-	Attack using left click. 
+-	Enter/exit caves using blue teleporters. 
+-	The player will take damage during the day. Enter caves to refill health and escape the daytime.
+-	Move towards rotating cube “stars” to animate them. Collected stars will form a line in the sky between the cave entrance and the next section. Once all three stars are collected, the gate will be unlocked.
+-	Collect resources by picking up items and defeating enemies
+-	Starlight is required for all recipes. Fill up your starlight meter by defeating enemies. It will also refill over time during the night.
 -	Collide with the tan cube to win
 
 *LINKS* 
@@ -29,6 +31,8 @@ Terrain:
 	https://www.youtube.com/watch?v=ddy12WHqt-M
 	https://www.youtube.com/watch?v=7xGYmR3CJ3Y
 	https://www.youtube.com/watch?v=MVeI9y6k8MU
+	https://catlikecoding.com/unity/tutorials/procedural-grid/
+	https://gamedevacademy.org/complete-guide-to-procedural-level-generation-in-unity-part-1/
 
 Health + Hunger Bars: 
 	Tutorials:
@@ -60,4 +64,10 @@ Blender Turotials:
 	https://blender.stackexchange.com/questions/160880/concave-square-with-straight-sides
 	https://www.youtube.com/watch?v=yPMzwfNBoN4&t=183s
 	https://www.youtube.com/watch?v=A98ZKOzmE1w
+	
+Behavior Trees:
+	https://medium.com/geekculture/how-to-create-a-simple-behaviour-tree-in-unity-c-3964c84c060e
+	
+Inventory:
+	https://www.youtube.com/watch?v=_IqTeruf3-s&list=PLJWSdH2kAe_Ij7d7ZFR2NIW8QCJE74CyT&index=1&ab_channel=CodingWithUnity
 	
