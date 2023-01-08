@@ -523,7 +523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 206}
+  m_AnchoredPosition: {x: 7.6008, y: 121}
   m_SizeDelta: {x: 792.92, y: 337.0146}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &220654134
@@ -546,32 +546,25 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Welcome to The Polaris Express! You are the brave adventurer tasked with
-    navigating the desolate land using the guidance of the spinning stars. Your ultimate
-    goal is to find the holy grail to save yourself and your people, but the journey
-    will not be easy. Along the way, you''ll need to use all of your wit and resources
-    to survive the harsh environment and the dangers that lurk at every turn.
+  m_text: 'Here, the adventure begins for the quest to the Polaris Express! You,
+    brave adventurer, will have to explore the world to find the fallen stars that
+    will lead you to safety. The journey will not be kind, but you must save yourself!
+    You will find resources to assist you in your endeavor to survive the harsh environment
+    and monsters that will follow you.
 
-    As
-    you journey through three distinct biomes, you''ll have to keep a close eye on
-    your health and hunger. Eat from your inventory to replenish your hunger points,
-    and hide in the caves to gain health points. Avoid letting either bar reach zero,
-    or you''ll lose the game. Hide away in your cave to gain health points.  You''ll
-    also need to be mindful of the sun, which will drain your health with every passing
-    moment.
 
-    To help you on your quest, you''ll find spinning stars scattered
-    throughout the world. These stars will animate and lead you to your next milestone,
-    drawing you closer and closer to the holy grail. But be warned, you''ll need
-    to collect all of the stars within each biome before the fog will lift and let
-    you move on to the next section collect all of the stars in the final section
-    to exit the level and win the game.
+    You will enter three different biomes,
+    so keep your eye on your health stats. Eat the food you''ve made or found to
+    keep up your hunger and health. Try to keep them from falling to 0 or you''ll
+    be dead. Hide away from the sun during the day to avoid radiation damage and
+    stay in the caves to rest up in between outings.
 
-    When you first start the game, you''ll
-    have the option to choose between four different difficulty modes. Choose wisely,
-    as each mode will present its own unique challenges. But no matter what mode
-    you choose, you''ll need to be brave, resourceful, and determined if you hope
-    to emerge victorious and complete The Polaris Express.'
+
+    To assist you in navigation,
+    find the stars fallen to the ground that will guide you to the next section of
+    the unforgiving land. You will have to collect all stars within each biome before
+    the fog gates will fall, allowing you to venture forward. Good luck in your quest,
+    adventurer.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 671adfdd815774fa79f7a26b4edf146f, type: 2}
   m_sharedMaterial: {fileID: -645330385886479913, guid: 671adfdd815774fa79f7a26b4edf146f, type: 2}
@@ -634,7 +627,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -100.57428, z: 0, w: -638.27954}
+  m_margin: {x: 0, y: -100.57428, z: 0, w: -296.8585}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1109,8 +1102,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1532290863}
   m_HandleRect: {fileID: 1532290861}
   m_Direction: 2
-  m_Value: 0.99999875
-  m_Size: 0.39522922
+  m_Value: 0.99999845
+  m_Size: 0.41306013
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2261,10 +2254,10 @@ RectTransform:
   m_Father: {fileID: 1907822908}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.42275563, y: 0}
-  m_AnchorMax: {x: 0.6068978, y: 0.04541582}
-  m_AnchoredPosition: {x: -5, y: -7.5}
-  m_SizeDelta: {x: 10, y: -15}
+  m_AnchorMin: {x: 0.42275563, y: 0.13144296}
+  m_AnchorMax: {x: 0.60200006, y: 0.179}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &856842292
 MonoBehaviour:
@@ -2569,8 +2562,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.36932, y: -34.30429}
-  m_SizeDelta: {x: 833.7, y: 384.0126}
+  m_AnchoredPosition: {x: -0.36932, y: -10.649}
+  m_SizeDelta: {x: 833.7, y: 336.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &945984578
 GameObject:
@@ -8767,8 +8760,8 @@ RectTransform:
   m_Father: {fileID: 1816837135}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.60477}
-  m_AnchorMax: {x: 1, y: 0.9999993}
+  m_AnchorMin: {x: 0, y: 0.58693904}
+  m_AnchorMax: {x: 1, y: 0.9999991}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10017,8 +10010,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00073029683}
-  m_SizeDelta: {x: 0, y: 971.62}
+  m_AnchoredPosition: {x: -0.00013685807, y: 0.00073029683}
+  m_SizeDelta: {x: 0.00012207, y: 815.1356}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1926363481
 GameObject:
