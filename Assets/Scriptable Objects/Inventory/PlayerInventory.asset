@@ -18,13 +18,15 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: 04a18f0561d034649a92985bc394cc1a, type: 2}
     amount: 20
   - item: {fileID: 11400000, guid: 9a2120d02682b4af0a470efa05c35b95, type: 2}
-    amount: 20
+    amount: 28
   - item: {fileID: 11400000, guid: 71c3853e78913414693b3c795065be4a, type: 2}
-    amount: 20
+    amount: 17
   - item: {fileID: 11400000, guid: cc928c0002d71427b9095cd42e50d823, type: 2}
-    amount: 20
+    amount: 21
   - item: {fileID: 11400000, guid: 16fba3220c4064359bc4cafa2e72c04d, type: 2}
-    amount: 20
+    amount: 19
   - item: {fileID: 11400000, guid: 9afda87432b734dc88e079d967af91ca, type: 2}
     amount: 20
+  numStars: 0
+  maxStars: 99
   starlight: {fileID: 11400000, guid: 9bb2118802b914d1d9f09af9cc06d65a, type: 2}

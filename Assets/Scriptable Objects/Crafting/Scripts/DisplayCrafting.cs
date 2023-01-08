@@ -124,8 +124,12 @@ public class DisplayCrafting : MonoBehaviour
 
     void createCraftable()
     {
-
-        for (int i=0;i<recipes.Count;i++) craftable[i]=canCraft(recipes[i]);
+        Debug.Log("created");
+        for (int i = 0; i < recipes.Count; i++)
+        {
+            craftable[i] = canCraft(recipes[i]);
+            Debug.Log(craftable[i]);
+        }
     }
     bool canCraft(Recipe recipe)
     {

@@ -71,7 +71,7 @@ public class Inventory : ScriptableObject
         update = true;
         if (item.itemName=="Drop of Starlight")
         {
-            numStars = (int)Mathf.Max(amount+numStars,maxStars);
+            numStars = (int)Mathf.Min(amount+numStars,maxStars);
             return true;
         }
         for (int i = 0; i < materials.Length; i++)

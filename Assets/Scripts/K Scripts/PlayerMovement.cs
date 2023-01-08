@@ -312,7 +312,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void followStar(GameObject star)
     {
-        mainCamera.GetComponent<Camera>().enabled = true;
+        mainCamera.GetComponent<Camera>().enabled = false;
         tempCam = Instantiate(tempCamPrefab, mainCamera.transform.position, mainCamera.transform.rotation);
         tempCam.GetComponent<FollowObject>().obj = star;
         starFollowed = star;

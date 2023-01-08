@@ -12,6 +12,7 @@ public class StarMovement : MonoBehaviour
     public Vector3 startPosition;
     public float animationLength;
     public float animationTimer=0;
+    public float finalSize = 10;
 
     public float rotSpeed;
     public bool touched = false;
@@ -36,11 +37,13 @@ public class StarMovement : MonoBehaviour
                 float yPos = yCurve.Evaluate(x) * (finalPosition.y - startPosition.y)+startPosition.y;
                 float zPos = zCurve.Evaluate(x) * (finalPosition.z - startPosition.z)+startPosition.z;
                 transform.position = new Vector3(xPos, yPos, zPos);
+                transform.localScale = new Vector3(1, 1, 1) * (1 + (finalSize - 1) * x);
             }
             else
             {
                 transform.position = finalPosition;
                 animationTimer = animationLength;
+                transform.localScale = new Vector3(10, 10, 10);
             }
             
         }

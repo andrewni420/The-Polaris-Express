@@ -17,7 +17,7 @@ public class PlayerHealthView : MonoBehaviour
     public PlayerHistory history;
     // Health variables 
     public int curHealth;
-    public int maxHealth = 100;
+    public int maxHealth = 10000;
     public HealthBar healthBar;
 
     // Hunger variables 

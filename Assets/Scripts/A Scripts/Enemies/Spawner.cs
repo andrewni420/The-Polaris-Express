@@ -73,7 +73,7 @@ public class Spawner : MonoBehaviour
     
     public void setSuppressed(bool s)
     {
-        foreach (GameObject e in Enemies) e.GetComponent<Enemy>().setSuppressed(s);
+        foreach (GameObject e in Enemies) if (e) e.GetComponent<Enemy>().setSuppressed(s);
     }
 
     //Convert strings to enums

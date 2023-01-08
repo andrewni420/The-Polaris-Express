@@ -43,11 +43,14 @@ public class LevelGeneration : MonoBehaviour {
 	public TeleportToCave[] teleports;
 	public GameObject player;
 
-	public GameObject[] Level1Stars;
-	public GameObject[] Level2Stars;
-	public GameObject[] Level3Stars;
+	public GameObject[] Level1StarPrefabs;
+	public GameObject[] Level2StarPrefabs;
+	public GameObject[] Level3StarPrefabs;
+
+	public GameObject[][] stars;
 
 	void Start() {
+		stars = new GameObject[3][];
 		if (!useSeed) randomSeed = (int)System.DateTime.Now.Ticks;
 		voronoiDiagram.setParams(mtnThickness, groundMountainRatio, falloff, mapWidthInTiles*(tileXSize+1), randomSeed);
 		GenerateMap();
@@ -56,6 +59,7 @@ public class LevelGeneration : MonoBehaviour {
 
 		makeStars();
 		makeTeleports();
+		
 
 	}
 
@@ -196,23 +200,27 @@ public class LevelGeneration : MonoBehaviour {
 
 	public void makeStars()
     {
+		for (int i = 0; i < 3; i++) stars[i] = new GameObject[3];
 		for (int i = 0; i < 3; i++)
 		{
-			GameObject obj = Instantiate(Level1Stars[i], findPosition(voronoiDiagram.starLocations[0][i], new Vector3(0, 0.5f, 0)), Quaternion.identity);
+			GameObject obj = Instantiate(Level1StarPrefabs[i], findPosition(voronoiDiagram.starLocations[0][i], new Vector3(0, 0.5f, 0)), Quaternion.identity);
 			StarMovement movement = obj.GetComponent<StarMovement>();
 			movement.finalPosition = finalPosition(voronoiDiagram.starDestinations[0][i]);
+			stars[0][i] = obj;
 		}
 		for (int i = 0; i < 3; i++)
 		{
-			GameObject obj = Instantiate(Level2Stars[i], findPosition(voronoiDiagram.starLocations[1][i], new Vector3(0, 0.5f, 0)), Quaternion.identity);
+			GameObject obj = Instantiate(Level2StarPrefabs[i], findPosition(voronoiDiagram.starLocations[1][i], new Vector3(0, 0.5f, 0)), Quaternion.identity);
 			StarMovement movement = obj.GetComponent<StarMovement>();
 			movement.finalPosition = finalPosition(voronoiDiagram.starDestinations[1][i]);
+			stars[1][i] = obj;
 		}
 		for (int i = 0; i < 3; i++)
 		{
-			GameObject obj = Instantiate(Level3Stars[i], findPosition(voronoiDiagram.starLocations[2][i], new Vector3(0, 0.5f, 0)), Quaternion.identity);
+			GameObject obj = Instantiate(Level3StarPrefabs[i], findPosition(voronoiDiagram.starLocations[2][i], new Vector3(0, 0.5f, 0)), Quaternion.identity);
 			StarMovement movement = obj.GetComponent<StarMovement>();
 			movement.finalPosition = finalPosition(voronoiDiagram.starDestinations[2][i]);
+			stars[2][i] = obj;
 		}
 	}
 
@@ -244,18 +252,7 @@ public class LevelGeneration : MonoBehaviour {
 
 	public bool checkStars(int section)
 	{
-        switch (section)
-        {
-			case 0:
-				foreach (GameObject s in Level1Stars) if (!s.GetComponent<StarMovement>().touched) return false;
-				break;
-			case 1:
-				foreach (GameObject s in Level2Stars) if (!s.GetComponent<StarMovement>().touched) return false;
-				break;
-			case 2:
-				foreach (GameObject s in Level3Stars) if (!s.GetComponent<StarMovement>().touched) return false;
-				break;
-		}
+		foreach (GameObject s in stars[section]) if (!s.GetComponent<StarMovement>().touched) return false;
 		return true;
 	}
 
