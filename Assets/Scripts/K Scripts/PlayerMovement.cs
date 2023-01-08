@@ -51,15 +51,19 @@ public class PlayerMovement : MonoBehaviour
     private GameObject starFollowed = null;
     private bool movementSuppressed;
 
-
     float horizontalInput;
     float verticalInput;
 
     Vector3 moveDirection;
+    
 
     Rigidbody rb;
 
     private float pushPower = 1f;
+
+    public bool isMoving = false;
+
+    public AudioSource footSteps;
 
     private void Start()
     {
@@ -117,7 +121,15 @@ public class PlayerMovement : MonoBehaviour
             dodge(KeyCode.D);
         }
 
-        
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            footSteps.enabled = true;
+        }
+        else
+        {
+            footSteps.enabled = false;
+        }
+
     }
 
     private void FixedUpdate()
@@ -126,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
         {
             MovePlayer();
         }
+
             
     }
 
@@ -157,11 +170,30 @@ public class PlayerMovement : MonoBehaviour
     public void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
         if (grounded)
+        {
             rb.AddForce(moveDirection.normalized * (IsSprinting ? sprintSpeed : moveSpeed) * 10f, ForceMode.Force);
+            
+        }
         else if (!grounded)
+        {
             rb.AddForce(moveDirection.normalized * (IsSprinting ? sprintSpeed : moveSpeed) * 10f * airMultiplier, ForceMode.Force);
+        }
+    }
+
+    public void PlaySound()
+    {
+        if (isMoving)
+        {
+            if (!GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().Play();
+            }
+            else
+            {
+                GetComponent<AudioSource>().Stop();
+            }
+        }
     }
     
     private void SpeedControl()
