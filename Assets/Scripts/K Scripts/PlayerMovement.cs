@@ -146,13 +146,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //for audio footsteps
+    //if grounded/moving and audio.isplaying == false{
+    //    audio.volume = Random.Range(0.8f,1);
+    //    audio.pitch = Random.Range(0.8f,1.1f);
+    //    audio.Play();
+    //    }
+
+
     public void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        if(grounded)
+        if (grounded)
             rb.AddForce(moveDirection.normalized * (IsSprinting ? sprintSpeed : moveSpeed) * 10f, ForceMode.Force);
-        else if(!grounded)
+        else if (!grounded)
             rb.AddForce(moveDirection.normalized * (IsSprinting ? sprintSpeed : moveSpeed) * 10f * airMultiplier, ForceMode.Force);
     }
     
