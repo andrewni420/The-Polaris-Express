@@ -14,7 +14,6 @@ Material:
   m_ValidKeywords:
   - _EMISSION
   - _NORMALMAP
-  - _PARALLAXMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
