@@ -57,15 +57,13 @@ public class PlayerMovement : MonoBehaviour
     float verticalInput;
 
     Vector3 moveDirection;
-    
+
+    public AudioSource echo;
+    public AudioSource music;
 
     Rigidbody rb;
 
     private float pushPower = 1f;
-
-    //public bool isMoving = false;
-
-    //public AudioSource footSteps;
 
     private void Start()
     {
@@ -73,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
+        echo = GetComponent<AudioSource>();
+        music = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -123,15 +123,6 @@ public class PlayerMovement : MonoBehaviour
             dodge(KeyCode.D);
         }
 
-        //if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
-        //{
-        //    footSteps.enabled = true;
-        //}
-        //else
-        //{
-        //    footSteps.enabled = false;
-        //}
-
     }
 
     private void FixedUpdate()
@@ -161,14 +152,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //for audio footsteps
-    //if grounded/moving and audio.isplaying == false{
-    //    audio.volume = Random.Range(0.8f,1);
-    //    audio.pitch = Random.Range(0.8f,1.1f);
-    //    audio.Play();
-    //    }
-
-
     public void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
@@ -183,21 +166,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //public void PlaySound()
-    //{
-    //    if (isMoving)
-    //    {
-    //        if (!GetComponent<AudioSource>().isPlaying)
-    //        {
-    //            GetComponent<AudioSource>().Play();
-    //        }
-    //        else
-    //        {
-    //            GetComponent<AudioSource>().Stop();
-    //        }
-    //    }
-    //}
-    
     private void SpeedControl()
     {
         Vector3 flatVel = new Vector3(rb.velocity.x,0f, rb.velocity.z);
@@ -292,7 +260,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void onCollisionEnter(Collision other)
+    void OnCollisionEnter(Collision other)
     {
         if (other.collider.tag == "fogGate")
         {
@@ -300,6 +268,7 @@ public class PlayerMovement : MonoBehaviour
             Vector2 relativePosition = new Vector3(transform.position.z/levelSize.z, transform.position.x/levelSize.x);
             Destroy(levelGenerator.voronoiDiagram.bisectors[levelGenerator.voronoiDiagram.nearestGate(relativePosition)].gateObject);
         }
+        
     }
 
 

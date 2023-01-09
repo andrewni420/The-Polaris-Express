@@ -498,7 +498,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.8
+  m_fontSize: 24.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -899,7 +899,7 @@ GameObject:
   - component: {fileID: 193275934}
   m_Layer: 6
   m_Name: Frozen Cave
-  m_TagString: Untagged
+  m_TagString: Cave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1239,11 +1239,11 @@ GameObject:
   - component: {fileID: 205457326}
   m_Layer: 6
   m_Name: Desert Cave Echo
-  m_TagString: Untagged
+  m_TagString: Cave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &205457325
 Transform:
   m_ObjectHideFlags: 0
@@ -1273,7 +1273,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2725,6 +2725,8 @@ MonoBehaviour:
   levelGenerator: {fileID: 2040168203}
   mainCamera: {fileID: 1840423695}
   tempCamPrefab: {fileID: 8678431657777498286, guid: 672c42aa778464ee7a66e82829dc34bc, type: 3}
+  echo: {fileID: 205457326}
+  music: {fileID: 667228516}
 --- !u!54 &520881715
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3001,11 +3003,11 @@ GameObject:
   - component: {fileID: 667228516}
   m_Layer: 6
   m_Name: Main Music
-  m_TagString: Untagged
+  m_TagString: MainT
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &667228515
 Transform:
   m_ObjectHideFlags: 0
@@ -3032,7 +3034,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 68db71da3f965874fbf8c6646524d4e9, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -11448,7 +11450,7 @@ GameObject:
   - component: {fileID: 1413813458}
   m_Layer: 6
   m_Name: Forest Cave
-  m_TagString: Untagged
+  m_TagString: Cave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12712,10 +12714,10 @@ GameObject:
   - component: {fileID: 1494077711}
   - component: {fileID: 1494077710}
   - component: {fileID: 1494077715}
-  - component: {fileID: 1494077713}
+  - component: {fileID: 1494077716}
   m_Layer: 6
   m_Name: Desert Terrain
-  m_TagString: Untagged
+  m_TagString: Cave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12781,18 +12783,6 @@ Transform:
   m_Father: {fileID: 1283063487}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1494077713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1494077709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 607ab8cda0ca7475a9053ea063a8d165, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &1494077715
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12889,6 +12879,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1494077716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494077709}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607ab8cda0ca7475a9053ea063a8d165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echo: {fileID: 205457326}
 --- !u!1 &1541769761
 GameObject:
   m_ObjectHideFlags: 0
@@ -15889,7 +15892,7 @@ GameObject:
   - component: {fileID: 2040168205}
   m_Layer: 6
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: MainT
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

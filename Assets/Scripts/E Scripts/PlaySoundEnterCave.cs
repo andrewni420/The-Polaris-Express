@@ -4,18 +4,26 @@ using UnityEngine;
 
 public class PlaySoundEnterCave : MonoBehaviour
 {
-    //Used https://www.youtube.com/watch?v=E7-HAJ4Db64 as a tutorial for this code
+    ////Used https://www.youtube.com/watch?v=yE0JdtVTnVk as a tutorial for this code
 
-    Collider soundTrigger;
+    public AudioSource echo;
 
-    // Start is called before the first frame update
-    void OnTriggerEnter(Collider soundCollider)
+    void Start()
     {
-        GetComponent<AudioSource>().Play();
+        echo = GetComponent<AudioSource>();
     }
 
-    void OnTriggerExit(Collider soundCollider)
+    void OnCollisionEnter(Collision collision)
     {
-        GetComponent<AudioSource>().Stop();
+        if(collision.gameObject.tag == "Cave")
+        {
+            echo.Play();
+            Debug.Log("In Cave");
+        }
+        else
+        {
+            echo.Stop();
+            Debug.Log("Not Cave");
+        }
     }
 }
