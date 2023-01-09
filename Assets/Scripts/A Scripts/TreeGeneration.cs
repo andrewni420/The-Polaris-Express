@@ -186,11 +186,11 @@ public class TreeGeneration : MonoBehaviour
     public bool findMax(LevelData levelData, int zIndex, int xIndex, float neighborRadius)
     {
         float val = levelData.getTreeMap(zIndex, xIndex);
-        (int z, int x) levelSize = levelData.getSizeInVertices();
+        //(int z, int x) levelSize = levelData.getSizeInVertices();
         int neighborZBegin = (int)Mathf.Max(0, zIndex - neighborRadius);
-        int neighborZEnd = (int)Mathf.Min(levelSize.z - 1, zIndex + neighborRadius);
+        int neighborZEnd = (int)Mathf.Min(levelData.treeMap.GetLength(0)-1, zIndex + neighborRadius);
         int neighborXBegin = (int)Mathf.Max(0, xIndex - neighborRadius);
-        int neighborXEnd = (int)Mathf.Min(levelSize.x - 1, xIndex + neighborRadius);
+        int neighborXEnd = (int)Mathf.Min(levelData.treeMap.GetLength(1) - 1, xIndex + neighborRadius);
         bool maxHit = false;
 
         for (int neighborZ = neighborZBegin; neighborZ <= neighborZEnd; neighborZ++)
@@ -208,14 +208,19 @@ public class TreeGeneration : MonoBehaviour
 
     public bool findMaxCoord(LevelData levelData, int zCoord, int xCoord, float neighborRadius)
     {
+        
         float val = levelData.treeMap[zCoord, xCoord];
         (float z, float x) size = levelData.getSizeInCoordinates();
+        size = (size.z / distPerTree, size.x / distPerTree);
+       
         int neighborZBegin = (int)Mathf.Max(0, zCoord - neighborRadius);
         int neighborZEnd = (int)Mathf.Min(size.z - 1, zCoord + neighborRadius);
         int neighborXBegin = (int)Mathf.Max(0, xCoord - neighborRadius);
         int neighborXEnd = (int)Mathf.Min(size.x - 1, xCoord + neighborRadius);
 
         bool maxHit = false;
+
+        Debug.Log((levelData.treeMap.GetLength(0), neighborZEnd, neighborXEnd));
 
         for (int neighborZ = neighborZBegin; neighborZ <= neighborZEnd; neighborZ++)
         {

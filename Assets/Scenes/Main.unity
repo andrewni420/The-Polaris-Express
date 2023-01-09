@@ -15974,7 +15974,7 @@ MonoBehaviour:
   tileZSize: 100
   tileXSize: 100
   distPerVertex: 5
-  randomSeed: 1
+  randomSeed: 586856692
   useSeed: 0
   heightMultiplier: 200
   gatePrefab: {fileID: 1604316111451278767, guid: 08b787cf965514f19baa364d3aa61f7a, type: 3}

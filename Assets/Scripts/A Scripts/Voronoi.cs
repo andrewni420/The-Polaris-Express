@@ -517,9 +517,11 @@ public class Voronoi : ScriptableObject
 
     public Vector2 getDir(Vector2 pos)
     {
-        float mtn = mtnThickness / levelSize * 4 / 5;
-        if (pos.x == mtn|| pos.x==1-mtn) return new Vector2(0, 1);
+        if (Mathf.Min(pos.x, 1 - pos.x) < Mathf.Min(pos.y, 1 - pos.y)) return new Vector2(0, 1);
         return new Vector2(1, 0);
+        //float mtn = mtnThickness / levelSize * 4 / 5;
+        //if (pos.x == mtn|| pos.x==1-mtn) return new Vector2(0, 1);
+        //return new Vector2(1, 0);
     }
 
 }

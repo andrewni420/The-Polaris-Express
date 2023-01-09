@@ -94,7 +94,7 @@ public class LevelGeneration : MonoBehaviour {
 
 
 		data = levelData;
-		treeGeneration.generateTrees(distPerVertex, levelData, groundMountainRatio*heightMultiplier+1);
+		treeGeneration.generateTrees(distPerVertex, levelData, heightMultiplier+1);
 	}
 
 	float normalHeight(float noise, float z, float x)
@@ -210,6 +210,7 @@ public class LevelGeneration : MonoBehaviour {
 			obj.transform.LookAt(new Vector3(lookTowards.x, obj.transform.position.y, lookTowards.z));
 
 			teleports[i].teleportTarget = findPosition(voronoiDiagram.caveEntrances[i]+dir/2, new Vector3(0, 2, 0));
+			Debug.Log(("target", teleports[i].teleportTarget));
 		}
 	}
 
