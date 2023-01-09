@@ -5,11 +5,11 @@ Members: Clara Lyra, Kelly McGuigan, Andrew Ni, Emma Schwartz
 
 *DESCRIPTION*
 
-Welcome to The Polaris Express! You are the brave adventurer tasked with navigating the desolate land using the guidance of the spinning stars. Your ultimate goal is to find the holy grail to save yourself and your people, but the journey will not be easy. Along the way, you'll need to use all of your wit and resources to survive the harsh environment and the dangers that lurk at every turn.
-As you journey through three distinct biomes, you'll have to keep a close eye on your health and hunger. Eat from your inventory to replenish your hunger points, and hide in the caves to gain health points. Avoid letting either bar reach zero, or you'll lose the game. Hide away in your cave to gain health points.  You'll also need to be mindful of the sun, which will drain your health with every passing moment.
-To help you on your quest, you'll find spinning stars scattered throughout the world. These stars will animate and lead you to your next milestone, drawing you closer and closer to the holy grail. But be warned, you'll need to collect all of the stars within each biome before the fog will lift and let you move on to the next section. Collect all of the stars in the final section to exit the level and win the game.
-When you first start the game, you'll have the option to choose between four different difficulty modes. Choose wisely, as each mode will present its own unique challenges. But no matter what mode you choose, you'll need to be brave, resourceful, and determined if you hope to emerge victorious and complete The Polaris Express.
+Here, the adventure begins for the quest to the Polaris Express! You, brave adventurer, will have to explore the world to find the fallen stars that will lead you to safety. The journey will not be kind, but you must save yourself! You will find resources to assist you in your endeavor to survive the harsh environment and monsters that will follow you.
 
+You will enter three different biomes, so keep your eye on your health stats. Eat the food you've made or found to keep up your hunger and health. Try to keep them from falling to 0 or you'll be dead. Hide away from the sun during the day to avoid radiation damage and stay in the caves to rest up in between outings.
+
+To assist you in navigation, find the stars fallen to the ground that will guide you to the next section of the unforgiving land. You will have to collect all stars within each biome before the fog gates will fall, allowing you to venture forward. Good luck in your quest, adventurer.
 
 *HOW  TO PLAY* 
 -	Use WASD to move around
