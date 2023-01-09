@@ -210,7 +210,6 @@ public class LevelGeneration : MonoBehaviour {
 			obj.transform.LookAt(new Vector3(lookTowards.x, obj.transform.position.y, lookTowards.z));
 
 			teleports[i].teleportTarget = findPosition(voronoiDiagram.caveEntrances[i]+dir/2, new Vector3(0, 2, 0));
-			Debug.Log(("target", teleports[i].teleportTarget));
 		}
 	}
 

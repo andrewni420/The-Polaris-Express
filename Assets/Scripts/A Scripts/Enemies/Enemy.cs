@@ -62,7 +62,6 @@ public abstract class Enemy : MonoBehaviour
         Vector3 dir;
         if (spawner.projectNavMesh(nextMove.dir, out dir))
         {
-            Debug.Log("projected");
             if (dir != moveDirection)
             {
                 agent.destination = hitCooldown == 0 ? dir : transform.position;
@@ -100,7 +99,6 @@ public abstract class Enemy : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(r, out hit, 5f, LayerMask.GetMask("ground")))
             {
-                //Debug.Log(navhit.position);
                 agent.baseOffset = -hit.distance;
             }
         }
@@ -172,7 +170,6 @@ public abstract class Enemy : MonoBehaviour
 
     public void onDeath()
     {
-        Debug.Log("dead");
         foreach (Loot l in lootTable)
         {
             if (UnityEngine.Random.Range(0f, 1f) < l.chance) playerStats.inventory.AddItem(l.item, l.amount);

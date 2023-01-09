@@ -83,7 +83,6 @@ public class DisplayCrafting : MonoBehaviour
                 incrementDisplay();
                 count++;
             }
-            if (count == 10) Debug.Log((count,recipeSelected, recipesDisplayed[0]));
 
             int position = -1;
             for (int i = 0; i < maxRecipes; i++)
@@ -119,11 +118,10 @@ public class DisplayCrafting : MonoBehaviour
 
     void createCraftable()
     {
-        Debug.Log("created");
+
         for (int i = 0; i < recipes.Count; i++)
         {
             craftable[i] = canCraft(recipes[i]);
-            Debug.Log(craftable[i]);
         }
     }
     bool canCraft(Recipe recipe)

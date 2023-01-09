@@ -220,7 +220,6 @@ public class TreeGeneration : MonoBehaviour
 
         bool maxHit = false;
 
-        Debug.Log((levelData.treeMap.GetLength(0), neighborZEnd, neighborXEnd));
 
         for (int neighborZ = neighborZBegin; neighborZ <= neighborZEnd; neighborZ++)
         {

@@ -99,7 +99,6 @@ public class PlayerHealthView : MonoBehaviour
                 break;
             // When interacting with enemy, decrement health points in hit
             case "Enemy":
-                Debug.Log("enemy");
                 if (immunityTimer > 0) break;
                 Enemy enemy = other.gameObject.GetComponent<AggressiveEnemy>();
                 if (enemy == null) break;
@@ -126,7 +125,6 @@ public class PlayerHealthView : MonoBehaviour
         {
             if (immunityTimer > 0) return;
             Enemy enemy = other.gameObject.GetComponent<AggressiveEnemy>();
-            Debug.Log(enemy);
             if (enemy == null) return;
             enemy.setHitCooldown(1f);
             onHit(enemy.getDamage());
@@ -319,7 +317,6 @@ public class PlayerHealthView : MonoBehaviour
         enforceHungerBounds();
 
         hungerBar.SetHunger(curHunger);
-        Debug.Log("yum");
     }
 
     private void OnApplicationQuit()

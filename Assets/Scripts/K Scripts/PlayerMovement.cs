@@ -198,37 +198,23 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        // Debug.Log(other.tag);
-        // Debug.Log(other.gameObject.tag);
         switch (other.tag)
         {  
             case "End":
                 FindObjectOfType<GameManager>().GameOver();
                 break;
-            //case "Win":
-            //    Cursor.lockState = CursorLockMode.None;
-            //    Debug.Log(Cursor.lockState.ToString());
-            //    FindObjectOfType<GameManager>().WinGame();
-            //    break;
             case "Star":
-                Debug.Log("Player ran into a star");
                 other.GetComponent<Animator>().SetTrigger("Fly");
                 break;
             case "Teleport":
                 dayNight.fixNight();
-                Debug.Log("Player ran into a teleport");
                 gameManager.setGameArea(gameArea.cave);
                 other.GetComponent<TeleportToCave>().teleport();
-                //rb.transform.position = teleportToCave.transform.position;
-                // orientation.transform.position = teleportToCave.transform.position;
                 break;
             case "TeleportMain":
                 dayNight.unfixTime();
-                Debug.Log("Player ran into a teleport");
                 other.GetComponent<TeleportToCave>().teleport();
                 gameManager.setGameArea(getArea());
-                //rb.transform.position = teleportToLand.transform.position;
-                // orientation.transform.position = teleportToCave.transform.position;
                 break;
             case "Star2":
                 other.gameObject.GetComponent<StarMovement>().onTouch();

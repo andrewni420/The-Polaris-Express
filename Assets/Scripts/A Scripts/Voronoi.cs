@@ -382,7 +382,6 @@ public class Voronoi : ScriptableObject
             loopCounter++;
             if (loopCounter>200)
             {
-                Debug.Log(("first while loop", starLocLists[0].Count, starLocLists[1].Count, starLocLists[2].Count));
                 return;
             }
             Vector2 pos = randomSafePos();
@@ -425,7 +424,6 @@ public class Voronoi : ScriptableObject
             rspCounter++;
             if (rspCounter > 100)
             {
-                Debug.Log("rsp failed");
                 return new Vector2();
             }
         }
@@ -438,7 +436,6 @@ public class Voronoi : ScriptableObject
         loopCounter++;
         if (loopCounter > 100)
         {
-            Debug.Log(("loop failed starhelper", s));
             return new Vector2(0, 0);
         }
 
@@ -474,7 +471,6 @@ public class Voronoi : ScriptableObject
         loopCounter += 1;
         if (loopCounter > 100)
         {
-            Debug.Log("loop failed endlocation");
             return new Vector2(0, 0);
         }
 
@@ -493,7 +489,7 @@ public class Voronoi : ScriptableObject
         loc = new Vector2(temp, 1 - mtn);
         if (section(loc) == 2) return loc;
 
-        Debug.Log(("section", section(loc)));
+
         return chooseEndLocation();
     }
 
